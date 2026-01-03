@@ -66,9 +66,9 @@ const Home: React.FC = () => {
         </div>
 
         <div className="flex flex-wrap gap-4 pt-4">
-          <Link to="/pdf-editor">
+          <Link to="/image-toolkit">
             <button className="btn-luxe flex items-center gap-2 group">
-              Start PDF Editing
+              Launch Image Toolkit
               <ChevronRight size={18} className="group-hover:translate-x-1 transition-transform" />
             </button>
           </Link>

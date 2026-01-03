@@ -78,7 +78,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
             <div className="w-9 h-9 rounded-lg bg-[var(--accent-primary)] flex items-center justify-center text-white shadow-lg shadow-indigo-500/20">
               <Layers size={20} strokeWidth={2.5} />
             </div>
-            <h1 className="font-bold text-xl tracking-tight font-[Outfit]">myTools</h1>
+            <h1 className="font-bold text-xl tracking-tight font-[Outfit]">omniTools</h1>
           </Link>
         </div>
 
@@ -130,7 +130,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
           <div className="w-8 h-8 rounded-lg bg-[var(--accent-primary)] flex items-center justify-center text-white">
             <Layers size={18} />
           </div>
-          <span className="font-bold font-[Outfit]">myTools</span>
+          <span className="font-bold font-[Outfit]">omniTools</span>
         </Link>
         <div className="flex items-center gap-3">
           <button onClick={toggleTheme} className="p-2 rounded-lg hover:bg-white dark:hover:bg-white/5 border border-transparent hover:border-[var(--border-color)] transition-all">

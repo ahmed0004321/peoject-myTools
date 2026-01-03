@@ -129,7 +129,7 @@ const Home: React.FC = () => {
       <footer className="pt-20 text-center opacity-40">
         <div className="flex items-center justify-center gap-2 mb-4">
           <Layers size={14} />
-          <span className="text-[10px] font-bold uppercase tracking-[0.2em]">myTools Professional</span>
+          <span className="text-[10px] font-bold uppercase tracking-[0.2em]">omniTools Professional</span>
         </div>
         <p className="text-xs font-medium">Built for Privacy. Designed for Excellence.</p>
       </footer>

@@ -3,7 +3,7 @@ import Card from '../components/ui/Card';
 import Button from '../components/ui/Button';
 import { ShieldCheck, Lock, Unlock, Upload, FileKey, X, Eye, EyeOff, AlertCircle } from 'lucide-react';
 
-const MAGIC_BYTES = new Uint8Array([0x4D, 0x54, 0x56, 0x31]); // "MTV1" (MyTools Vault v1)
+const MAGIC_BYTES = new Uint8Array([0x4F, 0x54, 0x56, 0x31]); // "OTV1" (omniTools Vault v1)
 
 const SecureVault: React.FC = () => {
     const [mode, setMode] = useState<'encrypt' | 'decrypt'>('encrypt');
@@ -76,9 +76,9 @@ const SecureVault: React.FC = () => {
                 const url = URL.createObjectURL(blob);
                 const link = document.createElement('a');
                 link.href = url;
-                link.download = `${file.name}.mtv`; // MyTools Vault Extension
+                link.download = `${file.name}.otv`; // omniTools Vault Extension
                 link.click();
-                setStatus('File Encrypted Successfully. (.mtv)');
+                setStatus('File Encrypted Successfully. (.otv)');
             } else {
                 // Decrypt
                 const fileData = await file.arrayBuffer();

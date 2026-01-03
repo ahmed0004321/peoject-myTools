@@ -23,7 +23,7 @@ const PasswordManager: React.FC = () => {
     const [pass, setPass] = useState('');
 
     useEffect(() => {
-        const saved = localStorage.getItem('mytools_passwords');
+        const saved = localStorage.getItem('omnitools_passwords');
         if (saved) {
             try {
                 setEntries(JSON.parse(saved));
@@ -35,7 +35,7 @@ const PasswordManager: React.FC = () => {
 
     const saveEntries = (newEntries: PasswordEntry[]) => {
         setEntries(newEntries);
-        localStorage.setItem('mytools_passwords', JSON.stringify(newEntries));
+        localStorage.setItem('omnitools_passwords', JSON.stringify(newEntries));
     };
 
     const handleAdd = () => {

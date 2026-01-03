@@ -19,7 +19,7 @@ const CATEGORIES = ['General', 'Work', 'Personal', 'Ideas', 'Urgent'];
 
 const NoteGenerator: React.FC = () => {
     const [notes, setNotes] = useState<Note[]>(() => {
-        const saved = localStorage.getItem('mytools_notes');
+        const saved = localStorage.getItem('omnitools_notes');
         return saved ? JSON.parse(saved) : [];
     });
     const [activeNote, setActiveNote] = useState<Note | null>(null);
@@ -27,7 +27,7 @@ const NoteGenerator: React.FC = () => {
     const [isEditing, setIsEditing] = useState(false);
 
     useEffect(() => {
-        localStorage.setItem('mytools_notes', JSON.stringify(notes));
+        localStorage.setItem('omnitools_notes', JSON.stringify(notes));
     }, [notes]);
 
     const createNote = () => {
@@ -112,7 +112,7 @@ const NoteGenerator: React.FC = () => {
             const blob = new Blob([pdfBytes], { type: 'application/pdf' });
             const link = document.createElement('a');
             link.href = URL.createObjectURL(blob);
-            link.download = `${note.title.replace(/\s+/g, '_')}_mytools.pdf`;
+            link.download = `${note.title.replace(/\s+/g, '_')}_omnitools.pdf`;
             link.click();
         } catch (error) {
             console.error('PDF Export failed:', error);

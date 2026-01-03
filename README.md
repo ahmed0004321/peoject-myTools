@@ -2,11 +2,11 @@
 <img width="1200" height="475" alt="GHBanner" src="https://github.com/user-attachments/assets/0aa67016-6eaf-458a-adb2-6e31a0763ed6" />
 </div>
 
-# 🛠️ OmniTool: The Ultimate PDF & Image Suite
+# 🛠️ omniTools: The Ultimate PDF & Image Suite
 
-![OmniTool Banner](https://omnitoolpdfimagesuitev10.vercel.app/og-image.png)
+![omniTools Banner](https://omnitoolpdfimagesuitev10.vercel.app/og-image.png)
 
-OmniTool is a powerful, privacy-focused, and all-in-one web utility suite designed to handle your PDF, Image, Security, and Productivity needs entirely in the browser. No file uploads to servers, no privacy concerns.
+omniTools is a powerful, privacy-focused, and all-in-one web utility suite designed to handle your PDF, Image, Security, and Productivity needs entirely in the browser. No file uploads to servers, no privacy concerns.
 
 **Live Demo:** [https://omnitoolpdfimagesuitev10.vercel.app/](https://omnitoolpdfimagesuitev10.vercel.app/)
 
@@ -42,12 +42,12 @@ OmniTool is a powerful, privacy-focused, and all-in-one web utility suite design
 ## 📸 Screenshots
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/ahmed0004321/omnitool---pdf--image-suite/main/.github/screenshots/home_page.png" width="45%" alt="Home Page"/>
-  <img src="https://raw.githubusercontent.com/ahmed0004321/omnitool---pdf--image-suite/main/.github/screenshots/image_editor.png" width="45%" alt="Image Editor"/>
+  <img src="./.github/screenshots/home_page.png" width="45%" alt="Home Page"/>
+  <img src="./.github/screenshots/image_editor.png" width="45%" alt="Image Editor"/>
 </p>
 <p align="center">
-  <img src="https://raw.githubusercontent.com/ahmed0004321/omnitool---pdf--image-suite/main/.github/screenshots/secure_vault.png" width="45%" alt="Secure Vault"/>
-  <img src="https://raw.githubusercontent.com/ahmed0004321/omnitool---pdf--image-suite/main/.github/screenshots/pdf_tools.png" width="45%" alt="PDF Tools"/>
+  <img src="./.github/screenshots/secure_vault.png" width="45%" alt="Secure Vault"/>
+  <img src="./.github/screenshots/pdf_tools.png" width="45%" alt="PDF Tools"/>
 </p>
 
 ---

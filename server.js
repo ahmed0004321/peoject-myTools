@@ -28,7 +28,7 @@ app.use(express.json());
 
 // Health Check
 app.get('/', (req, res) => {
-    res.json({ status: 'online', service: 'myTools Utils Backend' });
+    res.json({ status: 'online', service: 'omniTools Utils Backend' });
 });
 
 // We can add simple file handling routes if necessary, 

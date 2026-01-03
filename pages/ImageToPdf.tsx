@@ -47,7 +47,7 @@ const ImageToPdf: React.FC = () => {
       for (const image of images) {
         const imageBytes = await image.arrayBuffer();
         let pdfImage;
-        
+
         if (image.type === 'image/jpeg') {
           pdfImage = await pdfDoc.embedJpg(imageBytes);
         } else {
@@ -80,14 +80,14 @@ const ImageToPdf: React.FC = () => {
   return (
     <div className="max-w-4xl mx-auto">
       <div className="mb-8">
-        <h1 className="text-3xl font-bold text-slate-900">Image to PDF</h1>
-        <p className="text-slate-500 mt-2">Convert JPG and PNG images to PDF instantly.</p>
+        <h1 className="text-3xl font-bold text-[var(--text-primary)]">Image to PDF</h1>
+        <p className="text-[var(--text-secondary)] mt-2">Convert JPG and PNG images to PDF instantly.</p>
       </div>
 
       {images.length === 0 ? (
-        <FileUploader 
-          onFilesSelected={handleFiles} 
-          accept="image/png, image/jpeg, image/jpg" 
+        <FileUploader
+          onFilesSelected={handleFiles}
+          accept="image/png, image/jpeg, image/jpg"
           multiple
           title="Drop your images here"
         />
@@ -95,59 +95,59 @@ const ImageToPdf: React.FC = () => {
         <div className="space-y-6">
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
             {images.map((img, idx) => (
-              <div key={img.id} className="relative group bg-white p-2 rounded-xl shadow-sm border border-slate-200">
-                <img 
-                  src={img.preview} 
-                  alt="preview" 
-                  className="w-full h-32 object-cover rounded-lg bg-slate-100" 
+              <div key={img.id} className="relative group bg-[var(--bg-secondary)] p-2 rounded-xl shadow-sm border border-[var(--border-color)]">
+                <img
+                  src={img.preview}
+                  alt="preview"
+                  className="w-full h-32 object-cover rounded-lg bg-inset"
                 />
                 <div className="absolute top-1 right-1 flex gap-1">
-                  <button 
+                  <button
                     onClick={() => removeImage(idx)}
-                    className="p-1 bg-white rounded-full shadow-md text-slate-600 hover:text-red-500 transition-colors"
+                    className="p-1 bg-white dark:bg-black rounded-full shadow-md text-slate-600 dark:text-slate-400 hover:text-red-500 transition-colors"
                   >
                     <X size={14} />
                   </button>
                 </div>
                 <div className="flex justify-center mt-2 gap-2">
-                  <button 
+                  <button
                     onClick={() => moveImage(idx, -1)}
                     disabled={idx === 0}
-                    className="p-1.5 rounded-md hover:bg-slate-100 disabled:opacity-30 text-slate-600"
+                    className="p-1.5 rounded-md hover:bg-inset disabled:opacity-30 text-slate-600 dark:text-slate-400"
                   >
                     <ArrowUp size={16} className="rotate-[-90deg]" />
                   </button>
                   <span className="text-xs font-mono py-1.5 text-slate-400">{idx + 1}</span>
-                  <button 
+                  <button
                     onClick={() => moveImage(idx, 1)}
                     disabled={idx === images.length - 1}
-                    className="p-1.5 rounded-md hover:bg-slate-100 disabled:opacity-30 text-slate-600"
+                    className="p-1.5 rounded-md hover:bg-inset disabled:opacity-30 text-slate-600 dark:text-slate-400"
                   >
                     <ArrowDown size={16} className="rotate-[-90deg]" />
                   </button>
                 </div>
               </div>
             ))}
-            
-            <div className="flex items-center justify-center border-2 border-dashed border-slate-200 rounded-xl min-h-[160px]">
+
+            <div className="flex items-center justify-center border-2 border-dashed border-[var(--border-color)] rounded-xl min-h-[160px] bg-inset">
               <label className="cursor-pointer flex flex-col items-center p-4 text-slate-400 hover:text-indigo-600 transition-colors">
                 <span className="text-2xl font-bold">+</span>
                 <span className="text-sm">Add more</span>
-                <input 
-                  type="file" 
-                  className="hidden" 
-                  multiple 
-                  accept="image/png, image/jpeg" 
-                  onChange={(e) => e.target.files && handleFiles(Array.from(e.target.files))} 
+                <input
+                  type="file"
+                  className="hidden"
+                  multiple
+                  accept="image/png, image/jpeg"
+                  onChange={(e) => e.target.files && handleFiles(Array.from(e.target.files))}
                 />
               </label>
             </div>
           </div>
 
-          <div className="flex justify-end gap-4 border-t pt-6">
-             <button 
+          <div className="flex justify-end gap-4 border-t border-[var(--border-color)] pt-6">
+            <button
               onClick={() => setImages([])}
-              className="px-4 py-2 text-slate-600 hover:text-red-600 font-medium transition-colors"
+              className="px-4 py-2 text-slate-500 dark:text-slate-400 hover:text-red-500 transition-colors"
             >
               Clear All
             </button>

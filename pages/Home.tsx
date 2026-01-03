@@ -73,7 +73,7 @@ const Home: React.FC = () => {
             </button>
           </Link>
           <Link to="/secure-vault">
-            <button className="px-5 py-2.5 rounded-lg border border-[var(--border-color)] font-semibold text-sm hover:bg-slate-50 dark:hover:bg-white/5 transition-all">
+            <button className="px-5 py-2.5 rounded-lg border border-[var(--border-color)] font-semibold text-sm hover:bg-white/5 transition-all text-[var(--text-primary)]">
               Explore Vault
             </button>
           </Link>
@@ -116,9 +116,9 @@ const Home: React.FC = () => {
         <div className="flex flex-wrap gap-2">
           {UTILITIES.map((u, i) => (
             <Link key={i} to={u.path}>
-              <div className="px-4 py-3 rounded-xl border border-[var(--border-color)] bg-white dark:bg-white/5 hover:border-[var(--accent-primary)] hover:shadow-sm transition-all flex items-center gap-2 group">
+              <div className="px-4 py-3 rounded-xl border border-[var(--border-color)] bg-inset hover:border-[var(--accent-primary)] hover:shadow-sm transition-all flex items-center gap-2 group">
                 <u.icon size={16} className="text-[var(--text-secondary)] group-hover:text-[var(--accent-primary)]" />
-                <span className="text-sm font-semibold">{u.name}</span>
+                <span className="text-sm font-semibold text-[var(--text-primary)]">{u.name}</span>
               </div>
             </Link>
           ))}

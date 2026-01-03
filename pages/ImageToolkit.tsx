@@ -147,33 +147,33 @@ const ImageToolkit: React.FC = () => {
     return (
         <div className="max-w-6xl mx-auto space-y-6">
             <div className="mb-8 text-center">
-                <h1 className="text-3xl font-bold text-slate-900 inline-flex items-center gap-3">
-                    <div className="p-3 bg-indigo-600 text-white rounded-xl shadow-lg shadow-indigo-200">
+                <h1 className="text-3xl font-bold text-[var(--text-primary)] inline-flex items-center gap-3">
+                    <div className="p-3 bg-indigo-600 dark:bg-indigo-500 text-white rounded-xl shadow-lg shadow-indigo-200 dark:shadow-indigo-900/20">
                         <ImageIcon size={32} />
                     </div>
                     Image Studio Details
                 </h1>
-                <p className="text-slate-500 mt-4 text-lg">Batch converter, compressor, and resizer. 100% Offline.</p>
+                <p className="text-[var(--text-secondary)] mt-4 text-lg">Batch converter, compressor, and resizer. 100% Offline.</p>
             </div>
 
             <div className="grid lg:grid-cols-3 gap-8">
 
                 {/* Settings Sidebar */}
                 <Card className="h-fit">
-                    <h3 className="font-bold text-slate-900 mb-6 flex items-center gap-2 border-b pb-4">
-                        <Settings size={20} className="text-indigo-600" /> Batch Settings
+                    <h3 className="font-bold text-[var(--text-primary)] mb-6 flex items-center gap-2 border-b border-[var(--border-color)] pb-4">
+                        <Settings size={20} className="text-indigo-600 dark:text-indigo-400" /> Batch Settings
                     </h3>
 
                     <div className="space-y-6">
                         {/* Format */}
                         <div className="space-y-2">
-                            <label className="text-xs font-bold uppercase text-slate-400">Output Format</label>
+                            <label className="text-xs font-bold uppercase text-slate-400 dark:text-slate-500">Output Format</label>
                             <div className="grid grid-cols-3 gap-2">
                                 {['image/jpeg', 'image/png', 'image/webp'].map((f) => (
                                     <button
                                         key={f}
                                         onClick={() => setFormat(f as OutputFormat)}
-                                        className={`py-2 text-sm font-medium rounded-lg border transition-all ${format === f ? 'bg-indigo-600 text-white border-indigo-600 shadow-md' : 'bg-white border-slate-200 text-slate-600 hover:border-indigo-300'}`}
+                                        className={`py-2 text-sm font-medium rounded-lg border transition-all ${format === f ? 'bg-indigo-600 text-white border-indigo-600 shadow-md' : 'bg-inset border-[var(--border-color)] text-[var(--text-secondary)] hover:border-indigo-300'}`}
                                     >
                                         {f.split('/')[1].toUpperCase()}
                                     </button>
@@ -184,16 +184,16 @@ const ImageToolkit: React.FC = () => {
                         {/* Quality */}
                         {format !== 'image/png' && (
                             <div className="space-y-2">
-                                <label className="flex justify-between text-xs font-bold uppercase text-slate-400">
+                                <label className="flex justify-between text-xs font-bold uppercase text-slate-400 dark:text-slate-500">
                                     <span>Quality</span>
-                                    <span className="text-indigo-600">{Math.round(quality * 100)}%</span>
+                                    <span className="text-indigo-600 dark:text-indigo-400">{Math.round(quality * 100)}%</span>
                                 </label>
                                 <input
                                     type="range"
                                     min="0.1" max="1.0" step="0.05"
                                     value={quality}
                                     onChange={(e) => setQuality(Number(e.target.value))}
-                                    className="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-indigo-600"
+                                    className="w-full h-2 bg-inset rounded-lg appearance-none cursor-pointer accent-indigo-600"
                                 />
                             </div>
                         )}
@@ -201,11 +201,11 @@ const ImageToolkit: React.FC = () => {
                         {/* Resize */}
                         <div className="space-y-4">
                             <div className="flex items-center justify-between">
-                                <label className="text-xs font-bold uppercase text-slate-400">Resize</label>
-                                <div className="flex text-xs bg-slate-100 rounded-md p-1">
-                                    <button onClick={() => setScale(100)} className={`px-2 py-1 rounded transition-all ${scale === 100 ? 'bg-white shadow-sm text-slate-900 border border-slate-200' : 'text-slate-500 hover:text-slate-800'}`}>Original</button>
-                                    <button onClick={() => setScale(50)} className={`px-2 py-1 rounded transition-all ${scale === 50 ? 'bg-white shadow-sm text-slate-900 border border-slate-200' : 'text-slate-500 hover:text-slate-800'}`}>50%</button>
-                                    <button onClick={() => setScale(25)} className={`px-2 py-1 rounded transition-all ${scale === 25 ? 'bg-white shadow-sm text-slate-900 border border-slate-200' : 'text-slate-500 hover:text-slate-800'}`}>25%</button>
+                                <label className="text-xs font-bold uppercase text-slate-400 dark:text-slate-500">Resize</label>
+                                <div className="flex text-xs bg-inset rounded-md p-1 border border-[var(--border-color)]">
+                                    <button onClick={() => setScale(100)} className={`px-2 py-1 rounded transition-all ${scale === 100 ? 'bg-[var(--bg-secondary)] shadow-sm text-[var(--text-primary)] border border-[var(--border-color)]' : 'text-slate-500 hover:text-slate-200'}`}>Original</button>
+                                    <button onClick={() => setScale(50)} className={`px-2 py-1 rounded transition-all ${scale === 50 ? 'bg-[var(--bg-secondary)] shadow-sm text-[var(--text-primary)] border border-[var(--border-color)]' : 'text-slate-500 hover:text-slate-200'}`}>50%</button>
+                                    <button onClick={() => setScale(25)} className={`px-2 py-1 rounded transition-all ${scale === 25 ? 'bg-[var(--bg-secondary)] shadow-sm text-[var(--text-primary)] border border-[var(--border-color)]' : 'text-slate-500 hover:text-slate-200'}`}>25%</button>
                                 </div>
                             </div>
 
@@ -215,7 +215,7 @@ const ImageToolkit: React.FC = () => {
                                         type="number"
                                         value={targetWidth || ''}
                                         onChange={(e) => setTargetWidth(Number(e.target.value))}
-                                        className="w-full px-3 py-2 border border-slate-200 rounded-lg text-sm focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none"
+                                        className="w-full px-3 py-2 bg-inset border border-[var(--border-color)] rounded-lg text-sm focus:ring-2 focus:ring-indigo-500 outline-none text-[var(--text-primary)]"
                                         placeholder="Custom Width (px)"
                                     />
                                     <span className="absolute right-3 top-2 text-xs text-slate-400">px</span>
@@ -224,9 +224,9 @@ const ImageToolkit: React.FC = () => {
                         </div>
 
                         {/* Metadata */}
-                        <div className="flex items-center justify-between p-3 bg-slate-50 rounded-lg border border-slate-100 cursor-pointer" onClick={() => setStripMetadata(!stripMetadata)}>
-                            <span className="text-sm font-medium text-slate-700">Strip Metadata (EXIF)</span>
-                            <div className={`w-5 h-5 rounded-full border flex items-center justify-center ${stripMetadata ? 'bg-emerald-500 border-emerald-500 text-white' : 'border-slate-300 bg-white'}`}>
+                        <div className="flex items-center justify-between p-3 bg-inset rounded-lg border border-[var(--border-color)] cursor-pointer" onClick={() => setStripMetadata(!stripMetadata)}>
+                            <span className="text-sm font-medium text-[var(--text-secondary)]">Strip Metadata (EXIF)</span>
+                            <div className={`w-5 h-5 rounded-full border flex items-center justify-center ${stripMetadata ? 'bg-emerald-500 border-emerald-500 text-white' : 'border-[var(--border-color)] bg-[var(--bg-secondary)]'}`}>
                                 {stripMetadata && <CheckCircle size={14} />}
                             </div>
                         </div>
@@ -245,19 +245,19 @@ const ImageToolkit: React.FC = () => {
                 {/* Main Content */}
                 <div className="lg:col-span-2 space-y-6">
                     {jobs.length === 0 ? (
-                        <div className="bg-slate-50 border-2 border-dashed border-slate-300 rounded-2xl p-12 text-center h-[500px] flex flex-col items-center justify-center">
-                            <div className="w-20 h-20 bg-indigo-100 text-indigo-500 rounded-full flex items-center justify-center mb-6">
+                        <div className="bg-inset border-2 border-dashed border-[var(--border-color)] rounded-2xl p-12 text-center h-[500px] flex flex-col items-center justify-center">
+                            <div className="w-20 h-20 bg-indigo-100 dark:bg-indigo-900/20 text-indigo-500 dark:text-indigo-400 rounded-full flex items-center justify-center mb-6">
                                 <Layers size={40} />
                             </div>
-                            <h3 className="text-xl font-bold text-slate-700 mb-2">Drop Images Here</h3>
-                            <p className="text-slate-400 mb-8 max-w-sm">Supports JPG, PNG, WEBP. Drag multiple files to batch process them instantly.</p>
+                            <h3 className="text-xl font-bold text-[var(--text-primary)] mb-2">Drop Images Here</h3>
+                            <p className="text-[var(--text-secondary)] mb-8 max-w-sm">Supports JPG, PNG, WEBP. Drag multiple files to batch process them instantly.</p>
                             <FileUploader onFilesSelected={handleFiles} accept="image/*" title="Select Images" />
                         </div>
                     ) : (
                         <div className="space-y-4">
-                            <div className="flex justify-between items-center bg-white p-4 rounded-xl border border-slate-200 shadow-sm">
-                                <h3 className="font-bold text-slate-700 flex items-center gap-2">
-                                    <Layers className="text-indigo-600" /> Queue ({jobs.length})
+                            <div className="flex justify-between items-center bg-[var(--bg-secondary)] p-4 rounded-xl border border-[var(--border-color)] shadow-sm">
+                                <h3 className="font-bold text-[var(--text-primary)] flex items-center gap-2">
+                                    <Layers className="text-indigo-600 dark:text-indigo-400" /> Queue ({jobs.length})
                                 </h3>
                                 <div className="flex gap-2">
                                     <FileUploader onFilesSelected={handleFiles} accept="image/*" title="Add More" />
@@ -267,9 +267,9 @@ const ImageToolkit: React.FC = () => {
 
                             <div className="grid sm:grid-cols-2 gap-4">
                                 {jobs.map(job => (
-                                    <div key={job.id} className="relative group bg-white p-3 rounded-xl border border-slate-100 shadow-sm hover:shadow-md transition-shadow">
+                                    <div key={job.id} className="relative group bg-[var(--bg-secondary)] p-3 rounded-xl border border-[var(--border-color)] shadow-sm hover:shadow-md transition-shadow">
                                         <div className="flex gap-3">
-                                            <div className="w-20 h-20 bg-slate-100 rounded-lg overflow-hidden flex-shrink-0 relative">
+                                            <div className="w-20 h-20 bg-inset rounded-lg overflow-hidden flex-shrink-0 relative">
                                                 {/* eslint-disable-next-line @next/next/no-img-element */}
                                                 <img src={job.preview} alt="preview" className="w-full h-full object-cover" />
                                                 {job.status === 'done' && (
@@ -284,13 +284,13 @@ const ImageToolkit: React.FC = () => {
                                                 )}
                                             </div>
                                             <div className="flex-1 min-w-0 flex flex-col justify-center">
-                                                <h4 className="font-medium text-slate-800 text-sm truncate" title={job.file.name}>{job.file.name}</h4>
-                                                <p className="text-xs text-slate-500 mt-1">{job.width} x {job.height}</p>
-                                                <p className="text-xs text-slate-400">{(job.originalSize / 1024).toFixed(1)} KB</p>
+                                                <h4 className="font-medium text-[var(--text-primary)] text-sm truncate" title={job.file.name}>{job.file.name}</h4>
+                                                <p className="text-xs text-[var(--text-secondary)] mt-1">{job.width} x {job.height}</p>
+                                                <p className="text-xs text-slate-500 dark:text-slate-600">{(job.originalSize / 1024).toFixed(1)} KB</p>
                                             </div>
                                             <button
                                                 onClick={() => removeJob(job.id)}
-                                                className="self-start text-slate-300 hover:text-red-500 p-1 rounded-full hover:bg-red-50 transition-colors"
+                                                className="self-start text-slate-300 dark:text-slate-600 hover:text-red-500 p-1 rounded-full hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors"
                                             >
                                                 <Trash2 size={16} />
                                             </button>

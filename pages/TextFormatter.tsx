@@ -41,8 +41,8 @@ const TextFormatter: React.FC = () => {
         <div className="max-w-4xl mx-auto space-y-6">
             <Card>
                 <div className="flex justify-between items-center mb-6">
-                    <h2 className="text-2xl font-bold flex items-center gap-2"><Type className="text-indigo-600" /> Text Tools</h2>
-                    <div className="text-xs text-slate-400 font-mono space-x-4">
+                    <h2 className="text-2xl font-bold flex items-center gap-2 text-[var(--text-primary)]"><Type className="text-[var(--accent-primary)]" /> Text Tools</h2>
+                    <div className="text-xs text-[var(--text-secondary)] opacity-50 font-mono space-x-4">
                         <span>{stats.chars} chars</span>
                         <span>{stats.words} words</span>
                         <span>{stats.lines} lines</span>
@@ -54,7 +54,7 @@ const TextFormatter: React.FC = () => {
                     <Button onClick={() => transform('lower')} className="text-xs py-1 px-3">lower case</Button>
                     <Button onClick={() => transform('title')} className="text-xs py-1 px-3">Title Case</Button>
                     <Button onClick={() => transform('sentence')} className="text-xs py-1 px-3">Sentence case</Button>
-                    <div className="w-px bg-slate-200 mx-2 h-8 self-center"></div>
+                    <div className="w-px bg-[var(--border-color)] mx-2 h-8 self-center"></div>
                     <Button onClick={() => transform('trim')} variant="secondary" className="text-xs py-1 px-3">Trim Space</Button>
                     <Button onClick={() => transform('reverse')} variant="secondary" className="text-xs py-1 px-3">Reverse</Button>
                     <Button onClick={() => transform('lines')} variant="secondary" className="text-xs py-1 px-3">Sort Lines</Button>
@@ -63,7 +63,7 @@ const TextFormatter: React.FC = () => {
                 <textarea
                     value={text}
                     onChange={(e) => updateText(e.target.value)}
-                    className="w-full h-64 p-4 rounded-xl border border-slate-200 focus:border-indigo-500 outline-none font-mono text-sm resize-y"
+                    className="w-full h-64 p-4 rounded-xl border border-[var(--border-color)] bg-inset focus:border-indigo-500 outline-none font-mono text-sm resize-y text-[var(--text-primary)] placeholder-[var(--text-secondary)]/30"
                     placeholder="Paste or type text here..."
                 />
 

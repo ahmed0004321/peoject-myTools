@@ -61,17 +61,18 @@ const PasswordTool: React.FC = () => {
 
     return (
         <div className="max-w-2xl mx-auto">
-            <Link to="/" className="inline-flex items-center text-slate-500 hover:text-indigo-600 mb-6 transition-colors">
+            <Link to="/" className="inline-flex items-center text-[var(--text-secondary)] hover:text-[var(--accent-primary)] mb-6 transition-colors">
                 <ArrowLeft size={16} className="mr-2" /> Back to Dashboard
             </Link>
 
             <div className="mb-8 text-center">
-                <h1 className="text-3xl font-bold text-slate-900 tracking-tight">Secure PassGen</h1>
-                <p className="text-slate-500 mt-2">Generate encryption-grade passwords instantly.</p>
+                <h1 className="text-3xl font-bold text-[var(--text-primary)] tracking-tight">Secure PassGen</h1>
+                <p className="text-[var(--text-secondary)] mt-2">Generate encryption-grade passwords instantly.</p>
             </div>
 
-            <Card className="p-0 overflow-hidden shadow-xl shadow-indigo-100/50">
-                <div className="p-12 bg-slate-900 text-white text-center relative group">
+            <Card className="p-0 overflow-hidden shadow-xl shadow-indigo-100/10 border-[var(--border-color)]">
+                <div className="p-12 bg-black text-white text-center relative group overflow-hidden border-b border-[var(--border-color)]">
+                    <div className="absolute inset-0 bg-gradient-to-br from-indigo-900/10 to-transparent opacity-50"></div>
                     <div className="text-4xl font-mono tracking-wider break-all mb-8 font-bold text-transparent bg-clip-text bg-gradient-to-r from-indigo-200 to-white selection:bg-indigo-500 selection:text-white">
                         {password}
                     </div>
@@ -96,32 +97,32 @@ const PasswordTool: React.FC = () => {
                     </div>
 
                     {/* Strength Meter */}
-                    <div className="absolute bottom-0 left-0 right-0 h-1.5 bg-slate-800">
-                        <div className={`h-full transition-all duration-500 ease-out ${strengthColor()} shadow-[0_-2px_10px_rgba(255,255,255,0.5)]`} style={{ width: `${(strength / 5) * 100}%` }}></div>
+                    <div className="absolute bottom-0 left-0 right-0 h-1.5 bg-white/5">
+                        <div className={`h-full transition-all duration-500 ease-out ${strengthColor()} shadow-[0_-2px_10px_rgba(255,255,255,0.2)]`} style={{ width: `${(strength / 5) * 100}%` }}></div>
                     </div>
                 </div>
 
-                <div className="p-8 space-y-8 bg-white">
-                    <div className="flex items-center justify-between p-4 bg-slate-50 rounded-xl border border-slate-100">
-                        <span className="font-semibold text-slate-500 flex items-center gap-2">
+                <div className="p-8 space-y-8 bg-[var(--bg-secondary)]/80 backdrop-blur-md">
+                    <div className="flex items-center justify-between p-4 bg-inset rounded-xl border border-[var(--border-color)]">
+                        <span className="font-semibold text-[var(--text-secondary)] flex items-center gap-2">
                             <ShieldCheck size={18} /> Security Level
                         </span>
-                        <span className={`font-bold uppercase tracking-wider text-sm px-3 py-1 rounded-full ${strength <= 2 ? 'bg-red-50 text-red-500' : strength <= 4 ? 'bg-amber-50 text-amber-500' : 'bg-emerald-50 text-emerald-500'}`}>
+                        <span className={`font-bold uppercase tracking-wider text-xs px-3 py-1 rounded-full ${strength <= 2 ? 'bg-red-500/10 text-red-500' : strength <= 4 ? 'bg-amber-500/10 text-amber-500' : 'bg-emerald-500/10 text-emerald-500'}`}>
                             {strengthText()}
                         </span>
                     </div>
 
                     <div className="space-y-4">
-                        <div className="flex justify-between items-center text-sm font-bold text-slate-700">
+                        <div className="flex justify-between items-center text-xs font-bold text-slate-400 uppercase tracking-widest">
                             <span>Length</span>
-                            <span className="text-indigo-600">{length} characters</span>
+                            <span className="text-indigo-600 dark:text-indigo-400">{length} characters</span>
                         </div>
                         <input
                             type="range"
                             min="6" max="32"
                             value={length}
                             onChange={(e) => setLength(Number(e.target.value))}
-                            className="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-indigo-600 hover:accent-indigo-500 transition-all"
+                            className="w-full h-1.5 bg-inset rounded-lg appearance-none cursor-pointer accent-indigo-600 hover:accent-indigo-500 transition-all"
                         />
                     </div>
 
@@ -131,12 +132,12 @@ const PasswordTool: React.FC = () => {
                             { label: 'Numbers', checked: includeNums, setter: setIncludeNums, char: '0-9' },
                             { label: 'Symbols', checked: includeSyms, setter: setIncludeSyms, char: '!@#' },
                         ].map((opt) => (
-                            <label key={opt.label} className={`flex flex-col items-center gap-2 p-4 border rounded-xl cursor-pointer transition-all duration-200 ${opt.checked ? 'border-indigo-500 bg-indigo-50 shadow-sm' : 'border-slate-200 hover:bg-slate-50'}`}>
+                            <label key={opt.label} className={`flex flex-col items-center gap-2 p-4 border rounded-xl cursor-pointer transition-all duration-200 ${opt.checked ? 'border-indigo-500 dark:border-indigo-400 bg-indigo-50 dark:bg-indigo-900/10 shadow-sm' : 'border-[var(--border-color)] bg-inset hover:bg-white/5'}`}>
                                 <div className="flex justify-between w-full items-center mb-1">
-                                    <span className="text-sm font-bold text-slate-700">{opt.label}</span>
+                                    <span className="text-sm font-bold text-[var(--text-primary)]">{opt.label}</span>
                                     <input type="checkbox" checked={opt.checked} onChange={(e) => opt.setter(e.target.checked)} className="w-4 h-4 accent-indigo-600 rounded" />
                                 </div>
-                                <span className="text-xs font-mono text-slate-400">{opt.char}</span>
+                                <span className="text-xs font-mono text-slate-400 dark:text-slate-500">{opt.char}</span>
                             </label>
                         ))}
                     </div>

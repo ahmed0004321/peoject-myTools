@@ -86,8 +86,8 @@ const ImageEditor: React.FC = () => {
     return (
         <div className="max-w-5xl mx-auto">
             <div className="mb-8">
-                <h1 className="text-3xl font-bold text-slate-900">Crop & Resize Station</h1>
-                <p className="text-slate-500 mt-2">Adjust your images to perfect dimensions.</p>
+                <h1 className="text-3xl font-bold text-[var(--text-primary)]">Crop & Resize Station</h1>
+                <p className="text-[var(--text-secondary)] mt-2">Adjust your images to perfect dimensions.</p>
             </div>
 
             {!imgSrc ? (
@@ -98,31 +98,31 @@ const ImageEditor: React.FC = () => {
                 />
             ) : (
                 <div className="grid lg:grid-cols-[300px,1fr] gap-8 items-start">
-                    <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
-                        <h3 className="font-bold text-slate-800 mb-4 flex items-center gap-2">
+                    <div className="bg-[var(--bg-secondary)] p-6 rounded-2xl shadow-sm border border-[var(--border-color)]">
+                        <h3 className="font-bold text-[var(--text-primary)] mb-4 flex items-center gap-2">
                             <Sliders size={18} /> Controls
                         </h3>
 
                         <div className="space-y-4">
                             <div className="flex flex-col gap-2">
-                                <label className="text-xs font-semibold uppercase text-slate-400">Aspect Ratio</label>
+                                <label className="text-xs font-semibold uppercase text-slate-400 dark:text-slate-500">Aspect Ratio</label>
                                 <div className="grid grid-cols-3 gap-2">
-                                    <button onClick={() => setAspect(undefined)} className={`py-2 text-sm border rounded hover:bg-slate-50 ${!aspect ? 'border-indigo-500 text-indigo-600 bg-indigo-50' : 'border-slate-200 text-slate-600'}`}>Free</button>
-                                    <button onClick={() => setAspect(1)} className={`py-2 text-sm border rounded hover:bg-slate-50 ${aspect === 1 ? 'border-indigo-500 text-indigo-600 bg-indigo-50' : 'border-slate-200 text-slate-600'}`}>Square</button>
-                                    <button onClick={() => setAspect(16 / 9)} className={`py-2 text-sm border rounded hover:bg-slate-50 ${aspect === 16 / 9 ? 'border-indigo-500 text-indigo-600 bg-indigo-50' : 'border-slate-200 text-slate-600'}`}>16:9</button>
+                                    <button onClick={() => setAspect(undefined)} className={`py-2 text-sm border rounded hover:bg-inset ${!aspect ? 'border-indigo-500 text-indigo-600 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-900/20' : 'border-[var(--border-color)] text-[var(--text-secondary)]'}`}>Free</button>
+                                    <button onClick={() => setAspect(1)} className={`py-2 text-sm border rounded hover:bg-inset ${aspect === 1 ? 'border-indigo-500 text-indigo-600 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-900/20' : 'border-[var(--border-color)] text-[var(--text-secondary)]'}`}>Square</button>
+                                    <button onClick={() => setAspect(16 / 9)} className={`py-2 text-sm border rounded hover:bg-inset ${aspect === 16 / 9 ? 'border-indigo-500 text-indigo-600 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-900/20' : 'border-[var(--border-color)] text-[var(--text-secondary)]'}`}>16:9</button>
                                 </div>
                             </div>
 
                             <button
                                 onClick={onDownloadCropClick}
-                                className="w-full py-3 bg-indigo-600 text-white font-bold rounded-xl mt-4 hover:bg-indigo-700 shadow-lg shadow-indigo-200 transition-all flex items-center justify-center gap-2"
+                                className="w-full py-3 bg-indigo-600 text-white font-bold rounded-xl mt-4 hover:bg-indigo-700 shadow-lg shadow-indigo-200 dark:shadow-indigo-900/20 transition-all flex items-center justify-center gap-2"
                             >
                                 <Download size={18} /> Download Crop
                             </button>
 
                             <button
                                 onClick={() => setImgSrc('')}
-                                className="w-full py-2 text-slate-500 text-sm hover:text-slate-800"
+                                className="w-full py-2 text-[var(--text-secondary)] text-sm hover:text-[var(--text-primary)]"
                             >
                                 Choose Different Image
                             </button>

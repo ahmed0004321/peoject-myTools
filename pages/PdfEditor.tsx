@@ -219,8 +219,8 @@ const PdfEditor: React.FC = () => {
           </div>
 
           <div className="flex gap-1">
-            <button onClick={undo} disabled={historyIndex <= 0} className="p-2.5 rounded-lg hover:bg-slate-100 dark:hover:bg-white/5 disabled:opacity-20 transition-all" title="Undo"><Undo size={18} /></button>
-            <button onClick={redo} disabled={historyIndex >= history.length - 1} className="p-2.5 rounded-lg hover:bg-slate-100 dark:hover:bg-white/5 disabled:opacity-20 transition-all" title="Redo"><Redo size={18} /></button>
+            <button onClick={undo} disabled={historyIndex <= 0} className="p-2.5 rounded-lg hover:bg-white/5 disabled:opacity-20 transition-all text-[var(--text-secondary)] hover:text-[var(--text-primary)]" title="Undo"><Undo size={18} /></button>
+            <button onClick={redo} disabled={historyIndex >= history.length - 1} className="p-2.5 rounded-lg hover:bg-white/5 disabled:opacity-20 transition-all text-[var(--text-secondary)] hover:text-[var(--text-primary)]" title="Redo"><Redo size={18} /></button>
           </div>
 
           <AnimatePresence>
@@ -239,9 +239,9 @@ const PdfEditor: React.FC = () => {
 
         <div className="flex items-center gap-3">
           <div className="flex items-center bg-[var(--bg-secondary)] border border-[var(--border-color)] rounded-xl p-1">
-            <button onClick={() => setScale(s => Math.max(0.1, s - 0.1))} className="p-1.5 hover:bg-white dark:hover:bg-white/5 rounded-lg text-[var(--text-secondary)]"><ZoomOut size={16} /></button>
+            <button onClick={() => setScale(s => Math.max(0.1, s - 0.1))} className="p-1.5 hover:bg-white/5 rounded-lg text-[var(--text-secondary)] transition-colors"><ZoomOut size={16} /></button>
             <span className="text-[10px] font-bold w-12 text-center text-[var(--text-secondary)]">{Math.round(scale * 100)}%</span>
-            <button onClick={() => setScale(s => Math.min(3, s + 0.1))} className="p-1.5 hover:bg-white dark:hover:bg-white/5 rounded-lg text-[var(--text-secondary)]"><ZoomIn size={16} /></button>
+            <button onClick={() => setScale(s => Math.min(3, s + 0.1))} className="p-1.5 hover:bg-white/5 rounded-lg text-[var(--text-secondary)] transition-colors"><ZoomIn size={16} /></button>
           </div>
           <Button variant="primary" onClick={() => { }} disabled={!!status} size="sm">
             <Save size={16} className="mr-2" /> Export PDF
@@ -282,9 +282,9 @@ const PdfEditor: React.FC = () => {
                         <img src={p.thumbnail} alt="" className="w-full h-full object-cover" />
                       ) : <div className="text-[10px] opacity-20 italic">Blank</div>}
                     </div>
-                    <div className={`flex flex-col gap-2 ${activePageId === p.id ? 'text-white' : 'text-[var(--text-secondary)]'} opacity-0 group-hover:opacity-100 transition-opacity`}>
-                      <button onClick={(e) => { e.stopPropagation(); setPages(curr => curr.filter(x => x.id !== p.id)) }} className="p-1.5 hover:bg-black/10 rounded-lg"><Trash2 size={13} /></button>
-                      <button onClick={(e) => { e.stopPropagation(); /* Duplicate */ }} className="p-1.5 hover:bg-black/10 rounded-lg"><Copy size={13} /></button>
+                    <div className="flex flex-col gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                      <button onClick={(e) => { e.stopPropagation(); setPages(curr => curr.filter(x => x.id !== p.id)) }} className="p-1.5 bg-red-500/10 hover:bg-red-500 text-red-500 hover:text-white rounded-lg transition-all"><Trash2 size={13} /></button>
+                      <button onClick={(e) => { e.stopPropagation(); /* Duplicate */ }} className="p-1.5 bg-white/10 hover:bg-white/20 text-white rounded-lg transition-all"><Copy size={13} /></button>
                     </div>
                   </div>
                 </Reorder.Item>
@@ -343,9 +343,9 @@ const PdfEditor: React.FC = () => {
                 exit={{ opacity: 0, y: 20 }}
                 className="absolute bottom-8 glass p-2 rounded-2xl flex items-center gap-3 shadow-2xl z-50 border border-white/20"
               >
-                <button onClick={deleteSelected} className="p-3 text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-xl transition-all"><Trash2 size={20} /></button>
-                <div className="w-px h-6 bg-black/10 dark:bg-white/10" />
-                <div className="px-4 text-xs font-bold opacity-60">{selectedIds.length} Selected</div>
+                <button onClick={deleteSelected} className="p-3 text-red-500 hover:bg-red-500/10 rounded-xl transition-all"><Trash2 size={20} /></button>
+                <div className="w-px h-6 bg-[var(--border-color)]" />
+                <div className="px-4 text-xs font-bold text-[var(--text-primary)] opacity-60">{selectedIds.length} Selected</div>
               </motion.div>
             )}
           </AnimatePresence>

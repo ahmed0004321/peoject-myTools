@@ -17,18 +17,18 @@ const PdfToImage: React.FC = () => {
   const processPdf = async (pdfFile: File) => {
     setIsProcessing(true);
     setPages([]);
-    
+
     try {
       const arrayBuffer = await pdfFile.arrayBuffer();
       // @ts-ignore
       const pdf = await window.pdfjsLib.getDocument(arrayBuffer).promise;
-      
+
       const newPages: string[] = [];
-      
+
       for (let i = 1; i <= pdf.numPages; i++) {
         const page = await pdf.getPage(i);
         const viewport = page.getViewport({ scale: 2.0 }); // High quality scale
-        
+
         const canvas = document.createElement('canvas');
         const context = canvas.getContext('2d');
         canvas.height = viewport.height;
@@ -41,7 +41,7 @@ const PdfToImage: React.FC = () => {
 
         newPages.push(canvas.toDataURL('image/png'));
       }
-      
+
       setPages(newPages);
     } catch (err) {
       console.error(err);
@@ -54,7 +54,7 @@ const PdfToImage: React.FC = () => {
   const downloadAll = async () => {
     // @ts-ignore
     const zip = new window.JSZip();
-    
+
     pages.forEach((dataUrl, idx) => {
       const base64Data = dataUrl.replace(/^data:image\/png;base64,/, "");
       zip.file(`page-${idx + 1}.png`, base64Data, { base64: true });
@@ -70,33 +70,33 @@ const PdfToImage: React.FC = () => {
   return (
     <div className="max-w-4xl mx-auto">
       <div className="mb-8">
-        <h1 className="text-3xl font-bold text-slate-900">PDF to Image</h1>
-        <p className="text-slate-500 mt-2">Convert each page of your PDF into high-quality PNGs.</p>
+        <h1 className="text-3xl font-bold text-[var(--text-primary)]">PDF to Image</h1>
+        <p className="text-[var(--text-secondary)] mt-2 opacity-60">Convert each page of your PDF into high-quality PNGs.</p>
       </div>
 
       {!file && (
-        <FileUploader 
-          onFilesSelected={handleFile} 
-          accept="application/pdf" 
+        <FileUploader
+          onFilesSelected={handleFile}
+          accept="application/pdf"
           title="Drop your PDF here"
         />
       )}
 
       {file && (
         <div className="space-y-8">
-          <div className="flex items-center justify-between bg-white p-4 rounded-xl shadow-sm border border-slate-200">
+          <div className="flex items-center justify-between bg-inset p-4 rounded-xl border border-[var(--border-color)]">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 bg-red-100 text-red-600 rounded-lg flex items-center justify-center font-bold">
+              <div className="w-12 h-12 bg-red-500/10 text-red-500 rounded-xl flex items-center justify-center font-bold text-xs">
                 PDF
               </div>
               <div>
-                <p className="font-medium text-slate-900">{file.name}</p>
-                <p className="text-xs text-slate-500">{(file.size / 1024 / 1024).toFixed(2)} MB</p>
+                <p className="font-bold text-[var(--text-primary)]">{file.name}</p>
+                <p className="text-xs text-[var(--text-secondary)] opacity-50">{(file.size / 1024 / 1024).toFixed(2)} MB</p>
               </div>
             </div>
-            <button 
+            <button
               onClick={() => { setFile(null); setPages([]); }}
-              className="text-sm text-slate-500 hover:text-red-500 font-medium px-3 py-1 hover:bg-red-50 rounded-md transition-colors"
+              className="text-xs font-bold text-[var(--text-secondary)] hover:text-red-500 px-4 py-2 hover:bg-red-500/10 rounded-lg transition-all"
             >
               Change File
             </button>
@@ -104,34 +104,34 @@ const PdfToImage: React.FC = () => {
 
           {isProcessing ? (
             <div className="text-center py-20">
-               <Loader2 className="animate-spin text-indigo-600 mx-auto mb-4" size={48} />
-               <p className="text-lg font-medium text-slate-700">Extracting pages...</p>
-               <p className="text-slate-500">This might take a moment for large files.</p>
+              <Loader2 className="animate-spin text-indigo-600 mx-auto mb-4" size={48} />
+              <p className="text-lg font-medium text-slate-700">Extracting pages...</p>
+              <p className="text-slate-500">This might take a moment for large files.</p>
             </div>
           ) : (
             <>
               <div className="flex justify-between items-center">
-                 <h3 className="text-xl font-bold text-slate-900">Extracted Pages ({pages.length})</h3>
-                 <button 
-                   onClick={downloadAll}
-                   className="flex items-center gap-2 px-5 py-2.5 bg-indigo-600 text-white rounded-lg font-medium hover:bg-indigo-700 transition-colors shadow-sm"
-                 >
-                   <Archive size={18} /> Download ZIP
-                 </button>
+                <h3 className="text-xl font-bold text-[var(--text-primary)]">Extracted Pages ({pages.length})</h3>
+                <button
+                  onClick={downloadAll}
+                  className="flex items-center gap-2 px-6 py-2.5 bg-indigo-600 dark:bg-indigo-500 text-white rounded-xl font-bold hover:bg-indigo-700 transition-all shadow-lg shadow-indigo-500/20"
+                >
+                  <Archive size={18} /> Download ZIP
+                </button>
               </div>
 
               <div className="grid grid-cols-2 md:grid-cols-3 gap-6">
                 {pages.map((imgSrc, idx) => (
-                  <div key={idx} className="group relative bg-white p-2 rounded-xl shadow-sm border border-slate-200">
-                    <div className="relative aspect-[3/4] overflow-hidden rounded-lg bg-slate-100">
+                  <div key={idx} className="group relative bg-inset p-3 rounded-2xl border border-[var(--border-color)] hover:border-[var(--accent-primary)] transition-all">
+                    <div className="relative aspect-[3/4] overflow-hidden rounded-xl bg-black/20">
                       <img src={imgSrc} alt={`Page ${idx + 1}`} className="w-full h-full object-contain" />
                     </div>
                     <div className="mt-3 flex items-center justify-between px-1">
-                      <span className="text-sm font-medium text-slate-600">Page {idx + 1}</span>
-                      <a 
-                        href={imgSrc} 
+                      <span className="text-xs font-bold text-[var(--text-secondary)] opacity-50 uppercase tracking-widest">Page {idx + 1}</span>
+                      <a
+                        href={imgSrc}
                         download={`page-${idx + 1}.png`}
-                        className="p-1.5 text-slate-400 hover:text-indigo-600 hover:bg-indigo-50 rounded-md transition-colors"
+                        className="p-2 text-[var(--text-secondary)] hover:text-[var(--accent-primary)] hover:bg-white/5 rounded-lg transition-all"
                         title="Download Image"
                       >
                         <Download size={18} />

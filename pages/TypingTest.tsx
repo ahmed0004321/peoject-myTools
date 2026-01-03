@@ -58,7 +58,7 @@ const TypingTest: React.FC = () => {
 
     // Timer Logic
     useEffect(() => {
-        let interval: NodeJS.Timeout;
+        let interval: any;
         if (status === 'running') {
             interval = setInterval(() => {
                 setTimeLeft(prev => {
@@ -190,33 +190,32 @@ const TypingTest: React.FC = () => {
     // Render Helpers
     const getCharClass = (wordIdx: number, charIdx: number, char: string) => {
         if (wordIdx !== currWordIdx) {
-            // History coloring could go here
-            return 'text-slate-400';
+            return 'text-slate-500/50';
         }
 
         // Current Word
         if (charIdx < currInput.length) {
-            return currInput[charIdx] === char ? 'text-slate-100' : 'text-red-400';
+            return currInput[charIdx] === char ? 'text-[var(--text-primary)]' : 'text-red-500';
         }
-        return 'text-slate-500';
+        return 'text-[var(--text-secondary)]/40';
     };
 
     return (
         <div className="max-w-5xl mx-auto min-h-[60vh] flex flex-col justify-center font-mono" onClick={() => inputRef.current?.focus()}>
 
             {/* HUD */}
-            <div className="flex justify-between items-end mb-8 text-slate-400 select-none">
+            <div className="flex justify-between items-end mb-8 text-[var(--text-secondary)] select-none">
                 <div className="text-xl">
-                    <span className="text-indigo-500 font-bold">{timeLeft}</span>s
+                    <span className="text-[var(--accent-primary)] font-bold">{timeLeft}</span>s
                 </div>
                 <div className="flex gap-8">
                     <div className="flex flex-col items-end">
-                        <span className="text-xs uppercase font-bold tracking-widest text-slate-600">Accuracy</span>
-                        <span className="text-2xl font-bold text-slate-200">{acc}%</span>
+                        <span className="text-xs uppercase font-bold tracking-widest opacity-40">Accuracy</span>
+                        <span className="text-2xl font-bold text-[var(--text-primary)]">{acc}%</span>
                     </div>
                     <div className="flex flex-col items-end">
-                        <span className="text-xs uppercase font-bold tracking-widest text-slate-600">WPM</span>
-                        <span className="text-4xl font-bold text-indigo-400">{wpm}</span>
+                        <span className="text-xs uppercase font-bold tracking-widest opacity-40">WPM</span>
+                        <span className="text-4xl font-bold text-[var(--accent-primary)]">{wpm}</span>
                     </div>
                 </div>
             </div>
@@ -224,10 +223,10 @@ const TypingTest: React.FC = () => {
             {/* Config & Reset */}
             {status === 'idle' && (
                 <div className="flex justify-center mb-12">
-                    <div className="bg-slate-800/50 rounded-lg p-1 flex gap-2 text-sm text-slate-400">
-                        <span className="px-3 py-1 bg-slate-700/50 text-indigo-300 rounded cursor-pointer">Word 50</span>
-                        <span className="px-3 py-1 hover:text-indigo-300 cursor-pointer">Time 30s</span>
-                        <span className="px-3 py-1 hover:text-indigo-300 cursor-pointer">Quote</span>
+                    <div className="bg-inset border border-[var(--border-color)] rounded-lg p-1 flex gap-2 text-sm text-[var(--text-secondary)]">
+                        <span className="px-3 py-1 bg-[var(--bg-secondary)] text-indigo-400 shadow-sm rounded cursor-pointer">Word 50</span>
+                        <span className="px-3 py-1 hover:text-indigo-400 cursor-pointer">Time 30s</span>
+                        <span className="px-3 py-1 hover:text-indigo-400 cursor-pointer">Quote</span>
                     </div>
                 </div>
             )}
@@ -246,7 +245,7 @@ const TypingTest: React.FC = () => {
                     />
 
                     {/* Text Renderer */}
-                    <div ref={wordsContainerRef} className="flex flex-wrap gap-x-4 gap-y-6 text-slate-500 max-h-[200px] overflow-hidden transition-all duration-200 mask-image">
+                    <div ref={wordsContainerRef} className="flex flex-wrap gap-x-4 gap-y-6 text-[var(--text-secondary)]/30 max-h-[200px] overflow-hidden transition-all duration-200 mask-image">
                         {words.map((word, wIdx) => {
                             // active word logic
                             if (wIdx < currWordIdx) return null; // Hide passed words or style them differently? 
@@ -291,24 +290,24 @@ const TypingTest: React.FC = () => {
                 </div>
             ) : (
                 <div className="text-center animate-in fade-in zoom-in duration-300">
-                    <div className="inline-block p-6 rounded-3xl bg-slate-800/50 border border-slate-700/50 mb-8 backdrop-blur-xl">
+                    <div className="inline-block p-10 rounded-3xl bg-inset border border-[var(--border-color)] mb-8 backdrop-blur-xl">
                         <div className="grid grid-cols-2 gap-12 text-left">
                             <div>
-                                <div className="text-sm text-slate-500 font-bold uppercase tracking-wider mb-1">WPM</div>
-                                <div className="text-6xl font-bold text-indigo-400">{wpm}</div>
+                                <div className="text-xs text-[var(--text-secondary)] font-bold uppercase tracking-wider mb-1 opacity-40">WPM</div>
+                                <div className="text-6xl font-bold text-[var(--accent-primary)]">{wpm}</div>
                             </div>
                             <div>
-                                <div className="text-sm text-slate-500 font-bold uppercase tracking-wider mb-1">Accuracy</div>
+                                <div className="text-xs text-[var(--text-secondary)] font-bold uppercase tracking-wider mb-1 opacity-40">Accuracy</div>
                                 <div className="text-6xl font-bold text-emerald-400">{acc}%</div>
                             </div>
                             <div>
-                                <div className="text-sm text-slate-500 font-bold uppercase tracking-wider mb-1">Raw</div>
-                                <div className="text-2xl font-bold text-slate-300">{wpm} <span className="text-sm text-slate-500">chars</span></div>
+                                <div className="text-xs text-[var(--text-secondary)] font-bold uppercase tracking-wider mb-1 opacity-40">Raw</div>
+                                <div className="text-2xl font-bold text-[var(--text-primary)]">{wpm} <span className="text-sm text-[var(--text-secondary)]/50">chars</span></div>
                             </div>
                             <div>
-                                <div className="text-sm text-slate-500 font-bold uppercase tracking-wider mb-1">Characters</div>
-                                <div className="text-2xl font-bold text-slate-300">
-                                    {correctChars}/<span className="text-red-400">{incorrectChars}</span>/<span className="text-slate-500">{extraChars}</span>
+                                <div className="text-xs text-[var(--text-secondary)] font-bold uppercase tracking-wider mb-1 opacity-40">Characters</div>
+                                <div className="text-2xl font-bold text-[var(--text-primary)]">
+                                    {correctChars}/<span className="text-red-500">{incorrectChars}</span>/<span className="text-[var(--text-secondary)]/30">{extraChars}</span>
                                 </div>
                             </div>
                         </div>
@@ -316,7 +315,7 @@ const TypingTest: React.FC = () => {
                     <div>
                         <button
                             onClick={initTest}
-                            className="inline-flex items-center gap-3 px-8 py-3 bg-slate-800 hover:bg-slate-700 text-slate-200 rounded-lg transition-all font-medium border border-slate-700 hover:border-slate-500"
+                            className="inline-flex items-center gap-3 px-8 py-3 bg-[var(--bg-secondary)] hover:bg-inset text-[var(--text-primary)] rounded-xl transition-all font-bold border border-[var(--border-color)] hover:border-[var(--accent-primary)] shadow-lg shadow-black/20"
                         >
                             <RotateCcw size={20} /> Restart Test
                         </button>
@@ -325,7 +324,7 @@ const TypingTest: React.FC = () => {
             )}
 
             {status === 'idle' && (
-                <div className="mt-20 text-center text-slate-600 text-sm">
+                <div className="mt-20 text-center text-[var(--text-secondary)]/40 text-sm">
                     <p>Start typing to begin...</p>
                 </div>
             )}

@@ -23,8 +23,8 @@ const Input: React.FC<InputProps> = ({ className, label, icon, ...props }) => {
                 )}
                 <input
                     className={cn(
-                        'w-full bg-white/50 backdrop-blur-sm border border-slate-200 rounded-xl px-4 py-3 text-slate-700 outline-none transition-all duration-200',
-                        'focus:bg-white focus:border-indigo-400 focus:ring-4 focus:ring-indigo-100',
+                        'w-full bg-white/50 dark:bg-white/5 backdrop-blur-sm border border-slate-200 dark:border-[var(--border-color)] rounded-xl px-4 py-3 text-slate-700 dark:text-white outline-none transition-all duration-200',
+                        'focus:bg-white dark:focus:bg-black focus:border-indigo-400 focus:ring-4 focus:ring-indigo-100 dark:focus:ring-indigo-900/10',
                         'placeholder:text-slate-400',
                         icon && 'pl-10',
                         className

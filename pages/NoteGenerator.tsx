@@ -165,9 +165,9 @@ const NoteGenerator: React.FC = () => {
                                     onClick={() => { setActiveNote(note); setIsEditing(false); }}
                                     className={`p-4 rounded-xl cursor-pointer border transition-all ${activeNote?.id === note.id ? 'bg-white dark:bg-white/10 border-[var(--accent-primary)] shadow-sm' : 'border-transparent hover:bg-white/50 dark:hover:bg-white/5'}`}
                                 >
-                                    <div className="flex justify-between items-start mb-1">
+                                    <div className="flex justify-between items-start mb-2">
                                         <span className="font-bold text-sm truncate pr-2">{note.title || 'Untitled'}</span>
-                                        <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-slate-100 dark:bg-white/10 text-[var(--text-secondary)]">
+                                        <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-inset text-[var(--text-secondary)]">
                                             {note.tag}
                                         </span>
                                     </div>
@@ -216,14 +216,14 @@ const NoteGenerator: React.FC = () => {
                                 <div className="flex items-center gap-2">
                                     <button
                                         onClick={() => setIsEditing(!isEditing)}
-                                        className={`p-2.5 rounded-xl transition-all ${isEditing ? 'bg-[var(--accent-primary)] text-white' : 'hover:bg-slate-100 dark:hover:bg-white/5 text-[var(--text-secondary)]'}`}
+                                        className={`p-2.5 rounded-xl transition-all ${isEditing ? 'bg-[var(--accent-primary)] text-white' : 'hover:bg-inset text-[var(--text-secondary)]'}`}
                                         title={isEditing ? 'View Mode' : 'Edit Mode'}
                                     >
                                         {isEditing ? <Save size={18} /> : <Edit3 size={18} />}
                                     </button>
                                     <button
                                         onClick={() => exportToPdf(activeNote)}
-                                        className="p-2.5 rounded-xl hover:bg-slate-100 dark:hover:bg-white/5 text-emerald-500 transition-all"
+                                        className="p-2.5 rounded-xl hover:bg-inset text-emerald-500 transition-all"
                                         title="Download as PDF"
                                     >
                                         <Download size={18} />

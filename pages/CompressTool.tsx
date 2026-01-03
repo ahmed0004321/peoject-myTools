@@ -75,25 +75,25 @@ const CompressTool: React.FC = () => {
 
     return (
         <div className="max-w-4xl mx-auto">
-            <Link to="/" className="inline-flex items-center text-slate-500 hover:text-indigo-600 mb-6 transition-colors">
+            <Link to="/" className="inline-flex items-center text-[var(--text-secondary)] hover:text-[var(--accent-primary)] mb-6 transition-colors">
                 <ArrowLeft size={16} className="mr-2" /> Back to Dashboard
             </Link>
 
             <div className="mb-8 flex flex-col md:flex-row justify-between items-end gap-4">
                 <div>
-                    <h1 className="text-3xl font-bold text-slate-900 tracking-tight">Archive Manager</h1>
-                    <p className="text-slate-500 mt-2">Compress files to ZIP or extract existing archives.</p>
+                    <h1 className="text-3xl font-bold text-[var(--text-primary)] tracking-tight">Archive Manager</h1>
+                    <p className="text-[var(--text-secondary)] mt-2">Compress files to ZIP or extract existing archives.</p>
                 </div>
-                <div className="flex bg-white p-1.5 rounded-xl border border-slate-200 shadow-sm">
+                <div className="flex bg-inset p-1.5 rounded-xl border border-[var(--border-color)] shadow-sm">
                     <button
                         onClick={() => setMode('compress')}
-                        className={`px-5 py-2 rounded-lg text-sm font-semibold transition-all ${mode === 'compress' ? 'bg-indigo-50 text-indigo-600 shadow-sm' : 'text-slate-500 hover:text-slate-700'}`}
+                        className={`px-5 py-2 rounded-lg text-sm font-semibold transition-all ${mode === 'compress' ? 'bg-white dark:bg-white/10 text-indigo-600 dark:text-indigo-400 shadow-sm' : 'text-slate-500 hover:text-slate-700 dark:hover:text-slate-300'}`}
                     >
                         Compress
                     </button>
                     <button
                         onClick={() => setMode('extract')}
-                        className={`px-5 py-2 rounded-lg text-sm font-semibold transition-all ${mode === 'extract' ? 'bg-indigo-50 text-indigo-600 shadow-sm' : 'text-slate-500 hover:text-slate-700'}`}
+                        className={`px-5 py-2 rounded-lg text-sm font-semibold transition-all ${mode === 'extract' ? 'bg-white dark:bg-white/10 text-indigo-600 dark:text-indigo-400 shadow-sm' : 'text-slate-500 hover:text-slate-700 dark:hover:text-slate-300'}`}
                     >
                         Decompress
                     </button>
@@ -112,11 +112,11 @@ const CompressTool: React.FC = () => {
                             />
                         ) : (
                             <div className="space-y-6 w-full">
-                                <div className="bg-slate-50/80 p-6 rounded-2xl border border-slate-100 text-left w-full shadow-inner">
-                                    <h3 className="font-bold text-slate-700 mb-3 border-b border-slate-200 pb-3 flex items-center gap-2">
+                                <div className="bg-inset p-6 rounded-2xl border border-[var(--border-color)] text-left w-full shadow-inner">
+                                    <h3 className="font-bold text-[var(--text-primary)] mb-3 border-b border-[var(--border-color)] pb-3 flex items-center gap-2">
                                         <FolderInput size={20} className="text-indigo-500" /> Selected Files ({filesToZip.length})
                                     </h3>
-                                    <ul className="text-sm text-slate-600 space-y-2 max-h-40 overflow-y-auto custom-scrollbar pr-2">
+                                    <ul className="text-sm text-[var(--text-secondary)] space-y-2 max-h-40 overflow-y-auto custom-scrollbar pr-2">
                                         {filesToZip.map((f, i) => (
                                             <li key={i} className="flex items-center gap-2 truncate">
                                                 <div className="w-1.5 h-1.5 rounded-full bg-indigo-400"></div> {f.name}
@@ -149,14 +149,14 @@ const CompressTool: React.FC = () => {
                                 {isProcessing ? (
                                     <>
                                         <Loader2 className="animate-spin text-indigo-500" size={48} />
-                                        <p className="text-slate-500 font-medium">Extracting files...</p>
+                                        <p className="text-[var(--text-secondary)] font-medium">Extracting files...</p>
                                     </>
                                 ) : (
                                     <>
-                                        <div className="w-20 h-20 bg-green-100 text-green-600 rounded-full flex items-center justify-center">
+                                        <div className="w-20 h-20 bg-green-100 dark:bg-green-900/20 text-green-600 dark:text-green-400 rounded-full flex items-center justify-center">
                                             <FileArchive size={40} />
                                         </div>
-                                        <p className="font-bold text-slate-700">Extraction Started!</p>
+                                        <p className="font-bold text-[var(--text-primary)]">Extraction Started!</p>
                                         <Button variant="outline" onClick={() => setZipFile(null)}>Extract Another</Button>
                                     </>
                                 )}

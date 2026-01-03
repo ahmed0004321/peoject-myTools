@@ -23,11 +23,11 @@ const Button: React.FC<ButtonProps> = ({
     ...props
 }) => {
     const variants = {
-        primary: 'bg-gradient-to-r from-indigo-600 to-violet-600 text-white shadow-lg shadow-indigo-200 border border-transparent hover:shadow-indigo-300',
-        secondary: 'bg-white text-slate-700 border border-slate-200 shadow-sm hover:bg-slate-50',
-        outline: 'bg-transparent border-2 border-indigo-600 text-indigo-600 hover:bg-indigo-50',
-        ghost: 'bg-transparent text-slate-600 hover:bg-slate-100 hover:text-slate-900',
-        danger: 'bg-red-500 text-white hover:bg-red-600 shadow-lg shadow-red-200'
+        primary: 'bg-gradient-to-r from-indigo-600 to-violet-600 text-white shadow-lg shadow-indigo-200 dark:shadow-indigo-900/20 border border-transparent hover:shadow-indigo-300 dark:hover:shadow-indigo-900/40',
+        secondary: 'bg-white dark:bg-white/5 text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-[var(--border-color)] shadow-sm hover:bg-slate-50 dark:hover:bg-white/10',
+        outline: 'bg-transparent border-2 border-indigo-600 text-indigo-600 hover:bg-indigo-50 dark:hover:bg-indigo-900/20',
+        ghost: 'bg-transparent text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-white/5 hover:text-slate-900 dark:hover:text-white',
+        danger: 'bg-red-500 text-white hover:bg-red-600 shadow-lg shadow-red-200 dark:shadow-red-900/20'
     };
 
     const sizes = {
@@ -56,7 +56,7 @@ const Button: React.FC<ButtonProps> = ({
                     <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"></path>
                 </svg>
             )}
-            {children}
+            {children as React.ReactNode}
         </motion.button>
     );
 };

@@ -1,14 +1,10 @@
-<div align="center">
-<img width="1200" height="475" alt="GHBanner" src="https://github.com/user-attachments/assets/0aa67016-6eaf-458a-adb2-6e31a0763ed6" />
-</div>
-
 # 🛠️ omniTools: The Ultimate PDF & Image Suite
 
 ![omniTools Banner](https://omnitoolpdfimagesuitev10.vercel.app/og-image.png)
 
 omniTools is a powerful, privacy-focused, and all-in-one web utility suite designed to handle your PDF, Image, Security, and Productivity needs entirely in the browser. No file uploads to servers, no privacy concerns.
 
-**Live Demo:** [https://omnitoolpdfimagesuitev10.vercel.app/](https://omnitoolpdfimagesuitev10.vercel.app/)
+**Live Demo:** [https://omnitoolpdfimagesuitev10.vercel.app/](https://omnitoolpdfimagesuitev10.vercel.app/#/)
 
 ---
 

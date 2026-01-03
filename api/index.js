@@ -35,7 +35,11 @@ app.get('/', (req, res) => {
 // but most new tools (Zip, QR, Converter, Password) will be client-side.
 // Keeping server for potential future backend needs or specific heavy lifting.
 
-app.listen(PORT, () => {
-    console.log(`Utils Server running on http://localhost:${PORT}`);
-    console.log(`- Health Check: GET /`);
-});
+if (process.env.NODE_ENV !== 'production') {
+    app.listen(PORT, () => {
+        console.log(`Utils Server running on http://localhost:${PORT}`);
+        console.log(`- Health Check: GET /`);
+    });
+}
+
+export default app;

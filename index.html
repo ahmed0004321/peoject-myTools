@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0" />
+  <title>myTools - PDF & Image Suite</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: {
+              50: '#f0f9ff',
+              100: '#e0f2fe',
+              200: '#bae6fd',
+              300: '#7dd3fc',
+              400: '#38bdf8',
+              500: '#0ea5e9', // Sky blue base
+              600: '#0284c7',
+              700: '#0369a1',
+              800: '#075985',
+              900: '#0c4a6e',
+            },
+            glass: {
+              100: 'rgba(255, 255, 255, 0.1)',
+              200: 'rgba(255, 255, 255, 0.2)',
+              300: 'rgba(255, 255, 255, 0.3)',
+              400: 'rgba(255, 255, 255, 0.4)',
+              500: 'rgba(255, 255, 255, 0.5)',
+            }
+          },
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+          },
+          backdropBlur: {
+            xs: '2px',
+          }
+        }
+      }
+    }
+  </script>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Roboto:wght@400;500&display=swap"
+    rel="stylesheet">
+
+  <script src="https://unpkg.com/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script>
+  <script src="https://unpkg.com/jszip@3.10.1/dist/jszip.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+  <script src='https://unpkg.com/tesseract.js@4.1.1/dist/tesseract.min.js'></script>
+
+  <script>
+    if (window.pdfjsLib) {
+      window.pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+    }
+
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Roboto', 'sans-serif'],
+            poppins: ['Poppins', 'sans-serif'],
+          },
+          colors: {
+            cream: {
+              50: '#FFF7E7',
+              100: '#FFF5EB'
+            },
+            coral: {
+              500: '#FF6B6B',
+              600: '#E85A5A',
+            },
+            teal: {
+              400: '#2ACFCF',
+              500: '#20B2B2',
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+    }
+
+    .cursor-crosshair {
+      cursor: crosshair !important;
+    }
+  </style>
+  <script type="importmap">
+{
+  "imports": {
+    "react-dom/": "https://esm.sh/react-dom@^19.2.3/",
+    "react/": "https://esm.sh/react@^19.2.3/",
+    "react": "https://esm.sh/react@^19.2.3",
+    "lucide-react": "https://esm.sh/lucide-react@^0.562.0",
+    "react-router-dom": "https://esm.sh/react-router-dom@^7.11.0",
+    "@xenova/transformers": "https://esm.sh/@xenova/transformers@2.17.2",
+    "express": "https://esm.sh/express@^5.2.1",
+    "url": "https://esm.sh/url@^0.11.4",
+    "path": "https://esm.sh/path@^0.12.7",
+    "cors": "https://esm.sh/cors@^2.8.5",
+    "fs": "https://esm.sh/fs@^0.0.1-security",
+    "multer": "https://esm.sh/multer@^2.0.2",
+    "sharp": "https://esm.sh/sharp@^0.34.5"
+  }
+}
+</script>
+  <link rel="stylesheet" href="/index.css">
+</head>
+
+<body class="bg-gray-50 text-slate-900 antialiased selection:bg-indigo-100 selection:text-indigo-700">
+  <div id="root"></div>
+  <script type="module" src="/index.tsx"></script>
+</body>
+
+</html>

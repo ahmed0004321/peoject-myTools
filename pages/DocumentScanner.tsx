@@ -481,14 +481,15 @@ const DocumentScanner: React.FC = () => {
                                         </div>
                                     </div>
                                 ) : (
-                                    <div className="text-center p-8 space-y-8 w-full max-w-2xl">
-                                        <div className="space-y-3">
-                                            <div className="w-20 h-20 bg-[var(--accent-primary)]/10 rounded-2xl flex items-center justify-center mx-auto text-[var(--accent-primary)] group-hover:scale-110 transition-transform">
-                                                <Scan size={40} />
+                                    <div className="text-center p-4 sm:p-8 space-y-6 sm:space-y-8 w-full max-w-2xl">
+                                        <div className="space-y-2 sm:space-y-3">
+                                            <div className="w-16 h-16 sm:w-20 sm:h-20 bg-[var(--accent-primary)]/10 rounded-2xl flex items-center justify-center mx-auto text-[var(--accent-primary)] group-hover:scale-110 transition-transform">
+                                                <Scan size={32} className="sm:hidden" />
+                                                <Scan size={40} className="hidden sm:block" />
                                             </div>
                                             <div className="space-y-1">
-                                                <h3 className="text-2xl font-bold text-[var(--text-primary)]">Capture or Upload</h3>
-                                                <p className="text-[var(--text-secondary)]">Select a source to begin document scanning.</p>
+                                                <h3 className="text-xl sm:text-2xl font-bold text-[var(--text-primary)]">Capture or Upload</h3>
+                                                <p className="text-sm sm:text-base text-[var(--text-secondary)]">Select a source to begin document scanning.</p>
                                             </div>
                                         </div>
 

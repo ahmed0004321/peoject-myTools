@@ -84,16 +84,16 @@ const CompressTool: React.FC = () => {
                     <h1 className="text-3xl font-bold text-[var(--text-primary)] tracking-tight">Archive Manager</h1>
                     <p className="text-[var(--text-secondary)] mt-2">Compress files to ZIP or extract existing archives.</p>
                 </div>
-                <div className="flex bg-inset p-1.5 rounded-xl border border-[var(--border-color)] shadow-sm">
+                <div className="flex flex-wrap bg-inset p-1.5 rounded-xl border border-[var(--border-color)] shadow-sm w-full md:w-auto overflow-hidden">
                     <button
                         onClick={() => setMode('compress')}
-                        className={`px-5 py-2 rounded-lg text-sm font-semibold transition-all ${mode === 'compress' ? 'bg-white dark:bg-white/10 text-indigo-600 dark:text-indigo-400 shadow-sm' : 'text-slate-500 hover:text-slate-700 dark:hover:text-slate-300'}`}
+                        className={`flex-1 md:flex-initial px-5 py-2 rounded-lg text-sm font-semibold transition-all ${mode === 'compress' ? 'bg-white dark:bg-white/10 text-indigo-600 dark:text-indigo-400 shadow-sm' : 'text-slate-500 hover:text-slate-700 dark:hover:text-slate-300'}`}
                     >
                         Compress
                     </button>
                     <button
                         onClick={() => setMode('extract')}
-                        className={`px-5 py-2 rounded-lg text-sm font-semibold transition-all ${mode === 'extract' ? 'bg-white dark:bg-white/10 text-indigo-600 dark:text-indigo-400 shadow-sm' : 'text-slate-500 hover:text-slate-700 dark:hover:text-slate-300'}`}
+                        className={`flex-1 md:flex-initial px-5 py-2 rounded-lg text-sm font-semibold transition-all ${mode === 'extract' ? 'bg-white dark:bg-white/10 text-indigo-600 dark:text-indigo-400 shadow-sm' : 'text-slate-500 hover:text-slate-700 dark:hover:text-slate-300'}`}
                     >
                         Decompress
                     </button>
@@ -124,11 +124,12 @@ const CompressTool: React.FC = () => {
                                         ))}
                                     </ul>
                                 </div>
-                                <div className="flex justify-center gap-4">
-                                    <Button variant="ghost" onClick={() => setFilesToZip([])}>Cancel</Button>
+                                <div className="flex flex-col sm:flex-row justify-center gap-4">
+                                    <Button variant="ghost" className="w-full sm:w-auto" onClick={() => setFilesToZip([])}>Cancel</Button>
                                     <Button
                                         onClick={handleCompress}
                                         isLoading={isProcessing}
+                                        className="w-full sm:w-auto"
                                     >
                                         <Archive size={18} /> Download ZIP
                                     </Button>

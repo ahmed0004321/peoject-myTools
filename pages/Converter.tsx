@@ -112,12 +112,12 @@ const Converter: React.FC = () => {
                             value={val}
                             onChange={(e) => setVal(parseFloat(e.target.value))}
                             onFocus={(e) => e.target.select()}
-                            className="w-full text-5xl font-light text-[var(--text-primary)] outline-none bg-transparent border-b border-[var(--border-color)] focus:border-indigo-500 py-2 transition-colors placeholder:text-slate-300 dark:placeholder:text-slate-700"
+                            className="w-full text-3xl sm:text-5xl font-light text-[var(--text-primary)] outline-none bg-transparent border-b border-[var(--border-color)] focus:border-indigo-500 py-2 transition-colors placeholder:text-slate-300 dark:placeholder:text-slate-700"
                             placeholder="0"
                         />
                     </div>
 
-                    <div className="grid grid-cols-[1fr,auto,1fr] gap-4 items-center">
+                    <div className="flex flex-col sm:grid sm:grid-cols-[1fr,auto,1fr] gap-6 items-center">
                         <div className="flex flex-col gap-2">
                             <label className="text-xs font-bold text-slate-400 uppercase">From</label>
                             <div className="relative">
@@ -134,8 +134,8 @@ const Converter: React.FC = () => {
                             </div>
                         </div>
 
-                        <div className="text-slate-300 dark:text-slate-600 pt-6 flex justify-center">
-                            <div className="p-2 rounded-full bg-inset border border-[var(--border-color)]">
+                        <div className="text-slate-300 dark:text-slate-600 sm:pt-6 flex justify-center">
+                            <div className="p-2 rounded-full bg-inset border border-[var(--border-color)] rotate-90 sm:rotate-0">
                                 <ArrowRightLeft size={18} />
                             </div>
                         </div>
@@ -160,7 +160,7 @@ const Converter: React.FC = () => {
                     <div className="bg-gradient-to-br from-indigo-600 to-violet-700 rounded-2xl p-8 text-white text-center shadow-lg shadow-indigo-200 dark:shadow-indigo-900/20 mt-6 relative overflow-hidden group">
                         <div className="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity"></div>
                         <div className="text-sm font-medium text-indigo-100 mb-2 uppercase tracking-wide">Converted Result</div>
-                        <div className="text-4xl md:text-5xl font-bold tracking-tight break-all">{result} <span className="text-xl md:text-2xl font-light text-indigo-200 ml-2">{getLabel(toUnit)}</span></div>
+                        <div className="text-3xl sm:text-5xl font-bold tracking-tight break-all">{result} <span className="text-lg sm:text-2xl font-light text-indigo-200 ml-1 sm:ml-2">{getLabel(toUnit)}</span></div>
                     </div>
                 </div>
             </Card>

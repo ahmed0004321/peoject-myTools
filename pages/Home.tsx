@@ -12,6 +12,7 @@ const GROUPS = [
   {
     title: "Most Used",
     items: [
+      { name: "Document Scanner", icon: PenTool, path: "/document-scanner", desc: "OCR & Document enhancement toolkit.", color: "bg-emerald-500" },
       { name: "Note Generator", icon: FileText, path: "/note-generator", desc: "Write & export professional notes as PDFs.", color: "bg-indigo-500" },
       { name: "Image Toolkit", icon: Settings, path: "/image-toolkit", desc: "Batch process, resize & convert.", color: "bg-rose-500" },
       { name: "Secure Vault", icon: ShieldCheck, path: "/secure-vault", desc: "AES-256 local encrypted storage.", color: "bg-slate-900" },
@@ -49,7 +50,7 @@ const Home: React.FC = () => {
           <motion.h1
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
-            className="text-5xl md:text-7xl font-bold tracking-tight text-[var(--text-primary)]"
+            className="text-4xl md:text-7xl font-bold tracking-tight text-[var(--text-primary)]"
           >
             Professional toolkit <br />
             <span className="text-[var(--accent-primary)]">Simplified.</span>

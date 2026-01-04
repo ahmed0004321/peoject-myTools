@@ -67,7 +67,7 @@ const QrTool: React.FC = () => {
                 <p className="text-[var(--text-secondary)] mt-2">Generate stylish QR codes or scan them instantly.</p>
             </div>
 
-            <div className="flex justify-center gap-4 mb-8">
+            <div className="flex flex-wrap justify-center gap-4 mb-8">
                 <button
                     onClick={() => setActiveTab('gen')}
                     className={`px-8 py-3 rounded-full font-bold flex items-center gap-2 transition-all duration-300 ${activeTab === 'gen' ? 'bg-indigo-600 dark:bg-indigo-500 text-white shadow-lg shadow-indigo-200 dark:shadow-indigo-900/40 transform scale-105' : 'bg-inset text-[var(--text-secondary)] border border-[var(--border-color)] hover:bg-white/5'} `}
@@ -84,8 +84,8 @@ const QrTool: React.FC = () => {
 
             <Card className="min-h-[450px] p-0 overflow-hidden">
                 {activeTab === 'gen' ? (
-                    <div className="grid md:grid-cols-2 h-full min-h-[450px]">
-                        <div className="p-8 border-r border-[var(--border-color)] flex flex-col gap-6 bg-inset">
+                    <div className="grid grid-cols-1 md:grid-cols-2 h-full min-h-[450px]">
+                        <div className="p-6 md:p-8 border-r-0 md:border-r border-b md:border-b-0 border-[var(--border-color)] flex flex-col gap-6 bg-inset">
                             <div className="relative flex-grow flex flex-col">
                                 <label className="text-xs font-bold text-slate-400 dark:text-slate-500 uppercase mb-3 block">QR Content</label>
                                 <textarea
@@ -100,7 +100,7 @@ const QrTool: React.FC = () => {
                                 Auto-updates as you type
                             </p>
                         </div>
-                        <div className="flex flex-col items-center justify-center p-8 bg-inset backdrop-blur-sm">
+                        <div className="flex flex-col items-center justify-center p-6 md:p-8 bg-inset backdrop-blur-sm">
                             {generatedDataUrl ? (
                                 <div className="flex flex-col items-center gap-8 animate-in fade-in zoom-in duration-300">
                                     <div className="p-4 bg-white rounded-2xl shadow-xl shadow-indigo-100/10 border border-slate-100 dark:border-indigo-900/20">
@@ -152,7 +152,7 @@ const QrTool: React.FC = () => {
                                     </div>
                                 </div>
 
-                                <div className="flex justify-center gap-4 pt-2">
+                                <div className="flex flex-col sm:flex-row justify-center gap-4 pt-2">
                                     <Button variant="secondary" onClick={() => navigator.clipboard.writeText(scannedResult)}>
                                         <Copy size={16} /> Copy
                                     </Button>

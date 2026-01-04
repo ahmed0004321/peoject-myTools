@@ -86,7 +86,7 @@ const QrBatch: React.FC = () => {
                     <h2 className="text-2xl font-bold flex items-center gap-2"><Layers className="text-indigo-600" /> Bulk QR Generator</h2>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
                     <div className="space-y-4">
                         <label className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase">Input Lines (One per QR)</label>
                         <textarea
@@ -100,7 +100,7 @@ const QrBatch: React.FC = () => {
                         </Button>
                     </div>
 
-                    <div className="md:col-span-2 bg-inset rounded-xl p-4 border border-[var(--border-color)] flex flex-col h-[500px]">
+                    <div className="lg:col-span-2 bg-inset rounded-xl p-4 border border-[var(--border-color)] flex flex-col h-[500px]">
                         <div className="flex justify-between items-center mb-4">
                             <span className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase">{qrs.length} Generated</span>
                             <div className="flex gap-2">
@@ -113,7 +113,7 @@ const QrBatch: React.FC = () => {
                             </div>
                         </div>
 
-                        <div className="flex-1 overflow-y-auto grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 p-2">
+                        <div className="flex-1 overflow-y-auto grid grid-cols-2 sm:grid-cols-3 xl:grid-cols-4 gap-4 p-2">
                             {qrs.map((q, i) => (
                                 <div key={i} className="bg-white dark:bg-white/5 p-3 rounded-lg shadow-sm border border-[var(--border-color)] flex flex-col items-center text-center">
                                     <img src={q.dataUrl} alt="QR" className="w-full aspect-square" />

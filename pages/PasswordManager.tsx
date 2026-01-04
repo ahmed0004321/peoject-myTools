@@ -159,20 +159,22 @@ const PasswordManager: React.FC = () => {
                                     </div>
                                 </div>
 
-                                <div className="flex items-center gap-3 w-full md:w-auto bg-inset border border-[var(--border-color)] p-2 rounded-xl justify-between md:justify-start">
-                                    <div className="font-mono text-sm relative px-2">
+                                <div className="flex flex-col sm:flex-row items-center gap-3 w-full md:w-auto bg-inset border border-[var(--border-color)] p-2 rounded-xl justify-between md:justify-start">
+                                    <div className="font-mono text-sm relative px-2 flex-1 md:flex-initial text-center md:text-left">
                                         {showPass[entry.id] ? (
-                                            <span className="text-[var(--text-primary)]">{entry.pass}</span>
+                                            <span className="text-[var(--text-primary)] break-all">{entry.pass}</span>
                                         ) : (
                                             <span className="text-[var(--text-secondary)] opacity-20 tracking-widest">••••••••••••</span>
                                         )}
                                     </div>
-                                    <button onClick={() => toggleShow(entry.id)} className="text-[var(--text-secondary)] hover:text-indigo-400 p-2 transition-colors">
-                                        {showPass[entry.id] ? <EyeOff size={16} /> : <Eye size={16} />}
-                                    </button>
-                                    <button onClick={() => copyToClipboard(entry.pass)} className="text-[var(--text-secondary)] hover:text-green-400 p-2 transition-colors" title="Copy Password">
-                                        <Copy size={16} />
-                                    </button>
+                                    <div className="flex gap-1">
+                                        <button onClick={() => toggleShow(entry.id)} className="text-[var(--text-secondary)] hover:text-indigo-400 p-2 transition-colors">
+                                            {showPass[entry.id] ? <EyeOff size={16} /> : <Eye size={16} />}
+                                        </button>
+                                        <button onClick={() => copyToClipboard(entry.pass)} className="text-[var(--text-secondary)] hover:text-green-400 p-2 transition-colors" title="Copy Password">
+                                            <Copy size={16} />
+                                        </button>
+                                    </div>
                                 </div>
 
                                 <div className="flex items-center gap-2 w-full md:w-auto justify-end">

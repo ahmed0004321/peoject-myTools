@@ -8,6 +8,10 @@ import {
 } from 'lucide-react';
 import Button from '../components/ui/Button';
 import { Reorder, motion, AnimatePresence } from 'framer-motion';
+import * as pdfjsLib from 'pdfjs-dist';
+
+// Initialize PDF.js worker
+pdfjsLib.GlobalWorkerOptions.workerSrc = `https://unpkg.com/pdfjs-dist@${pdfjsLib.version}/build/pdf.worker.min.mjs`;
 
 // --- Types ---
 type EditorMode = 'select' | 'text' | 'rect' | 'circle' | 'image' | 'whiteout' | 'draw';
@@ -112,8 +116,7 @@ const PdfEditor: React.FC = () => {
         const sourceId = Math.random().toString(36).substr(2, 9);
         if (f.type === 'application/pdf') {
           newSources.push({ id: sourceId, data: ab, name: f.name, type: 'pdf' });
-          // @ts-ignore
-          const pdf = await window.pdfjsLib.getDocument(ab).promise;
+          const pdf = await pdfjsLib.getDocument({ data: ab }).promise;
           for (let i = 1; i <= pdf.numPages; i++) {
             const page = await pdf.getPage(i);
             const viewport = page.getViewport({ scale: 1 });
@@ -121,7 +124,7 @@ const PdfEditor: React.FC = () => {
             const thumbScale = 300 / viewport.width;
             canvas.width = 300;
             canvas.height = viewport.height * thumbScale;
-            await page.render({ canvasContext: canvas.getContext('2d')!, viewport: page.getViewport({ scale: thumbScale }) }).promise;
+            await page.render({ canvasContext: canvas.getContext('2d')!, viewport: page.getViewport({ scale: thumbScale }), canvas }).promise;
 
             newPages.push({
               id: Math.random().toString(36).substr(2, 9),
@@ -478,14 +481,14 @@ const PageRenderer: React.FC<{ page: PageData, scale: number, source?: SourceFil
     const render = async () => {
       // @ts-ignore
       if (source.type === 'pdf') {
-        // @ts-ignore
-        const pdf = await window.pdfjsLib.getDocument(source.data).promise;
+        const pdf = await pdfjsLib.getDocument({ data: source.data }).promise;
         const p = await pdf.getPage(page.sourcePageIndex + 1);
         const viewport = p.getViewport({ scale: scale * 2 }); // Higher resolution internal render
-        const ctx = canvasRef.current!.getContext('2d');
-        canvasRef.current!.width = viewport.width;
-        canvasRef.current!.height = viewport.height;
-        await p.render({ canvasContext: ctx!, viewport }).promise;
+        const canvas = canvasRef.current!;
+        const ctx = canvas.getContext('2d');
+        canvas.width = viewport.width;
+        canvas.height = viewport.height;
+        await p.render({ canvasContext: ctx!, viewport, canvas }).promise;
       }
     };
     render();

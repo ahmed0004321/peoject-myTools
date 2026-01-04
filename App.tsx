@@ -19,6 +19,7 @@ import QrBatch from './pages/QrBatch';
 import PasswordTool from './pages/PasswordTool';
 import TypingTest from './pages/TypingTest';
 import SecureVault from './pages/SecureVault';
+import DocumentScanner from './pages/DocumentScanner';
 
 const App: React.FC = () => {
   return (
@@ -32,6 +33,7 @@ const App: React.FC = () => {
           <Route path="/pdf-to-image" element={<PdfToImage />} />
           <Route path="/note-generator" element={<NoteGenerator />} />
           <Route path="/merge-pdf" element={<MergePdf />} />
+          <Route path="/document-scanner" element={<DocumentScanner />} />
 
           {/* Image Tools */}
           <Route path="/image-toolkit" element={<ImageToolkit />} />

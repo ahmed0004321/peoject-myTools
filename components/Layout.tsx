@@ -35,6 +35,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
     {
       title: "PDF Suite",
       items: [
+        { name: 'Doc Scanner', path: '/document-scanner', icon: PenTool },
         { name: 'Merge PDF', path: '/merge-pdf', icon: Combine },
         { name: 'Note Gen', path: '/note-generator', icon: FileText },
         { name: 'Image to PDF', path: '/image-to-pdf', icon: FileImage },
@@ -45,7 +46,6 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
       title: "Image Studio",
       items: [
         { name: 'Img Toolkit', path: '/image-toolkit', icon: Settings },
-        { name: 'Crop/Resize', path: '/image-editor', icon: ImageMinus },
       ]
     },
     {

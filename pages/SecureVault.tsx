@@ -175,9 +175,9 @@ const SecureVault: React.FC = () => {
                         {file ? (
                             <div className="flex flex-col items-center">
                                 <FileKey size={32} className="text-indigo-500 mb-2" />
-                                <p className="font-medium text-[var(--text-primary)] break-all">{file.name}</p>
+                                <p className="font-medium text-[var(--text-primary)] break-all text-sm md:text-base">{file.name}</p>
                                 <p className="text-xs text-[var(--text-secondary)] mt-1">{(file.size / 1024).toFixed(1)} KB</p>
-                                <div className="flex gap-2 mt-4">
+                                <div className="flex flex-wrap gap-2 mt-4 justify-center">
                                     <span className="text-xs text-indigo-600 dark:text-indigo-400 font-bold uppercase py-1 px-2 bg-indigo-100 dark:bg-indigo-900/30 rounded">Selected</span>
                                     <button
                                         onClick={(e) => { e.stopPropagation(); setFile(null); }}

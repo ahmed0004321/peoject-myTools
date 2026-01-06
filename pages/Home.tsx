@@ -12,6 +12,7 @@ const GROUPS = [
   {
     title: "Most Used",
     items: [
+      { name: "AI Content Check", icon: Sparkles, path: "/content-detector", desc: "Plagiarism & AI Detection.", color: "bg-indigo-600" },
       { name: "Document Scanner", icon: PenTool, path: "/document-scanner", desc: "OCR & Document enhancement toolkit.", color: "bg-emerald-500" },
       { name: "Note Generator", icon: FileText, path: "/note-generator", desc: "Write & export professional notes as PDFs.", color: "bg-indigo-500" },
       { name: "Image Toolkit", icon: Settings, path: "/image-toolkit", desc: "Batch process, resize & convert.", color: "bg-rose-500" },
@@ -38,6 +39,7 @@ const UTILITIES = [
   { name: "Converter", icon: RefreshCcw, path: "/converter" },
   { name: "Format", icon: FileText, path: "/text-formatter" },
   { name: "Markdown", icon: FileText, path: "/markdown-preview" },
+  { name: "Flashcards", icon: Layers, path: "/flashcards" },
 ];
 
 const Home: React.FC = () => {

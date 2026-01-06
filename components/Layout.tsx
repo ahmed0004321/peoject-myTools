@@ -3,7 +3,7 @@ import { Link, useLocation } from 'react-router-dom';
 import {
   Layers, FileImage, ImageMinus, PenTool, Home, Combine, Settings,
   QrCode, ShieldCheck, Lock, FileKey, RefreshCcw, Keyboard, FileText,
-  Menu, X, Sun, Moon, ChevronRight
+  Menu, X, Sun, Moon, ChevronRight, Scan
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
@@ -64,6 +64,13 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
         { name: 'Unit Convert', path: '/converter', icon: RefreshCcw },
         { name: 'Text Format', path: '/text-formatter', icon: FileText },
         { name: 'QR Batch', path: '/qr-batch', icon: QrCode },
+      ]
+    },
+    {
+      title: "AI Tools",
+      items: [
+        { name: 'Content Check', path: '/content-detector', icon: Scan },
+        { name: 'Flashcards', path: '/flashcards', icon: Layers },
       ]
     }
   ];

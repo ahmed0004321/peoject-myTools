@@ -20,6 +20,8 @@ import PasswordTool from './pages/PasswordTool';
 import TypingTest from './pages/TypingTest';
 import SecureVault from './pages/SecureVault';
 import DocumentScanner from './pages/DocumentScanner';
+import ContentDetector from './pages/ContentDetector';
+import FlashcardGenerator from './pages/FlashcardGenerator';
 
 const App: React.FC = () => {
   return (
@@ -56,6 +58,8 @@ const App: React.FC = () => {
           {/* Web Tools (Refining) */}
           <Route path="/qr-tool" element={<QrTool />} />
           <Route path="/qr-batch" element={<QrBatch />} />
+          <Route path="/content-detector" element={<ContentDetector />} />
+          <Route path="/flashcards" element={<FlashcardGenerator />} />
 
           {/* Archives */}
           <Route path="/compress-tool" element={<CompressTool />} />

@@ -1,11 +1,13 @@
 
-import React, { useState } from 'react';
-import { Layers, FileText, Play, CheckCircle2, RotateCcw, Download, Sparkles, ChevronLeft, ChevronRight, X } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { Layers, FileText, Play, CheckCircle2, RotateCcw, Download, Sparkles, ChevronLeft, ChevronRight, X, WifiOff } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { getApiUrl } from '../utils/apiConfig';
 import FileUploader from '../components/FileUploader';
 import { extractTextFromFile } from '../utils/textProcessor';
 import jsPDF from 'jspdf';
+import { useOnlineStatus } from '../hooks/useOnlineStatus';
+import { saveFlashcards, getFlashcards } from '../services/db';
 
 interface Flashcard {
     front: string;
@@ -15,13 +17,12 @@ interface Flashcard {
 }
 
 const FlashcardGenerator: React.FC = () => {
+    const isOnline = useOnlineStatus();
     const [mode, setMode] = useState<'upload' | 'study'>('upload');
     const [file, setFile] = useState<File | null>(null);
     const [textInput, setTextInput] = useState("");
     const [isGenerating, setIsGenerating] = useState(false);
     const [cards, setCards] = useState<Flashcard[]>([]);
-
-
 
     // Study State
     const [currentCardIndex, setCurrentCardIndex] = useState(0);
@@ -30,7 +31,22 @@ const FlashcardGenerator: React.FC = () => {
 
     const activeCards = cards.filter(c => !c.learned);
 
+    // Load saved cards on mount
+    useEffect(() => {
+        getFlashcards().then(savedCards => {
+            if (savedCards && savedCards.length > 0) {
+                setCards(savedCards);
+                setMode('study'); // Auto-open study mode if cards exist
+            }
+        });
+    }, []);
+
     const handleGenerate = async () => {
+        if (!isOnline) {
+            alert("Internet connection required for AI generation.");
+            return;
+        }
+
         setIsGenerating(true);
         try {
             let textToProcess = textInput;
@@ -60,6 +76,9 @@ const FlashcardGenerator: React.FC = () => {
             setMode('study');
             setCurrentCardIndex(0);
             setLearnedCount(0);
+
+            // Save to DB
+            await saveFlashcards(data.cards);
 
         } catch (error: any) {
             console.error(error);
@@ -196,13 +215,19 @@ const FlashcardGenerator: React.FC = () => {
                         </div>
 
                         <div className="mt-8 flex justify-end">
-                            <button
-                                onClick={() => handleGenerate()}
-                                disabled={isGenerating || (!file && !textInput)}
-                                className="px-8 py-4 bg-emerald-500 hover:bg-emerald-600 text-white rounded-xl font-bold shadow-lg shadow-emerald-500/25 flex items-center gap-3 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
-                            >
-                                {isGenerating ? <><Sparkles className="animate-spin" /> Generating...</> : <><Play className="fill-current" /> Generate Cards</>}
-                            </button>
+                            {isOnline ? (
+                                <button
+                                    onClick={() => handleGenerate()}
+                                    disabled={isGenerating || (!file && !textInput)}
+                                    className="px-8 py-4 bg-emerald-500 hover:bg-emerald-600 text-white rounded-xl font-bold shadow-lg shadow-emerald-500/25 flex items-center gap-3 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
+                                >
+                                    {isGenerating ? <><Sparkles className="animate-spin" /> Generating...</> : <><Play className="fill-current" /> Generate Cards</>}
+                                </button>
+                            ) : (
+                                <div className="px-8 py-4 bg-gray-500/20 text-gray-400 rounded-xl font-bold flex items-center gap-3 border border-gray-500/30 cursor-not-allowed">
+                                    <WifiOff size={20} /> AI Unavailable Offline
+                                </div>
+                            )}
                         </div>
                     </div>
                 </div>

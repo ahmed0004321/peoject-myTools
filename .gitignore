@@ -29,3 +29,6 @@ uploads/
 .vercel
 .env*.local
 .env
+
+# Local NPM Cache
+.npm-cache

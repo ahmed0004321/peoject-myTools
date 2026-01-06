@@ -22,11 +22,13 @@ import SecureVault from './pages/SecureVault';
 import DocumentScanner from './pages/DocumentScanner';
 import ContentDetector from './pages/ContentDetector';
 import FlashcardGenerator from './pages/FlashcardGenerator';
+import OfflineIndicator from './components/OfflineIndicator';
 
 const App: React.FC = () => {
   return (
     <HashRouter>
       <Layout>
+        <OfflineIndicator />
         <Routes>
           <Route path="/" element={<Home />} />
 

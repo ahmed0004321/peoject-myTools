@@ -1,4 +1,4 @@
-import React, { useState, useRef, useCallback } from 'react';
+import React, { useState, useRef, useCallback, useEffect } from 'react';
 import { Camera, Upload, FileText, Image as ImageIcon, Check, Wand2, ArrowRight, Download, Edit3, Trash2, Languages, RotateCw, Maximize, Scan, FileCode, CheckCircle2, Loader2, X, GripVertical, Sparkles, Files, Type } from 'lucide-react';
 import { motion, AnimatePresence, Reorder } from 'framer-motion';
 import Webcam from 'react-webcam';
@@ -9,6 +9,7 @@ import { jsPDF } from 'jspdf';
 import { Document, Packer, Paragraph, TextRun } from 'docx';
 import ReactCrop, { type Crop, centerCrop, makeAspectCrop, PixelCrop } from 'react-image-crop';
 import 'react-image-crop/dist/ReactCrop.css';
+import { saveScan, getScan } from '../services/db';
 
 // Initialize PDF.js worker
 pdfjsLib.GlobalWorkerOptions.workerSrc = `https://unpkg.com/pdfjs-dist@${pdfjsLib.version}/build/pdf.worker.min.mjs`;
@@ -52,6 +53,25 @@ const DocumentScanner: React.FC = () => {
     const pdfInputRef = useRef<HTMLInputElement>(null);
     const docInputRef = useRef<HTMLInputElement>(null);
     const canvasRef = useRef<HTMLCanvasElement>(null);
+
+    // Load from DB on mount
+    useEffect(() => {
+        getScan('current_session').then(data => {
+            if (data) {
+                // Cast generic DB type to component type if needed
+                setScannedPages(data.pages as ScannedPage[]);
+                setExtractedText(data.extractedText);
+                if (data.pages.length > 0) setStep(2);
+            }
+        });
+    }, []);
+
+    // Save to DB on change
+    useEffect(() => {
+        if (scannedPages.length > 0 || extractedText) {
+            saveScan('current_session', scannedPages, extractedText);
+        }
+    }, [scannedPages, extractedText]);
 
     // --- Step 1: Capture Functions ---
     const capturePhoto = useCallback(() => {
@@ -627,7 +647,7 @@ const DocumentScanner: React.FC = () => {
                         className="grid grid-cols-1 lg:grid-cols-4 gap-8"
                     >
                         <div className="lg:col-span-3 space-y-6">
-                            <div className="luxe-card p-4 flex flex-col items-center justify-center bg-[var(--bg-secondary)] min-h-[600px] relative">
+                            <div className="luxe-card p-4 flex flex-col items-center justify-center bg-[var(--bg-secondary)] min-h-[60dvh] relative">
                                 {scannedPages.length > 0 ? (
                                     <div className="max-w-full overflow-hidden rounded-lg shadow-2xl border border-[var(--border-color)]">
                                         <ReactCrop

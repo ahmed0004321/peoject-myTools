@@ -1,140 +1,67 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import {
-  FileImage, Layers, ImageMinus, PenTool, ArrowRight, Combine,
+  FileImage, Layers, ImageMinus, PenTool, Combine,
   Settings, Archive, QrCode, RefreshCcw, ShieldCheck, Lock,
-  Keyboard, FileText, Zap, Sparkles, CheckCircle2, ChevronRight
+  Keyboard, FileText, Sparkles
 } from 'lucide-react';
-import { motion } from 'framer-motion';
+import HeroSection from '../components/ui/HeroSection';
+import SectionHeader from '../components/ui/SectionHeader';
+import ToolCard from '../components/ui/ToolCard';
+import AhaSection from '../components/ui/AhaSection';
 
 // --- Data ---
-const GROUPS = [
-  {
-    title: "Most Used",
-    items: [
-      { name: "AI Content Check", icon: Sparkles, path: "/content-detector", desc: "Plagiarism & AI Detection.", color: "bg-indigo-600" },
-      { name: "Document Scanner", icon: PenTool, path: "/document-scanner", desc: "OCR & Document enhancement toolkit.", color: "bg-emerald-500" },
-      { name: "Note Generator", icon: FileText, path: "/note-generator", desc: "Write & export professional notes as PDFs.", color: "bg-indigo-500" },
-      { name: "Image Toolkit", icon: Settings, path: "/image-toolkit", desc: "Batch process, resize & convert.", color: "bg-rose-500" },
-      { name: "Secure Vault", icon: ShieldCheck, path: "/secure-vault", desc: "AES-256 local encrypted storage.", color: "bg-slate-900" },
-      { name: "Typing Train", icon: Keyboard, path: "/typing-test", desc: "Master precision & WPM analytics.", color: "bg-amber-500" },
-    ]
-  },
-  {
-    title: "PDF Essentials",
-    items: [
-      { name: "Merge PDF", icon: Combine, path: "/merge-pdf", desc: "Combine multiple docs." },
-      { name: "Image to PDF", icon: FileImage, path: "/image-to-pdf", desc: "Convert photos." },
-      { name: "PDF to Image", icon: Layers, path: "/pdf-to-image", desc: "Extract high-quality." },
-      { name: "Compress", icon: Archive, path: "/compress-tool", desc: "Optimize file size." },
-    ]
-  }
-];
+const ALL_TOOLS = [
+  // --- Original Featured ---
+  { name: "AI Content Check", icon: Sparkles, path: "/content-detector", description: "Plagiarism & AI Detection.", color: "#10b981", textColor: "text-black" }, // Emerald-500
+  { name: "Document Scanner", icon: PenTool, path: "/document-scanner", description: "OCR & Document enhancement.", color: "#fef3c7", textColor: "text-black" }, // Cream
+  { name: "Note Generator", icon: FileText, path: "/note-generator", description: "Write & export notes.", color: "#06b6d4", textColor: "text-black" }, // Cyan
+  { name: "Image Toolkit", icon: Settings, path: "/image-toolkit", description: "Batch process & resize.", color: "#f472b6", textColor: "text-black" }, // Pink-400
+  { name: "Secure Vault", icon: ShieldCheck, path: "/secure-vault", description: "AES-256 local storage.", color: "#ef4444", textColor: "text-white" }, // Red-500
+  { name: "Typing Train", icon: Keyboard, path: "/typing-test", description: "Master precision.", color: "#f97316", textColor: "text-black" }, // Orange-500
+  { name: "PDF Merge", icon: Combine, path: "/merge-pdf", description: "Combine docs easily.", color: "#a855f7", textColor: "text-white" }, // Purple-500
+  { name: "Converter", icon: RefreshCcw, path: "/converter", description: "Universal file convert.", color: "#eab308", textColor: "text-black" }, // Yellow-500
 
-const UTILITIES = [
-  { name: "Pass Gen", icon: ShieldCheck, path: "/password-tool" },
-  { name: "Pass Manager", icon: Lock, path: "/password-manager" },
-  { name: "Hash Gen", icon: Layers, path: "/hash-generator" },
-  { name: "QR Batch", icon: QrCode, path: "/qr-batch" },
-  { name: "Converter", icon: RefreshCcw, path: "/converter" },
-  { name: "Format", icon: FileText, path: "/text-formatter" },
-  { name: "Markdown", icon: FileText, path: "/markdown-preview" },
-  { name: "Flashcards", icon: Layers, path: "/flashcards" },
+  // --- Promoted Utilities ---
+  { name: "Pass Gen", icon: ShieldCheck, path: "/password-tool", description: "Strong passwords instantly.", color: "#3b82f6", textColor: "text-white" }, // Blue-500
+  { name: "Pass Manager", icon: Lock, path: "/password-manager", description: "Secure local vault.", color: "#6366f1", textColor: "text-white" }, // Indigo-500
+  { name: "Hash Gen", icon: Layers, path: "/hash-generator", description: "Cryptographic hashing.", color: "#2dd4bf", textColor: "text-black" }, // Teal-400
+  { name: "QR Batch", icon: QrCode, path: "/qr-batch", description: "Generate codes in bulk.", color: "#a3e635", textColor: "text-black" }, // Lime-400
+  { name: "Format", icon: FileText, path: "/text-formatter", description: "Prettify code & JSON.", color: "#fbbf24", textColor: "text-black" }, // Amber-400
+  { name: "Markdown", icon: FileText, path: "/markdown-preview", description: "Live preview editor.", color: "#fb7185", textColor: "text-black" }, // Rose-400
+  { name: "Flashcards", icon: Layers, path: "/flashcards", description: "Study with ease.", color: "#c084fc", textColor: "text-black" }, // Violet-400
+  { name: "Img to PDF", icon: FileImage, path: "/image-to-pdf", description: "Convert images to docs.", color: "#34d399", textColor: "text-black" }, // Emerald-400
 ];
 
 const Home: React.FC = () => {
   return (
-    <div className="space-y-20 pb-20 animate-fade-in">
+    <div className="bg-background min-h-screen animate-fade-in font-sans">
 
-      {/* --- Luxe Header --- */}
-      <header className="space-y-8">
-        <div className="space-y-4">
-          <motion.h1
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            className="text-4xl md:text-7xl font-bold tracking-tight text-[var(--text-primary)]"
-          >
-            Professional toolkit <br />
-            <span className="text-[var(--accent-primary)]">Simplified.</span>
-          </motion.h1>
-          <motion.p
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: 0.1 }}
-            className="text-xl text-[var(--text-secondary)] max-w-2xl font-light"
-          >
-            Everything you need for documents, images, and security.
-            Privacy-first, blazing fast, and professional grade.
-          </motion.p>
-        </div>
+      {/* Hero Section */}
+      <HeroSection />
 
-        <div className="flex flex-wrap gap-4 pt-4">
-          <Link to="/image-toolkit">
-            <button className="btn-luxe flex items-center gap-2 group">
-              Launch Image Toolkit
-              <ChevronRight size={18} className="group-hover:translate-x-1 transition-transform" />
-            </button>
-          </Link>
-          <Link to="/secure-vault">
-            <button className="px-5 py-2.5 rounded-lg border border-[var(--border-color)] font-semibold text-sm hover:bg-white/5 transition-all text-[var(--text-primary)]">
-              Explore Vault
-            </button>
-          </Link>
-        </div>
-      </header>
+      {/* Main Tools Grid */}
+      <section id="tools" className="bg-background relative z-10 py-20 border-t border-border">
 
-      {/* --- Main Sections --- */}
-      {GROUPS.map((group, gIdx) => (
-        <section key={gIdx} className="space-y-8">
-          <div className="flex items-center gap-4">
-            <h2 className="text-xl font-bold tracking-tight uppercase text-xs tracking-widest text-[var(--text-secondary)]/60">{group.title}</h2>
-            <div className="h-px bg-[var(--border-color)] flex-1" />
-          </div>
+        <SectionHeader
+          title="Feed Your Developer Brain"
+          subtitle="Our tools are the ultimate brain food"
+        />
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-            {group.items.map((tool, tIdx) => (
-              <Link key={tIdx} to={tool.path} className="group">
-                <article className="luxe-card p-6 h-full flex flex-col items-start gap-4">
-                  <div className={`w-12 h-12 rounded-xl flex items-center justify-center text-white ${tool.color || 'bg-[var(--bg-secondary)] text-[var(--accent-primary)] border border-[var(--border-color)]'} transition-all group-hover:scale-110 group-hover:rotate-3 shadow-lg shadow-indigo-500/10`}>
-                    <tool.icon size={22} />
-                  </div>
-                  <div className="space-y-1">
-                    <h3 className="font-bold text-lg text-[var(--text-primary)] group-hover:text-[var(--accent-primary)] transition-colors">{tool.name}</h3>
-                    <p className="text-sm text-[var(--text-secondary)] font-normal leading-relaxed">{tool.desc}</p>
-                  </div>
-                </article>
-              </Link>
+        <div className="max-w-7xl mx-auto px-4 md:px-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {ALL_TOOLS.map((tool, idx) => (
+              <ToolCard key={idx} {...tool} />
             ))}
           </div>
-        </section>
-      ))}
-
-      {/* --- Tiny Utility Map --- */}
-      <section className="space-y-6">
-        <div className="flex items-center gap-4">
-          <h2 className="text-xl font-bold tracking-tight uppercase text-xs tracking-widest text-[var(--text-secondary)]/60">Toolkit Map</h2>
-          <div className="h-px bg-[var(--border-color)] flex-1" />
-        </div>
-
-        <div className="flex flex-wrap gap-2">
-          {UTILITIES.map((u, i) => (
-            <Link key={i} to={u.path}>
-              <div className="px-4 py-3 rounded-xl border border-[var(--border-color)] bg-inset hover:border-[var(--accent-primary)] hover:shadow-sm transition-all flex items-center gap-2 group">
-                <u.icon size={16} className="text-[var(--text-secondary)] group-hover:text-[var(--accent-primary)]" />
-                <span className="text-sm font-semibold text-[var(--text-primary)]">{u.name}</span>
-              </div>
-            </Link>
-          ))}
         </div>
       </section>
 
-      {/* --- Footer Signature --- */}
-      <footer className="pt-20 text-center opacity-40">
-        <div className="flex items-center justify-center gap-2 mb-4">
-          <Layers size={14} />
-          <span className="text-[10px] font-bold uppercase tracking-[0.2em]">omniTools Professional</span>
-        </div>
-        <p className="text-xs font-medium">Built for Privacy. Designed for Excellence.</p>
+      {/* Aha Moment Section */}
+      <AhaSection />
+
+      {/* Footer */}
+      <footer className="py-12 text-center text-secondary/40 text-sm border-t border-white/5">
+        <p>&copy; {new Date().getFullYear()} OmniTools Professional. All rights reserved.</p>
       </footer>
     </div>
   );

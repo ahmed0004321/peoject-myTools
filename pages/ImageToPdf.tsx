@@ -78,10 +78,10 @@ const ImageToPdf: React.FC = () => {
   };
 
   return (
-    <div className="max-w-4xl mx-auto">
-      <div className="mb-8">
-        <h1 className="text-3xl font-bold text-[var(--text-primary)]">Image to PDF</h1>
-        <p className="text-[var(--text-secondary)] mt-2">Convert JPG and PNG images to PDF instantly.</p>
+    <div className="max-w-4xl mx-auto space-y-8">
+      <div className="space-y-2">
+        <h1 className="text-3xl font-display font-bold text-primary">Image to PDF</h1>
+        <p className="text-secondary text-lg">Convert JPG and PNG images to PDF instantly.</p>
       </div>
 
       {images.length === 0 ? (
@@ -92,36 +92,39 @@ const ImageToPdf: React.FC = () => {
           title="Drop your images here"
         />
       ) : (
-        <div className="space-y-6">
+        <div className="space-y-8">
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
             {images.map((img, idx) => (
-              <div key={img.id} className="relative group bg-[var(--bg-secondary)] p-2 rounded-xl shadow-sm border border-[var(--border-color)]">
-                <img
-                  src={img.preview}
-                  alt="preview"
-                  className="w-full h-32 object-cover rounded-lg bg-inset"
-                />
-                <div className="absolute top-1 right-1 flex gap-1">
+              <div key={img.id} className="relative group bg-surface p-2 rounded-xl border border-border transition-all hover:border-[var(--accent-primary)] hover:shadow-lg">
+                <div className="aspect-square w-full rounded-lg overflow-hidden bg-background">
+                  <img
+                    src={img.preview}
+                    alt="preview"
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+
+                <div className="absolute top-2 right-2 flex gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
                   <button
                     onClick={() => removeImage(idx)}
-                    className="p-1 bg-white dark:bg-black rounded-full shadow-md text-slate-600 dark:text-slate-400 hover:text-red-500 transition-colors"
+                    className="p-1.5 bg-background/90 backdrop-blur rounded-full shadow-sm text-secondary hover:text-red-500 hover:bg-background border border-border"
                   >
                     <X size={14} />
                   </button>
                 </div>
-                <div className="flex justify-center mt-2 gap-2">
+                <div className="flex justify-center mt-3 gap-2">
                   <button
                     onClick={() => moveImage(idx, -1)}
                     disabled={idx === 0}
-                    className="p-1.5 rounded-md hover:bg-inset disabled:opacity-30 text-slate-600 dark:text-slate-400"
+                    className="p-1.5 rounded-md hover:bg-background disabled:opacity-30 text-secondary transition-colors"
                   >
                     <ArrowUp size={16} className="rotate-[-90deg]" />
                   </button>
-                  <span className="text-xs font-mono py-1.5 text-slate-400">{idx + 1}</span>
+                  <span className="text-xs font-mono py-1.5 text-secondary">{idx + 1}</span>
                   <button
                     onClick={() => moveImage(idx, 1)}
                     disabled={idx === images.length - 1}
-                    className="p-1.5 rounded-md hover:bg-inset disabled:opacity-30 text-slate-600 dark:text-slate-400"
+                    className="p-1.5 rounded-md hover:bg-background disabled:opacity-30 text-secondary transition-colors"
                   >
                     <ArrowDown size={16} className="rotate-[-90deg]" />
                   </button>
@@ -129,10 +132,10 @@ const ImageToPdf: React.FC = () => {
               </div>
             ))}
 
-            <div className="flex items-center justify-center border-2 border-dashed border-[var(--border-color)] rounded-xl min-h-[160px] bg-inset">
-              <label className="cursor-pointer flex flex-col items-center p-4 text-slate-400 hover:text-indigo-600 transition-colors">
-                <span className="text-2xl font-bold">+</span>
-                <span className="text-sm">Add more</span>
+            <div className="flex items-center justify-center border-2 border-dashed border-border rounded-xl aspect-square hover:border-[var(--accent-primary)] hover:bg-surface/50 transition-all">
+              <label className="cursor-pointer flex flex-col items-center p-4 text-secondary hover:text-[var(--accent-primary)] transition-colors">
+                <span className="text-3xl font-light mb-2">+</span>
+                <span className="text-sm font-medium">Add more</span>
                 <input
                   type="file"
                   className="hidden"
@@ -144,17 +147,17 @@ const ImageToPdf: React.FC = () => {
             </div>
           </div>
 
-          <div className="flex justify-end gap-4 border-t border-[var(--border-color)] pt-6">
+          <div className="flex justify-end gap-4 border-t border-border pt-8">
             <button
               onClick={() => setImages([])}
-              className="px-4 py-2 text-slate-500 dark:text-slate-400 hover:text-red-500 transition-colors"
+              className="px-6 py-3 text-secondary hover:text-red-500 transition-colors font-medium text-sm"
             >
               Clear All
             </button>
             <button
               onClick={convertToPdf}
               disabled={isProcessing}
-              className="flex items-center gap-2 px-8 py-3 bg-indigo-600 text-white rounded-xl font-semibold shadow-lg shadow-indigo-200 hover:bg-indigo-700 hover:scale-105 active:scale-95 transition-all disabled:opacity-70 disabled:scale-100"
+              className="flex items-center gap-2 px-8 py-3 bg-[var(--accent-primary)] text-white rounded-xl font-bold shadow-lg shadow-indigo-500/20 hover:scale-[1.02] active:scale-[0.98] transition-all disabled:opacity-70 disabled:scale-100"
             >
               {isProcessing ? (
                 <>

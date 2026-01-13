@@ -70,7 +70,6 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
       title: "AI Tools",
       items: [
         { name: 'Content Check', path: '/content-detector', icon: Scan },
-        { name: 'Flashcards', path: '/flashcards', icon: Layers },
       ]
     }
   ];

@@ -1,7 +1,7 @@
 import React from 'react';
 import {
   FileImage, Layers, ImageMinus, PenTool, Combine,
-  Settings, Archive, QrCode, RefreshCcw, ShieldCheck, Lock,
+  Settings, QrCode, RefreshCcw, ShieldCheck, Lock,
   Keyboard, FileText, Sparkles
 } from 'lucide-react';
 import HeroSection from '../components/ui/HeroSection';
@@ -28,7 +28,6 @@ const ALL_TOOLS = [
   { name: "QR Batch", icon: QrCode, path: "/qr-batch", description: "Generate codes in bulk.", color: "#a3e635", textColor: "text-black" }, // Lime-400
   { name: "Format", icon: FileText, path: "/text-formatter", description: "Prettify code & JSON.", color: "#fbbf24", textColor: "text-black" }, // Amber-400
   { name: "Markdown", icon: FileText, path: "/markdown-preview", description: "Live preview editor.", color: "#fb7185", textColor: "text-black" }, // Rose-400
-  { name: "Flashcards", icon: Layers, path: "/flashcards", description: "Study with ease.", color: "#c084fc", textColor: "text-black" }, // Violet-400
   { name: "Img to PDF", icon: FileImage, path: "/image-to-pdf", description: "Convert images to docs.", color: "#34d399", textColor: "text-black" }, // Emerald-400
 ];
 

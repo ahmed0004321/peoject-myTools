@@ -2,7 +2,19 @@ import React from 'react';
 import { Star, Sun } from 'lucide-react';
 import { motion } from 'framer-motion';
 
-const TypewriterText = ({ text, className, delay = 0 }: { text: string, className?: string, delay?: number }) => {
+// Brand colors for letter-by-letter coloring
+const LETTER_COLORS = [
+    '#10b981', // green
+    '#ec4899', // pink
+    '#eab308', // yellow
+    '#06b6d4', // cyan
+    '#f97316', // orange
+    '#a855f7', // purple
+    '#14b8a6', // teal
+    '#84cc16', // lime
+];
+
+const TypewriterText = ({ text, className, delay = 0, colorful = false }: { text: string, className?: string, delay?: number, colorful?: boolean }) => {
     return (
         <span className={className}>
             {text.split('').map((char, i) => (
@@ -11,6 +23,7 @@ const TypewriterText = ({ text, className, delay = 0 }: { text: string, classNam
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     transition={{ duration: 0, delay: delay + i * 0.05 }}
+                    style={colorful && char !== ' ' ? { color: LETTER_COLORS[i % LETTER_COLORS.length] } : {}}
                 >
                     {char}
                 </motion.span>
@@ -18,6 +31,7 @@ const TypewriterText = ({ text, className, delay = 0 }: { text: string, classNam
         </span>
     );
 };
+
 
 const HeroSection: React.FC = () => {
     return (
@@ -33,7 +47,7 @@ const HeroSection: React.FC = () => {
                         className="space-y-4"
                     >
                         <h1 className="font-display font-black text-4xl md:text-5xl lg:text-7xl uppercase leading-[0.9] tracking-tight">
-                            <TypewriterText text="Professional Toolkit" /> <br />
+                            <TypewriterText text="Professional Toolkit" colorful /> <br />
                             <TypewriterText text="Simplified." className="text-brand-yellow" delay={1.0} />
                         </h1>
                         <p className="text-xl md:text-2xl font-medium text-primary">

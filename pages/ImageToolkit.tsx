@@ -255,11 +255,11 @@ const ImageToolkit: React.FC = () => {
                         </div>
                     ) : (
                         <div className="space-y-4">
-                            <div className="flex justify-between items-center bg-[var(--bg-secondary)] p-4 rounded-xl border border-[var(--border-color)] shadow-sm">
+                            <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 bg-[var(--bg-secondary)] p-4 rounded-xl border border-[var(--border-color)] shadow-sm">
                                 <h3 className="font-bold text-[var(--text-primary)] flex items-center gap-2">
                                     <Layers className="text-indigo-600 dark:text-indigo-400" /> Queue ({jobs.length})
                                 </h3>
-                                <div className="flex gap-2">
+                                <div className="flex flex-wrap gap-2 w-full sm:w-auto">
                                     <FileUploader onFilesSelected={handleFiles} accept="image/*" title="Add More" />
                                     <Button variant="danger" size="sm" onClick={clearAll}><Trash2 size={16} className="mr-2" /> Clear All</Button>
                                 </div>

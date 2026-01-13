@@ -21,7 +21,6 @@ import TypingTest from './pages/TypingTest';
 import SecureVault from './pages/SecureVault';
 import DocumentScanner from './pages/DocumentScanner';
 import ContentDetector from './pages/ContentDetector';
-import FlashcardGenerator from './pages/FlashcardGenerator';
 import OfflineIndicator from './components/OfflineIndicator';
 
 const App: React.FC = () => {
@@ -61,7 +60,6 @@ const App: React.FC = () => {
           <Route path="/qr-tool" element={<QrTool />} />
           <Route path="/qr-batch" element={<QrBatch />} />
           <Route path="/content-detector" element={<ContentDetector />} />
-          <Route path="/flashcards" element={<FlashcardGenerator />} />
 
           {/* Archives */}
           <Route path="/compress-tool" element={<CompressTool />} />

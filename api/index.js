@@ -92,55 +92,6 @@ app.post('/analyze', async (req, res) => {
     }
 });
 
-// Gemini Flashcard Endpoint
-// Gemini Flashcard Endpoint
-app.post('/flashcards', async (req, res) => {
-    try {
-        const { text } = req.body;
-        const apiKey = process.env.GEMINI_API_KEY;
-
-        if (!apiKey) {
-            console.error("Gemini API Key missing in backend environment variables.");
-            return res.status(500).json({ error: "Server Configuration Error: AI service currently unavailable." });
-        }
-        if (!text) return res.status(400).json({ error: "No text provided" });
-
-        const genAI = new GoogleGenerativeAI(apiKey);
-        const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
-
-        const prompt = `
-        You are an expert tutor. Create 15 study flashcards from the following text.
-        
-        Requirements:
-        1. Mix of "Term/Definition" and "Question/Answer" styles.
-        2. Keep "Front" concise (under 20 words).
-        3. Keep "Back" informative but recallable (under 50 words).
-        4. Focus on key concepts, dates, formulas, or definitions.
-
-        Return JSON:
-        {
-            "cards": [
-                { "front": "string", "back": "string", "tag": "string (category)" }
-            ]
-        }
-
-        Text:
-        "${text.slice(0, 100000)}"
-        `;
-
-        const result = await model.generateContent(prompt);
-        const response = await result.response;
-        // Clean markdown if present
-        const cleanJson = response.text().replace(/```json/g, '').replace(/```/g, '').trim();
-
-        res.json(JSON.parse(cleanJson));
-
-    } catch (error) {
-        console.error("Flashcards Generation Failed:", error);
-        // Generic error to client
-        res.status(500).json({ error: "Flashcards temporarily unavailable. Please try again later." });
-    }
-});
 
 // We can add simple file handling routes if necessary, 
 // but most new tools (Zip, QR, Converter, Password) will be client-side.

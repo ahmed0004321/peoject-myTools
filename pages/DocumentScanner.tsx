@@ -482,7 +482,7 @@ const DocumentScanner: React.FC = () => {
                         className="grid grid-cols-1 lg:grid-cols-3 gap-8"
                     >
                         <div className="lg:col-span-2 space-y-6">
-                            <div className="luxe-card p-1 overflow-hidden relative group aspect-[4/3] flex items-center justify-center bg-black/20">
+                            <div className="luxe-card p-1 overflow-y-auto relative group min-h-[450px] lg:aspect-[4/3] flex items-center justify-center bg-black/20">
                                 {isCapturing ? (
                                     <div className="relative w-full h-full">
                                         <Webcam

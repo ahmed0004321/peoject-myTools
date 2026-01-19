@@ -1,9 +1,8 @@
 
 import React, { useState, useEffect } from 'react';
-import { Copy, RefreshCw, ShieldCheck, Check, ArrowLeft } from 'lucide-react';
-import Card from '../components/ui/Card';
-import Button from '../components/ui/Button';
+import { Copy, RefreshCw, ShieldCheck, Check, ArrowLeft, Settings2 } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import SectionHeader from '../components/ui/SectionHeader';
 
 const PasswordTool: React.FC = () => {
     const [password, setPassword] = useState("");
@@ -48,7 +47,7 @@ const PasswordTool: React.FC = () => {
     }, [password]);
 
     const strengthColor = () => {
-        if (strength <= 2) return 'bg-red-500';
+        if (strength <= 2) return 'bg-rose-500';
         if (strength <= 4) return 'bg-amber-500';
         return 'bg-emerald-500';
     };
@@ -60,92 +59,91 @@ const PasswordTool: React.FC = () => {
     };
 
     return (
-        <div className="max-w-2xl mx-auto">
-            <Link to="/" className="inline-flex items-center text-[var(--text-secondary)] hover:text-[var(--accent-primary)] mb-6 transition-colors">
-                <ArrowLeft size={16} className="mr-2" /> Back to Dashboard
-            </Link>
+        <div className="min-h-screen bg-background pb-20 animate-fade-in text-primary">
+            <SectionHeader
+                title="Secure PassGen"
+                subtitle="Generate encryption-grade passwords instantly."
+                badge="Generator"
+            />
 
-            <div className="mb-8 text-center">
-                <h1 className="text-3xl font-bold text-[var(--text-primary)] tracking-tight">Secure PassGen</h1>
-                <p className="text-[var(--text-secondary)] mt-2">Generate encryption-grade passwords instantly.</p>
-            </div>
-
-            <Card className="p-0 overflow-hidden shadow-xl shadow-indigo-100/10 border-[var(--border-color)]">
-                <div className="p-12 bg-black text-white text-center relative group overflow-hidden border-b border-[var(--border-color)]">
-                    <div className="absolute inset-0 bg-gradient-to-br from-indigo-900/10 to-transparent opacity-50"></div>
-                    <div className="text-4xl font-mono tracking-wider break-all mb-8 font-bold text-transparent bg-clip-text bg-gradient-to-r from-indigo-200 to-white selection:bg-indigo-500 selection:text-white">
-                        {password}
-                    </div>
-
-                    <div className="flex justify-center gap-4 relative z-10">
-                        <Button
-                            variant="ghost"
-                            onClick={generate}
-                            className="bg-white/10 hover:bg-white/20 text-white border-0"
-                            title="Regenerate"
-                        >
-                            <RefreshCw size={20} className="mr-2" /> Regenerate
-                        </Button>
-                        <Button
-                            variant="primary"
-                            onClick={() => { navigator.clipboard.writeText(password); setCopied(true); setTimeout(() => setCopied(false), 2000); }}
-                            className={`transition-all duration-300 ${copied ? 'bg-emerald-500 hover:bg-emerald-600 shadow-emerald-900/20' : ''}`}
-                            title="Copy"
-                        >
-                            {copied ? <><Check size={20} className="mr-2" /> Copied!</> : <><Copy size={20} className="mr-2" /> Copy Password</>}
-                        </Button>
-                    </div>
-
-                    {/* Strength Meter */}
-                    <div className="absolute bottom-0 left-0 right-0 h-1.5 bg-white/5">
-                        <div className={`h-full transition-all duration-500 ease-out ${strengthColor()} shadow-[0_-2px_10px_rgba(255,255,255,0.2)]`} style={{ width: `${(strength / 5) * 100}%` }}></div>
-                    </div>
-                </div>
-
-                <div className="p-8 space-y-8 bg-[var(--bg-secondary)]/80 backdrop-blur-md">
-                    <div className="flex items-center justify-between p-4 bg-inset rounded-xl border border-[var(--border-color)]">
-                        <span className="font-semibold text-[var(--text-secondary)] flex items-center gap-2">
-                            <ShieldCheck size={18} /> Security Level
-                        </span>
-                        <span className={`font-bold uppercase tracking-wider text-xs px-3 py-1 rounded-full ${strength <= 2 ? 'bg-red-500/10 text-red-500' : strength <= 4 ? 'bg-amber-500/10 text-amber-500' : 'bg-emerald-500/10 text-emerald-500'}`}>
-                            {strengthText()}
-                        </span>
-                    </div>
-
-                    <div className="space-y-4">
-                        <div className="flex justify-between items-center text-xs font-bold text-slate-400 uppercase tracking-widest">
-                            <span>Length</span>
-                            <span className="text-indigo-600 dark:text-indigo-400">{length} characters</span>
+            <div className="max-w-2xl mx-auto px-4 mt-8">
+                <div className="bg-surface border border-border rounded-3xl shadow-xl overflow-hidden animate-slide-up">
+                    <div className="p-12 bg-black relative group overflow-hidden border-b border-border">
+                        <div className="absolute inset-0 bg-gradient-to-br from-brand-purple/20 to-transparent opacity-50"></div>
+                        <div className="text-4xl font-mono tracking-wider break-all mb-8 font-bold text-center text-transparent bg-clip-text bg-gradient-to-r from-purple-200 to-white selection:bg-brand-purple selection:text-white">
+                            {password}
                         </div>
-                        <input
-                            type="range"
-                            min="6" max="32"
-                            value={length}
-                            onChange={(e) => setLength(Number(e.target.value))}
-                            className="w-full h-1.5 bg-inset rounded-lg appearance-none cursor-pointer accent-indigo-600 hover:accent-indigo-500 transition-all"
-                        />
+
+                        <div className="flex justify-center gap-4 relative z-10">
+                            <button
+                                onClick={generate}
+                                className="px-6 py-3 bg-white/10 hover:bg-white/20 text-white rounded-xl font-bold backdrop-blur-sm transition-all flex items-center gap-2"
+                                title="Regenerate"
+                            >
+                                <RefreshCw size={20} /> Regenerate
+                            </button>
+                            <button
+                                onClick={() => { navigator.clipboard.writeText(password); setCopied(true); setTimeout(() => setCopied(false), 2000); }}
+                                className={`px-6 py-3 rounded-xl font-bold transition-all flex items-center gap-2 shadow-lg ${copied ? 'bg-emerald-500 text-white shadow-emerald-500/20' : 'bg-white text-black hover:bg-indigo-50'}`}
+                                title="Copy"
+                            >
+                                {copied ? <><Check size={20} /> Copied!</> : <><Copy size={20} /> Copy Password</>}
+                            </button>
+                        </div>
+
+                        {/* Strength Meter */}
+                        <div className="absolute bottom-0 left-0 right-0 h-1.5 bg-white/10">
+                            <div className={`h-full transition-all duration-500 ease-out ${strengthColor()} shadow-[0_-2px_10px_rgba(255,255,255,0.5)]`} style={{ width: `${(strength / 5) * 100}%` }}></div>
+                        </div>
                     </div>
 
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                        {[
-                            { label: 'Uppercase', checked: includeUpper, setter: setIncludeUpper, char: 'A-Z' },
-                            { label: 'Numbers', checked: includeNums, setter: setIncludeNums, char: '0-9' },
-                            { label: 'Symbols', checked: includeSyms, setter: setIncludeSyms, char: '!@#' },
-                        ].map((opt) => (
-                            <label key={opt.label} className={`flex flex-col items-center gap-2 p-4 border rounded-xl cursor-pointer transition-all duration-200 ${opt.checked ? 'border-indigo-500 dark:border-indigo-400 bg-indigo-50 dark:bg-indigo-900/10 shadow-sm' : 'border-[var(--border-color)] bg-inset hover:bg-white/5'}`}>
-                                <div className="flex justify-between w-full items-center mb-1">
-                                    <span className="text-sm font-bold text-[var(--text-primary)]">{opt.label}</span>
-                                    <input type="checkbox" checked={opt.checked} onChange={(e) => opt.setter(e.target.checked)} className="w-4 h-4 accent-indigo-600 rounded" />
-                                </div>
-                                <span className="text-xs font-mono text-slate-400 dark:text-slate-500">{opt.char}</span>
-                            </label>
-                        ))}
+                    <div className="p-8 space-y-8 bg-surface">
+                        <div className="flex items-center justify-between p-4 bg-inset rounded-xl border border-border">
+                            <span className="font-bold text-secondary flex items-center gap-2 text-sm uppercase">
+                                <ShieldCheck size={18} /> Security Level
+                            </span>
+                            <span className={`font-bold uppercase tracking-wider text-xs px-3 py-1 rounded-full ${strength <= 2 ? 'bg-rose-500/10 text-rose-500' : strength <= 4 ? 'bg-amber-500/10 text-amber-500' : 'bg-emerald-500/10 text-emerald-500'}`}>
+                                {strengthText()}
+                            </span>
+                        </div>
+
+                        <div className="space-y-4">
+                            <div className="flex justify-between items-center text-xs font-bold text-secondary uppercase tracking-widest">
+                                <span>Length</span>
+                                <span className="text-brand-purple">{length} characters</span>
+                            </div>
+                            <input
+                                type="range"
+                                min="6" max="32"
+                                value={length}
+                                onChange={(e) => setLength(Number(e.target.value))}
+                                className="w-full h-2 bg-inset rounded-lg appearance-none cursor-pointer accent-brand-purple hover:accent-purple-600 transition-all"
+                            />
+                        </div>
+
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                            {[
+                                { label: 'Uppercase', checked: includeUpper, setter: setIncludeUpper, char: 'A-Z' },
+                                { label: 'Numbers', checked: includeNums, setter: setIncludeNums, char: '0-9' },
+                                { label: 'Symbols', checked: includeSyms, setter: setIncludeSyms, char: '!@#' },
+                            ].map((opt) => (
+                                <label key={opt.label} className={`flex flex-col items-center gap-2 p-4 border rounded-xl cursor-pointer transition-all duration-200 group ${opt.checked ? 'border-brand-purple bg-brand-purple/5 shadow-sm' : 'border-border bg-inset hover:bg-inset/80'}`}>
+                                    <div className="flex justify-between w-full items-center mb-1">
+                                        <span className="text-sm font-bold text-primary group-hover:text-brand-purple transition-colors">{opt.label}</span>
+                                        <div className={`w-5 h-5 rounded flex items-center justify-center transition-all ${opt.checked ? 'bg-brand-purple text-white' : 'bg-surface border border-border'}`}>
+                                            {opt.checked && <Check size={12} />}
+                                        </div>
+                                    </div>
+                                    <span className="text-xs font-mono text-secondary opacity-50">{opt.char}</span>
+                                    <input type="checkbox" checked={opt.checked} onChange={(e) => opt.setter(e.target.checked)} className="hidden" />
+                                </label>
+                            ))}
+                        </div>
                     </div>
                 </div>
-            </Card>
+            </div>
         </div>
     );
 };
 
 export default PasswordTool;
-

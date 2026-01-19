@@ -31,7 +31,7 @@ app.use(express.json({ limit: '50mb' }));
 
 // Health Check
 app.get('/', (req, res) => {
-    res.json({ status: 'online', service: 'omniTools Utils Backend' });
+    res.json({ status: 'online', service: 'myTools Utils Backend' });
 });
 
 // Gemini Analysis Endpoint

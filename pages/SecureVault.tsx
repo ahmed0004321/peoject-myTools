@@ -1,7 +1,6 @@
 import React, { useState, useRef } from 'react';
-import Card from '../components/ui/Card';
-import Button from '../components/ui/Button';
-import { ShieldCheck, Lock, Unlock, Upload, FileKey, X, Eye, EyeOff, AlertCircle } from 'lucide-react';
+import { ShieldCheck, Lock, Unlock, Upload, FileKey, X, Eye, EyeOff, AlertCircle, Download, CheckCircle2 } from 'lucide-react';
+import SectionHeader from '../components/ui/SectionHeader';
 
 const MAGIC_BYTES = new Uint8Array([0x4F, 0x54, 0x56, 0x31]); // "OTV1" (omniTools Vault v1)
 
@@ -116,6 +115,8 @@ const SecureVault: React.FC = () => {
                 let outName = file.name;
                 if (outName.endsWith('.mtv')) {
                     outName = outName.slice(0, -4);
+                } else if (outName.endsWith('.otv')) {
+                    outName = outName.slice(0, -4);
                 } else if (outName.endsWith('.enc')) {
                     outName = outName.slice(0, -4);
                 } else {
@@ -130,7 +131,7 @@ const SecureVault: React.FC = () => {
             console.error(e);
             let msg = "Operation Failed.";
             if (mode === 'decrypt') {
-                if (e.message?.includes('format')) msg = "Invalid file format. Please used a .mtv file.";
+                if (e.message?.includes('format')) msg = "Invalid file format. Please used a .otv file.";
                 else msg = "Decryption failed. Incorrect password or corrupted file.";
             }
             setError(msg);
@@ -140,108 +141,122 @@ const SecureVault: React.FC = () => {
     };
 
     return (
-        <div className="max-w-xl mx-auto space-y-6">
-            <Card>
-                <div className="text-center mb-8">
-                    <div className="inline-block p-4 rounded-full bg-indigo-50 dark:bg-indigo-900/20 text-indigo-600 dark:text-indigo-400 mb-4">
-                        <ShieldCheck size={40} />
+        <div className="min-h-screen bg-background pb-20 animate-fade-in">
+            <SectionHeader
+                title="Secure File Vault"
+                subtitle="AES-256 Client-Side Encryption. Your data never leaves your device."
+                badge="Military Grade"
+            />
+
+            <div className="max-w-xl mx-auto px-4 mt-8">
+                <div className="bg-surface border border-border rounded-3xl shadow-xl p-8 animate-slide-up">
+                    <div className="flex rounded-xl bg-inset p-1.5 mb-8 border border-border">
+                        <button
+                            onClick={() => { setMode('encrypt'); setFile(null); setStatus(null); setError(null); }}
+                            className={`flex-1 py-3 text-sm font-bold rounded-lg transition-all flex items-center justify-center gap-2 ${mode === 'encrypt' ? 'bg-surface shadow-md text-brand-purple' : 'text-secondary hover:text-primary'}`}
+                        >
+                            <Lock size={18} /> Encrypt
+                        </button>
+                        <button
+                            onClick={() => { setMode('decrypt'); setFile(null); setStatus(null); setError(null); }}
+                            className={`flex-1 py-3 text-sm font-bold rounded-lg transition-all flex items-center justify-center gap-2 ${mode === 'decrypt' ? 'bg-surface shadow-md text-emerald-500' : 'text-secondary hover:text-primary'}`}
+                        >
+                            <Unlock size={18} /> Decrypt
+                        </button>
                     </div>
-                    <h2 className="text-2xl font-bold text-[var(--text-primary)]">Secure File Vault</h2>
-                    <p className="text-[var(--text-secondary)] mt-2">AES-256 Client-Side Encryption (.mtv format)</p>
-                </div>
 
-                <div className="flex rounded-lg bg-inset p-1 mb-8">
-                    <button
-                        onClick={() => { setMode('encrypt'); setFile(null); setStatus(null); setError(null); }}
-                        className={`flex-1 py-2 text-sm font-medium rounded-md transition-all flex items-center justify-center gap-2 ${mode === 'encrypt' ? 'bg-[var(--bg-secondary)] shadow-sm text-indigo-600 dark:text-indigo-400' : 'text-slate-500 hover:text-slate-700 dark:hover:text-slate-300'}`}
-                    >
-                        <Lock size={16} /> Encrypt
-                    </button>
-                    <button
-                        onClick={() => { setMode('decrypt'); setFile(null); setStatus(null); setError(null); }}
-                        className={`flex-1 py-2 text-sm font-medium rounded-md transition-all flex items-center justify-center gap-2 ${mode === 'decrypt' ? 'bg-[var(--bg-secondary)] shadow-sm text-indigo-600 dark:text-indigo-400' : 'text-slate-500 hover:text-slate-700 dark:hover:text-slate-300'}`}
-                    >
-                        <Unlock size={16} /> Decrypt
-                    </button>
-                </div>
-
-                {/* Main Logic Same, just updated file parsing */}
-                <div className="space-y-6">
-                    <div
-                        className={`border-2 border-dashed rounded-xl p-8 text-center cursor-pointer transition-colors bg-inset ${file ? 'border-indigo-400 bg-indigo-50 dark:bg-indigo-900/10' : 'border-[var(--border-color)] hover:border-indigo-500'}`}
-                        onClick={() => fileInputRef.current?.click()}
-                    >
-                        <input type="file" className="hidden" ref={fileInputRef} onChange={handleFile} />
-                        {file ? (
-                            <div className="flex flex-col items-center">
-                                <FileKey size={32} className="text-indigo-500 mb-2" />
-                                <p className="font-medium text-[var(--text-primary)] break-all text-sm md:text-base">{file.name}</p>
-                                <p className="text-xs text-[var(--text-secondary)] mt-1">{(file.size / 1024).toFixed(1)} KB</p>
-                                <div className="flex flex-wrap gap-2 mt-4 justify-center">
-                                    <span className="text-xs text-indigo-600 dark:text-indigo-400 font-bold uppercase py-1 px-2 bg-indigo-100 dark:bg-indigo-900/30 rounded">Selected</span>
-                                    <button
-                                        onClick={(e) => { e.stopPropagation(); setFile(null); }}
-                                        className="p-1 hover:bg-[var(--bg-primary)] rounded text-slate-400 hover:text-red-500"
-                                    >
-                                        <X size={14} />
-                                    </button>
+                    <div className="space-y-6">
+                        <div
+                            className={`border-2 border-dashed rounded-2xl p-8 text-center cursor-pointer transition-all ${file
+                                ? 'border-brand-purple bg-brand-purple/5'
+                                : 'border-border bg-inset/50 hover:border-brand-purple hover:bg-inset'}`}
+                            onClick={() => fileInputRef.current?.click()}
+                        >
+                            <input type="file" className="hidden" ref={fileInputRef} onChange={handleFile} />
+                            {file ? (
+                                <div className="flex flex-col items-center">
+                                    <div className="w-16 h-16 rounded-2xl bg-brand-purple/10 flex items-center justify-center text-brand-purple mb-4">
+                                        <FileKey size={32} />
+                                    </div>
+                                    <p className="font-bold text-primary break-all text-sm md:text-base">{file.name}</p>
+                                    <p className="text-xs text-secondary mt-1">{(file.size / 1024).toFixed(1)} KB</p>
+                                    <div className="flex flex-wrap gap-2 mt-4 justify-center">
+                                        <span className="text-xs text-brand-purple font-bold uppercase py-1 px-3 bg-brand-purple/10 rounded-full">Selected</span>
+                                        <button
+                                            onClick={(e) => { e.stopPropagation(); setFile(null); }}
+                                            className="p-1 hover:bg-rose-500/10 rounded-full text-secondary hover:text-rose-500 transition-colors"
+                                        >
+                                            <X size={16} />
+                                        </button>
+                                    </div>
                                 </div>
+                            ) : (
+                                <div className="flex flex-col items-center text-secondary py-4">
+                                    <div className="w-16 h-16 rounded-2xl bg-inset flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                                        <Upload size={32} className="opacity-50" />
+                                    </div>
+                                    <p className="font-bold text-primary">Click to select a file</p>
+                                    <p className="text-xs mt-1">or drag and drop</p>
+                                </div>
+                            )}
+                        </div>
+
+                        <div className="space-y-3">
+                            <label className="text-xs font-bold text-secondary uppercase tracking-wider">Passphrase</label>
+                            <div className="relative">
+                                <input
+                                    type={showPassword ? "text" : "password"}
+                                    value={password}
+                                    onChange={(e) => setPassword(e.target.value)}
+                                    className="w-full p-4 pr-12 rounded-xl border border-border bg-inset focus:ring-2 focus:ring-brand-purple/50 focus:border-brand-purple outline-none transition-all text-primary placeholder:text-secondary/30 font-medium"
+                                    placeholder={mode === 'encrypt' ? "Create a strong password..." : "Enter decryption password..."}
+                                />
+                                <button
+                                    onClick={() => setShowPassword(!showPassword)}
+                                    className="absolute right-4 top-1/2 -translate-y-1/2 text-secondary hover:text-primary transition-colors"
+                                >
+                                    {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+                                </button>
                             </div>
-                        ) : (
-                            <div className="flex flex-col items-center text-slate-400 dark:text-slate-600">
-                                <Upload size={32} className="mb-2 opacity-50" />
-                                <p className="font-medium text-[var(--text-secondary)]">Click to select a file</p>
-                                <p className="text-xs mt-1 text-slate-500">or drag and drop</p>
+                        </div>
+
+                        <button
+                            onClick={processFile}
+                            disabled={!file || !password || isProcessing}
+                            className={`w-full py-4 text-white rounded-xl font-bold transition-all hover:scale-105 shadow-xl flex items-center justify-center gap-3 disabled:opacity-50 disabled:scale-100 ${mode === 'encrypt'
+                                    ? 'bg-brand-purple hover:bg-purple-600 shadow-purple-500/20'
+                                    : 'bg-emerald-500 hover:bg-emerald-600 shadow-emerald-500/20'
+                                }`}
+                        >
+                            {isProcessing ? (
+                                <span className="animate-pulse">Processing...</span>
+                            ) : mode === 'encrypt' ? (
+                                <><Lock size={20} /> Encrypt & Download</>
+                            ) : (
+                                <><Unlock size={20} /> Decrypt & Restore</>
+                            )}
+                        </button>
+
+                        {status && (
+                            <div className="p-4 bg-emerald-500/10 border border-emerald-500/20 text-emerald-600 rounded-xl text-center text-sm font-bold flex items-center justify-center gap-2 animate-fade-in">
+                                <CheckCircle2 size={18} /> {status}
                             </div>
                         )}
+
+                        {error && (
+                            <div className="p-4 bg-rose-500/10 border border-rose-500/20 text-rose-500 rounded-xl text-center text-sm font-bold flex items-center justify-center gap-2 animate-shake">
+                                <AlertCircle size={18} /> {error}
+                            </div>
+                        )}
+
+                        <p className="text-[10px] text-secondary text-center px-4 leading-relaxed">
+                            <span className="font-bold text-rose-500">Important:</span> We use AES-256 for military-grade protection. If you lose your password, your data is lost forever. We cannot recover it.
+                        </p>
                     </div>
-
-                    <div className="space-y-2">
-                        <label className="text-xs font-bold text-slate-400 dark:text-slate-500 uppercase">Passphrase</label>
-                        <div className="relative">
-                            <input
-                                type={showPassword ? "text" : "password"}
-                                value={password}
-                                onChange={(e) => setPassword(e.target.value)}
-                                className="w-full p-3 pr-10 rounded-lg border border-[var(--border-color)] bg-inset outline-none focus:border-indigo-500 transition-colors text-[var(--text-primary)]"
-                                placeholder="Enter a strong password..."
-                            />
-                            <button
-                                onClick={() => setShowPassword(!showPassword)}
-                                className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-indigo-600"
-                            >
-                                {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
-                            </button>
-                        </div>
-                    </div>
-
-                    <Button
-                        onClick={processFile}
-                        disabled={!file || !password || isProcessing}
-                        className="w-full h-12 text-lg"
-                        variant={mode === 'encrypt' ? 'primary' : 'secondary'}
-                    >
-                        {mode === 'encrypt' ? 'Encrypt & Download' : 'Decrypt & Restore'}
-                    </Button>
-
-                    {status && (
-                        <div className="p-4 bg-emerald-50 dark:bg-emerald-900/20 text-emerald-700 dark:text-emerald-400 rounded-xl text-center text-sm font-medium border border-emerald-100 dark:border-emerald-900/50">
-                            {status}
-                        </div>
-                    )}
-
-                    {error && (
-                        <div className="p-4 bg-red-50 dark:bg-red-900/20 text-red-700 dark:text-red-400 rounded-xl text-center text-sm font-medium border border-red-100 dark:border-red-900/50 flex items-center justify-center gap-2">
-                            <AlertCircle size={16} /> {error}
-                        </div>
-                    )}
-
-                    <p className="text-xs text-[var(--text-secondary)] text-center px-4">
-                        <b>Important:</b> We use AES-256 for military-grade protection. If you lose your password, your data is lost forever. We cannot recover it.
-                    </p>
                 </div>
-            </Card>
+            </div>
         </div>
     );
 };
+
 export default SecureVault;

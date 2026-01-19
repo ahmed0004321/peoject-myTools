@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
-import Card from '../components/ui/Card';
-import Button from '../components/ui/Button';
 import { QrCode, Download, Printer, Layers } from 'lucide-react';
 import QRCode from 'qrcode';
 import JSZip from 'jszip';
+import SectionHeader from '../components/ui/SectionHeader';
 
 const QrBatch: React.FC = () => {
     const [input, setInput] = useState('');
@@ -80,56 +79,76 @@ const QrBatch: React.FC = () => {
     };
 
     return (
-        <div className="max-w-5xl mx-auto space-y-6">
-            <Card>
-                <div className="flex justify-between items-center mb-6">
-                    <h2 className="text-2xl font-bold flex items-center gap-2"><Layers className="text-indigo-600" /> Bulk QR Generator</h2>
-                </div>
+        <div className="min-h-screen bg-background pb-20 animate-fade-in">
+            <SectionHeader
+                title="Bulk QR Generator"
+                subtitle="Generate multiple QR codes at once for inventory or events."
+                badge="Batch Mode"
+            />
 
-                <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                    <div className="space-y-4">
-                        <label className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase">Input Lines (One per QR)</label>
-                        <textarea
-                            value={input}
-                            onChange={(e) => setInput(e.target.value)}
-                            className="w-full h-96 p-4 rounded-xl border border-[var(--border-color)] dark:bg-white/5 focus:border-indigo-500 dark:focus:border-indigo-400 outline-none font-mono text-sm resize-none dark:text-white"
-                            placeholder={"https://example.com/1\nhttps://example.com/2\nModel-123\nModel-456"}
-                        />
-                        <Button onClick={generate} disabled={generating} className="w-full">
-                            {generating ? 'Generating...' : `Generate ${input.split('\n').filter(l => l.trim()).length} QRs`}
-                        </Button>
+            <div className="max-w-5xl mx-auto px-4">
+                <div className="bg-surface border border-border rounded-3xl shadow-xl p-6 lg:p-8 animate-slide-up">
+                    <div className="flex justify-between items-center mb-6">
+                        <h2 className="text-2xl font-bold flex items-center gap-2 text-primary"><Layers className="text-brand-purple" /> Generator</h2>
                     </div>
 
-                    <div className="lg:col-span-2 bg-inset rounded-xl p-4 border border-[var(--border-color)] flex flex-col h-[500px]">
-                        <div className="flex justify-between items-center mb-4">
-                            <span className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase">{qrs.length} Generated</span>
-                            <div className="flex gap-2">
-                                <Button onClick={print} disabled={qrs.length === 0} variant="secondary" className="text-xs px-3 py-1">
-                                    <Printer size={14} className="mr-1" /> Print
-                                </Button>
-                                <Button onClick={downloadZip} disabled={qrs.length === 0} variant="secondary" className="text-xs px-3 py-1">
-                                    <Download size={14} className="mr-1" /> ZIP
-                                </Button>
+                    <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                        <div className="space-y-4">
+                            <label className="text-xs font-bold text-secondary uppercase">Input Lines (One per QR)</label>
+                            <textarea
+                                value={input}
+                                onChange={(e) => setInput(e.target.value)}
+                                className="w-full h-96 p-4 rounded-xl border border-border bg-inset focus:ring-2 focus:ring-brand-purple/50 focus:border-brand-purple outline-none font-mono text-sm resize-none text-primary placeholder:text-secondary/30 transition-all shadow-inner"
+                                placeholder={"https://example.com/1\nhttps://example.com/2\nModel-123\nModel-456"}
+                            />
+                            <button
+                                onClick={generate}
+                                disabled={generating}
+                                className="w-full py-4 bg-brand-purple text-white rounded-xl font-bold hover:bg-purple-600 transition-all hover:scale-105 shadow-lg shadow-purple-500/20 disabled:opacity-50 disabled:scale-100 flex items-center justify-center gap-2"
+                            >
+                                {generating ? 'Generating...' : `Generate ${input.split('\n').filter(l => l.trim()).length} QRs`}
+                            </button>
+                        </div>
+
+                        <div className="lg:col-span-2 bg-inset rounded-xl p-4 border border-border flex flex-col h-[500px]">
+                            <div className="flex justify-between items-center mb-4">
+                                <span className="text-xs font-bold text-secondary uppercase">{qrs.length} Generated</span>
+                                <div className="flex gap-2">
+                                    <button
+                                        onClick={print}
+                                        disabled={qrs.length === 0}
+                                        className="px-4 py-2 rounded-lg bg-surface border border-border text-primary font-bold text-sm hover:bg-secondary/10 transition-all flex items-center gap-2 disabled:opacity-50"
+                                    >
+                                        <Printer size={14} /> Print
+                                    </button>
+                                    <button
+                                        onClick={downloadZip}
+                                        disabled={qrs.length === 0}
+                                        className="px-4 py-2 rounded-lg bg-surface border border-border text-primary font-bold text-sm hover:bg-secondary/10 transition-all flex items-center gap-2 disabled:opacity-50"
+                                    >
+                                        <Download size={14} /> ZIP
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div className="flex-1 overflow-y-auto grid grid-cols-2 sm:grid-cols-3 xl:grid-cols-4 gap-4 p-2 custom-scrollbar">
+                                {qrs.map((q, i) => (
+                                    <div key={i} className="bg-surface p-3 rounded-xl shadow-sm border border-border flex flex-col items-center text-center hover:scale-105 transition-transform">
+                                        <img src={q.dataUrl} alt="QR" className="w-full aspect-square" />
+                                        <p className="text-[10px] text-secondary mt-2 break-all line-clamp-2">{q.text}</p>
+                                    </div>
+                                ))}
+                                {qrs.length === 0 && (
+                                    <div className="col-span-full h-full flex flex-col items-center justify-center text-secondary/30">
+                                        <QrCode size={48} className="mb-2" />
+                                        <p>Ready to generate</p>
+                                    </div>
+                                )}
                             </div>
                         </div>
-
-                        <div className="flex-1 overflow-y-auto grid grid-cols-2 sm:grid-cols-3 xl:grid-cols-4 gap-4 p-2">
-                            {qrs.map((q, i) => (
-                                <div key={i} className="bg-white dark:bg-white/5 p-3 rounded-lg shadow-sm border border-[var(--border-color)] flex flex-col items-center text-center">
-                                    <img src={q.dataUrl} alt="QR" className="w-full aspect-square" />
-                                    <p className="text-[10px] text-slate-500 dark:text-slate-400 mt-2 break-all line-clamp-2">{q.text}</p>
-                                </div>
-                            ))}
-                            {qrs.length === 0 && (
-                                <div className="col-span-full h-full flex flex-col items-center justify-center text-slate-300 dark:text-slate-600">
-                                    <QrCode size={48} className="mb-2 opacity-50" />
-                                    <p>Ready to generate</p>
-                                </div>
-                            )}
-                        </div>
                     </div>
                 </div>
-            </Card>
+            </div>
         </div>
     );
 };

@@ -23,8 +23,8 @@ export default defineConfig(({ mode }) => {
         registerType: 'autoUpdate',
         includeAssets: ['favicon.ico', 'apple-touch-icon.png', 'mask-icon.svg'],
         manifest: {
-          name: 'OmniTools Suite',
-          short_name: 'OmniTools',
+          name: 'myTools Suite',
+          short_name: 'myTools',
           description: 'Secure, Offline-First Utility Suite',
           theme_color: '#10b981',
           icons: [

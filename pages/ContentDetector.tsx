@@ -1,14 +1,13 @@
-
 import React, { useState, useEffect } from 'react';
 import { getApiUrl } from '../utils/apiConfig';
 
-import FileUploader from '../components/FileUploader';
 import { geminiService, GeminiAnalysisResult } from '../services/geminiService';
 import { aiDetectionService, SentenceMap } from '../services/aiDetector';
 import { plagiarismService, SearchSnippet } from '../services/plagiarismChecker';
 import { textAnalysisEngine } from '../services/textAnalysis';
 import { extractTextFromFile } from '../utils/textProcessor';
-import { Scan, ShieldCheck, ShieldAlert, FileText, Type, Search, ExternalLink, Loader2, Info, Activity, Fingerprint, Settings, Sparkles } from 'lucide-react';
+import { Scan, ShieldCheck, ShieldAlert, FileText, Type, Search, ExternalLink, Loader2, Info, Activity, Fingerprint, Settings, Sparkles, Upload } from 'lucide-react';
+import SectionHeader from '../components/ui/SectionHeader';
 
 type AnalysisResult = {
     aiScore: number;
@@ -44,8 +43,6 @@ const ContentDetector: React.FC = () => {
 
             if (mode === 'file' && file) {
                 textToAnalyze = await extractTextFromFile(file);
-                // Auto-switch to text mode to show extracted text? Or just keep in file mode but show preview. 
-                // Let's keep file mode but store text.
                 setTextInput(textToAnalyze);
             }
 
@@ -73,16 +70,13 @@ const ContentDetector: React.FC = () => {
             ]);
 
             // Calculate Hybrid Score
-            // If Gemini is available, it overrides or heavily weights the score
             let hybridScore = 0;
             let aiLabel = "";
 
             if (geminiResult) {
-                // Trust Gemini for High Accuracy
                 hybridScore = geminiResult.aiScore;
                 aiLabel = geminiResult.classification === 'AI' ? 'Fake' : 'Real';
             } else {
-                // Fallback to Local Heuristics
                 const burstinessFactor = 1 - (stylometrics.burstiness / 10);
                 hybridScore = (aiResult.score * 0.7) + (burstinessFactor * 0.3);
                 aiLabel = aiResult.label;
@@ -101,9 +95,7 @@ const ContentDetector: React.FC = () => {
 
         } catch (err: any) {
             console.error("AI Analysis Error:", err);
-
             let message = "Analysis failed. Please try again.";
-
             if (err.message) {
                 if (err.message.includes("Unexpected token") || err.message.includes("JSON")) {
                     message = "Network Error: Failed to download AI model config. Please check your internet connection.";
@@ -111,280 +103,203 @@ const ContentDetector: React.FC = () => {
                     message = err.message;
                 }
             }
-
             setError(message);
         } finally {
             setIsAnalyzing(false);
         }
     };
 
-    const handleFileSelect = (files: File[]) => {
-        if (files.length > 0) {
+    const handleFileSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const files = e.target.files;
+        if (files && files.length > 0) {
             setFile(files[0]);
-            // Auto analyze? No, let user click analyze.
+            setMode('file');
         }
     };
 
-    const getScoreColor = (score: number, label: string) => {
-        // Model returns 'Fake' for AI.
-        const isAI = label === 'Fake';
-        // If AI and High Score -> Red
-        // If Human (Real) and High Score -> Green
-
-        if (isAI && score > 0.8) return 'text-red-500';
-        if (isAI && score > 0.5) return 'text-orange-500';
-        return 'text-green-500';
-    };
-
-    const getProgressColor = (score: number, label: string) => {
-        const isAI = label === 'Fake';
-        if (isAI && score > 0.8) return 'bg-red-500';
-        if (isAI && score > 0.5) return 'bg-orange-500';
-        return 'bg-green-500';
-    };
-
     return (
-        <div className="max-w-5xl mx-auto space-y-8 animate-in fade-in duration-500">
-            {/* Header */}
-            <div className="text-center space-y-4">
-                <div className="inline-flex items-center justify-center p-3 bg-indigo-500/10 rounded-2xl mb-4">
-                    <Scan className="w-8 h-8 text-indigo-500" />
-                </div>
-                <h1 className="text-4xl font-bold bg-gradient-to-r from-indigo-500 to-purple-600 bg-clip-text text-transparent">
-                    Content Integrity Check
-                </h1>
-                <p className="text-[var(--text-secondary)] text-lg max-w-2xl mx-auto">
-                    Analyze text for AI generation and check for plagiarism using smart search snippets.
-                    Private, secure, and free.
-                </p>
-            </div>
+        <div className="min-h-screen bg-background pb-20 animate-fade-in">
+            <SectionHeader
+                title="Content Integrity Check"
+                subtitle="Analyze text for AI generation and check for plagiarism."
+                badge="AI Powered"
+            />
 
-            {/* Main Card */}
-            <div className="bg-[var(--card-bg)] border border-[var(--border-color)] rounded-3xl p-6 md:p-8 shadow-xl backdrop-blur-sm relative">
+            <div className={`max-w-5xl mx-auto px-4 ${!result && !textInput && !file ? 'max-w-3xl' : ''}`}>
 
-                {/* Mode Switcher */}
-                <div className="flex justify-center mb-8">
-                    <div className="flex bg-[var(--bg-secondary)] p-1 rounded-xl">
-                        <button
-                            onClick={() => setMode('text')}
-                            className={`px-6 py-2.5 rounded-lg font-medium transition-all ${mode === 'text'
-                                ? 'bg-white dark:bg-[var(--card-bg)] text-indigo-600 shadow-sm'
-                                : 'text-[var(--text-secondary)] hover:text-[var(--text-primary)]'
-                                }`}
-                        >
-                            <span className="flex items-center gap-2"><Type size={18} /> Paste Text</span>
-                        </button>
-                        <button
-                            onClick={() => setMode('file')}
-                            className={`px-6 py-2.5 rounded-lg font-medium transition-all ${mode === 'file'
-                                ? 'bg-white dark:bg-[var(--card-bg)] text-indigo-600 shadow-sm'
-                                : 'text-[var(--text-secondary)] hover:text-[var(--text-primary)]'
-                                }`}
-                        >
-                            <span className="flex items-center gap-2"><FileText size={18} /> Upload File</span>
-                        </button>
+                {/* Initial State: Standard Centered Card if no input */}
+                {!result && !textInput && !file ? (
+                    <div className="bg-surface border border-border rounded-3xl p-8 shadow-xl text-center space-y-8 animate-slide-up">
+                        <div className="space-y-6">
+                            <div className="w-24 h-24 bg-brand-purple/10 text-brand-purple rounded-full flex items-center justify-center mx-auto mb-6">
+                                <ShieldCheck size={48} />
+                            </div>
+
+                            <div className="space-y-2">
+                                <h3 className="text-2xl font-bold">Analyze Content</h3>
+                                <p className="text-secondary">Paste text or upload a document to detect AI usage.</p>
+                            </div>
+
+                            <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+                                <button
+                                    onClick={() => setTextInput(' ')} // Trick to switch to workspace
+                                    className="px-8 py-4 bg-brand-purple text-white rounded-xl font-bold text-lg hover:bg-purple-600 transition-all hover:scale-105 shadow-lg shadow-purple-500/20 flex items-center gap-2"
+                                >
+                                    <Type size={20} /> Paste Text
+                                </button>
+                                <label className="px-8 py-4 bg-surface border border-border text-primary rounded-xl font-bold text-lg cursor-pointer hover:bg-secondary/50 transition-all hover:scale-105 flex items-center gap-2">
+                                    <Upload size={20} />
+                                    Upload File
+                                    <input type="file" className="hidden" accept=".txt,.pdf,.doc,.docx" onChange={handleFileSelect} />
+                                </label>
+                            </div>
+                        </div>
                     </div>
-                </div>
+                ) : (
+                    /* Workspace State */
+                    <div className="space-y-8 animate-fade-in">
 
-                {/* Input Section */}
-                <div className="min-h-[300px]">
-                    {mode === 'text' ? (
-                        <textarea
-                            value={textInput}
-                            onChange={(e) => setTextInput(e.target.value)}
-                            placeholder="Paste your text here (min 50 chars)..."
-                            className="w-full h-64 p-4 bg-[var(--bg-secondary)] border border-[var(--border-color)] rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none resize-none text-[var(--text-primary)] transition-all"
-                        />
-                    ) : (
-                        <div className="text-center">
-                            {!file ? (
-                                <FileUploader
-                                    onFilesSelected={handleFileSelect}
-                                    accept=".txt,.pdf,.doc,.docx,image/*"
-                                    title="Drop document or image"
-                                    subtitle="Supports PDF, Word, Images, TXT"
+                        {/* Input Area */}
+                        <div className="bg-surface border border-border rounded-3xl p-6 shadow-xl space-y-6">
+                            <div className="flex bg-inset p-1 rounded-xl w-fit mx-auto border border-border">
+                                <button
+                                    onClick={() => { setMode('text'); setFile(null); }}
+                                    className={`px-6 py-2 rounded-lg font-bold text-sm transition-all ${mode === 'text' ? 'bg-background shadow-sm text-brand-purple' : 'text-secondary hover:text-primary'}`}
+                                >
+                                    Text Input
+                                </button>
+                                <button
+                                    onClick={() => setMode('file')}
+                                    className={`px-6 py-2 rounded-lg font-bold text-sm transition-all ${mode === 'file' ? 'bg-background shadow-sm text-brand-purple' : 'text-secondary hover:text-primary'}`}
+                                >
+                                    File Upload
+                                </button>
+                            </div>
+
+                            {mode === 'text' ? (
+                                <textarea
+                                    value={textInput}
+                                    onChange={(e) => setTextInput(e.target.value)}
+                                    placeholder="Paste your text here (min 50 chars)..."
+                                    className="w-full h-64 p-4 bg-inset border border-border rounded-xl focus:ring-2 focus:ring-brand-purple/50 focus:border-brand-purple outline-none resize-none text-primary transition-all font-mono text-sm"
                                 />
                             ) : (
-                                <div className="flex flex-col items-center justify-center h-64 border-2 border-dashed border-indigo-500/30 rounded-xl bg-indigo-500/5">
-                                    <FileText className="w-16 h-16 text-indigo-500 mb-4" />
-                                    <h3 className="text-xl font-bold text-[var(--text-primary)]">{file.name}</h3>
-                                    <p className="text-sm text-[var(--text-secondary)] mb-6">{(file.size / 1024).toFixed(1)} KB</p>
-                                    <button
-                                        onClick={() => setFile(null)}
-                                        className="text-sm font-semibold text-red-500 hover:bg-red-500/10 px-4 py-2 rounded-lg transition-colors"
-                                    >
-                                        Remove File
-                                    </button>
+                                <div className={`h-64 border-2 border-dashed rounded-xl flex flex-col items-center justify-center transition-all ${file ? 'border-brand-purple bg-brand-purple/5' : 'border-border hover:border-brand-purple hover:bg-inset'}`}>
+                                    {!file ? (
+                                        <label className="cursor-pointer flex flex-col items-center gap-4 w-full h-full justify-center">
+                                            <Upload size={48} className="text-secondary" />
+                                            <span className="font-bold text-secondary">Click to Upload Document</span>
+                                            <input type="file" className="hidden" accept=".txt,.pdf,.doc,.docx" onChange={handleFileSelect} />
+                                        </label>
+                                    ) : (
+                                        <div className="text-center space-y-4">
+                                            <div className="w-16 h-16 bg-brand-purple/20 text-brand-purple rounded-xl flex items-center justify-center mx-auto">
+                                                <FileText size={32} />
+                                            </div>
+                                            <div>
+                                                <p className="font-bold text-lg text-primary">{file.name}</p>
+                                                <p className="text-sm text-secondary">{(file.size / 1024).toFixed(2)} KB</p>
+                                            </div>
+                                            <button onClick={() => setFile(null)} className="text-red-500 font-bold hover:underline">Remove</button>
+                                        </div>
+                                    )}
+                                </div>
+                            )}
+
+                            <div className="flex justify-center">
+                                <button
+                                    onClick={handleAnalyze}
+                                    disabled={isAnalyzing || (mode === 'text' && textInput.length < 50) || (mode === 'file' && !file)}
+                                    className="px-12 py-4 bg-brand-purple text-white rounded-xl font-bold text-lg hover:bg-purple-600 transition-all hover:scale-105 shadow-lg shadow-purple-500/20 disabled:opacity-50 disabled:scale-100 flex items-center gap-3"
+                                >
+                                    {isAnalyzing ? <Loader2 className="animate-spin" /> : <Scan />}
+                                    {isAnalyzing ? 'Analyzing...' : 'Run Analysis'}
+                                </button>
+                            </div>
+
+                            {error && (
+                                <div className="p-4 bg-red-500/10 border border-red-500/20 rounded-xl flex items-center gap-3 text-red-500 font-medium">
+                                    <ShieldAlert /> {error}
                                 </div>
                             )}
                         </div>
-                    )}
-                </div>
 
-                {/* Analyze Button */}
-                <div className="mt-8 flex justify-center">
-                    <button
-                        onClick={handleAnalyze}
-                        disabled={isAnalyzing || (mode === 'text' && !textInput) || (mode === 'file' && !file)}
-                        className={`
-                            group relative px-8 py-4 bg-indigo-600 hover:bg-indigo-500 
-                            text-white text-lg font-bold rounded-xl shadow-lg shadow-indigo-500/25 transition-all transform active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed
-                            w-full md:w-auto min-w-[200px] flex items-center justify-center gap-3
-                        `}
-                    >
-                        {isAnalyzing ? (
-                            <>
-                                <Loader2 className="animate-spin" /> Analyzing...
-                            </>
-                        ) : (
-                            <>
-                                <Scan className="group-hover:scale-110 transition-transform" /> Analyze Content
-                            </>
+                        {/* Results */}
+                        {result && (
+                            <div className="space-y-8 animate-slide-up">
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                                    {/* Score Card */}
+                                    <div className="bg-surface border border-border p-8 rounded-3xl overflow-hidden relative group shadow-lg">
+                                        <div className="flex items-center gap-3 mb-6">
+                                            <div className="p-2 bg-brand-purple/10 text-brand-purple rounded-lg">
+                                                <Scan size={24} />
+                                            </div>
+                                            <h3 className="text-xl font-bold">AI Probability</h3>
+                                        </div>
+
+                                        <div className="relative z-10 space-y-6">
+                                            <div className="flex items-end justify-between">
+                                                <span className="text-5xl font-black text-primary">
+                                                    {result.aiLabel === 'Fake' ? Math.round(result.hybridScore * 100) : Math.round((1 - result.hybridScore) * 100)}%
+                                                </span>
+                                                <span className={`text-xl font-bold ${result.aiLabel === 'Fake' ? 'text-indigo-500' : 'text-green-500'}`}>
+                                                    {result.aiLabel === 'Fake' ? 'Likely AI' : 'Likely Human'}
+                                                </span>
+                                            </div>
+
+                                            <div className="h-4 bg-gray-200 dark:bg-gray-800 rounded-full overflow-hidden">
+                                                <div
+                                                    className={`h-full transition-all duration-1000 ${result.aiLabel === 'Fake' ? 'bg-indigo-500' : 'bg-green-500'}`}
+                                                    style={{ width: `${result.aiLabel === 'Fake' ? result.hybridScore * 100 : (1 - result.hybridScore) * 100}%` }}
+                                                />
+                                            </div>
+
+                                            <div className="grid grid-cols-2 gap-4">
+                                                <div className="p-4 bg-inset rounded-xl border border-border">
+                                                    <div className="text-xs font-bold text-secondary uppercase mb-1">Burstiness</div>
+                                                    <div className="text-2xl font-bold">{result.stylometrics.burstiness.toFixed(1)}/10</div>
+                                                </div>
+                                                <div className="p-4 bg-inset rounded-xl border border-border">
+                                                    <div className="text-xs font-bold text-secondary uppercase mb-1">Entropy</div>
+                                                    <div className="text-2xl font-bold">{result.stylometrics.entropy.toFixed(1)}/10</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    {/* Plagiarism Card */}
+                                    <div className="bg-surface border border-border p-8 rounded-3xl shadow-lg">
+                                        <div className="flex items-center gap-3 mb-6">
+                                            <div className="p-2 bg-pink-500/10 text-pink-500 rounded-lg">
+                                                <Search size={24} />
+                                            </div>
+                                            <h3 className="text-xl font-bold">Plagiarism Check</h3>
+                                        </div>
+
+                                        <div className="space-y-3 max-h-[300px] overflow-y-auto pr-2 custom-scrollbar">
+                                            {result.plagiarismSnippets.length === 0 ? (
+                                                <div className="text-center py-10 text-secondary">
+                                                    <ShieldCheck size={48} className="mx-auto mb-3 opacity-20" />
+                                                    <p>No blatant plagiarism detected.</p>
+                                                </div>
+                                            ) : (
+                                                result.plagiarismSnippets.map((snippet, idx) => (
+                                                    <a key={idx} href={snippet.searchUrl} target="_blank" rel="noreferrer" className="block p-4 bg-inset border border-border rounded-xl hover:bg-secondary/5 transition-all group">
+                                                        <div className="flex justify-between items-start gap-3">
+                                                            <p className="text-sm italic text-secondary line-clamp-2">"{snippet.text}"</p>
+                                                            <ExternalLink size={16} className="text-secondary group-hover:text-brand-purple shrink-0" />
+                                                        </div>
+                                                    </a>
+                                                ))
+                                            )}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         )}
-                    </button>
-                </div>
-
-                {error && (
-                    <div className="mt-6 p-4 bg-red-500/10 border border-red-500/20 text-red-600 rounded-xl flex items-center gap-3">
-                        <ShieldAlert /> {error}
                     </div>
                 )}
             </div>
-
-            {/* Results Section */}
-            {result && (
-                <div className="space-y-8 animate-in slide-in-from-bottom-4 duration-500">
-
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                        {/* AI Detection Result */}
-                        <div className="bg-[var(--card-bg)] border border-[var(--border-color)] p-6 rounded-3xl relative overflow-hidden group">
-
-                            <h3 className="text-xl font-semibold mb-6 flex items-center gap-2">
-                                <span className="p-2 bg-indigo-500/10 rounded-lg text-indigo-500"><Scan size={20} /></span>
-                                AI Probability
-                            </h3>
-
-                            <div className="space-y-6 relative z-10">
-                                {/* Hybrid Score Display */}
-                                <div className="flex items-end justify-between">
-                                    <span className="text-4xl font-black text-[var(--text-primary)]">
-                                        {result.aiLabel === 'Fake' ? Math.round(result.hybridScore * 100) : Math.round((1 - result.hybridScore) * 100)}%
-                                    </span>
-                                    <span className={`text-lg font-bold ${result.aiLabel === 'Fake' ? 'text-indigo-500' : 'text-green-500'}`}>
-                                        {result.aiLabel === 'Fake' ? 'Likely AI-Generated' : 'Likely Human-Written'}
-                                        {result.geminiResult && <span className="ml-2 px-2 py-0.5 text-xs bg-indigo-500/10 text-indigo-500 rounded-full border border-indigo-500/20">Deep Scan</span>}
-                                    </span>
-                                </div>
-
-                                <div className="h-4 bg-slate-200 dark:bg-slate-700 rounded-full overflow-hidden">
-                                    <div
-                                        className={`h-full ${result.aiLabel === 'Fake' ? 'bg-indigo-500' : 'bg-green-500'} transition-all duration-1000 ease-out`}
-                                        style={{ width: `${result.aiLabel === 'Fake' ? result.hybridScore * 100 : (1 - result.hybridScore) * 100}%` }}
-                                    ></div>
-                                </div>
-
-                                {result.geminiResult?.reasoning && (
-                                    <div className="p-4 bg-indigo-500/5 border border-indigo-500/10 rounded-xl">
-                                        <div className="flex items-center gap-2 mb-2 text-indigo-600 font-semibold text-sm">
-                                            <Sparkles size={16} /> Analysis Insight
-                                        </div>
-                                        <p className="text-sm text-[var(--text-primary)] italic">
-                                            "{result.geminiResult.reasoning}"
-                                        </p>
-                                    </div>
-                                )}
-
-                                {/* Stylometrics Stats */}
-                                <div className="grid grid-cols-2 gap-4 mt-4">
-                                    <div className="p-3 bg-slate-50 dark:bg-white/5 rounded-xl border border-[var(--border-color)]">
-                                        <div className="flex items-center gap-2 mb-2 text-[var(--text-secondary)]">
-                                            <Activity size={16} className="text-indigo-500" />
-                                            <span className="text-xs font-bold uppercase">Burstiness</span>
-                                        </div>
-                                        <div className="text-xl font-bold text-[var(--text-primary)]">
-                                            {result.stylometrics.burstiness.toFixed(1)}/10
-                                        </div>
-                                        <div className="text-[10px] opacity-60">Sentence variation</div>
-                                    </div>
-                                    <div className="p-3 bg-slate-50 dark:bg-white/5 rounded-xl border border-[var(--border-color)]">
-                                        <div className="flex items-center gap-2 mb-2 text-[var(--text-secondary)]">
-                                            <Fingerprint size={16} className="text-emerald-500" />
-                                            <span className="text-xs font-bold uppercase">Entropy</span>
-                                        </div>
-                                        <div className="text-xl font-bold text-[var(--text-primary)]">
-                                            {result.stylometrics.entropy.toFixed(1)}/10
-                                        </div>
-                                        <div className="text-[10px] opacity-60">Word randomness</div>
-                                    </div>
-                                </div>
-
-                                <p className="text-sm text-[var(--text-secondary)] leading-relaxed">
-                                    {result.aiLabel === 'Fake'
-                                        ? "This text exhibits low burstiness and patterns commonly found in AI-generated content."
-                                        : "This text appears to have the variance (burstiness) and perplexity typical of human writing."
-                                    }
-                                </p>
-                            </div>
-                        </div>
-
-                        {/* Plagiarism Check */}
-                        <div className="bg-[var(--card-bg)] border border-[var(--border-color)] p-6 rounded-3xl">
-                            <h3 className="text-xl font-semibold mb-6 flex items-center gap-2">
-                                <span className="p-2 bg-purple-500/10 rounded-lg text-purple-500"><Search size={20} /></span>
-                                Smart Search Checks
-                            </h3>
-
-                            <div className="space-y-3">
-                                {result.plagiarismSnippets.map((snippet, idx) => (
-                                    <a
-                                        key={idx}
-                                        href={snippet.searchUrl}
-                                        target="_blank"
-                                        rel="noreferrer"
-                                        className="block p-4 bg-[var(--bg-secondary)] hover:bg-slate-50 dark:hover:bg-white/5 border border-[var(--border-color)] rounded-xl transition-all group"
-                                    >
-                                        <div className="flex items-start justify-between gap-4">
-                                            <p className="text-sm text-[var(--text-secondary)] italic line-clamp-2">
-                                                "{snippet.text}"
-                                            </p>
-                                            <ExternalLink className="w-4 h-4 text-slate-400 group-hover:text-indigo-500 shrink-0 mt-1" />
-                                        </div>
-                                        <div className="mt-2 flex items-center gap-2 text-xs font-bold text-[var(--text-secondary)] opacity-50 uppercase tracking-widest">
-                                            <span>{snippet.location} check</span>
-                                        </div>
-                                    </a>
-                                ))}
-                            </div>
-
-                            <div className="mt-4 p-3 bg-blue-500/5 border border-blue-500/10 rounded-lg flex gap-3 text-xs text-[var(--text-secondary)]">
-                                <Info className="shrink-0 w-4 h-4 text-blue-500" />
-                                <p>Click these snippets to search Google for exact matches. If results appear, the text may be copied.</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    {/* Heatmap Visualization */}
-                    <div className="bg-[var(--card-bg)] border border-[var(--border-color)] p-6 rounded-3xl">
-                        <h3 className="text-xl font-semibold mb-6 flex items-center gap-2">
-                            <Scan size={20} className="text-indigo-500" /> Sentence Analysis (Heatmap)
-                        </h3>
-                        <div className="p-4 bg-[var(--bg-secondary)] rounded-xl leading-8 text-[var(--text-primary)]">
-                            {result.sentenceMap.map((item, idx) => {
-                                // Opacity based on score. High score (Fake) -> more opaque red.
-                                const isFake = item.label === 'Fake';
-                                const opacity = isFake ? Math.max(0.1, item.score - 0.2) : 0;
-                                const style = isFake ? { backgroundColor: `rgba(239, 68, 68, ${opacity})` } : {};
-
-                                return (
-                                    <span key={idx} style={style} className={`inline transition-colors duration-300 px-1 rounded ${isFake ? 'text-red-900 dark:text-red-100' : ''}`}>
-                                        {item.text}{' '}
-                                    </span>
-                                )
-                            })}
-                        </div>
-                    </div>
-                </div>
-            )}
         </div>
     );
 };

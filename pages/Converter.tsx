@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
-import { ArrowLeft, Ruler, Scale, Thermometer, Zap, BoxSelect, ArrowRightLeft } from 'lucide-react';
-import Card from '../components/ui/Card';
-import { Link } from 'react-router-dom';
+import { Ruler, Scale, Thermometer, Zap, BoxSelect, ArrowRightLeft } from 'lucide-react';
+import SectionHeader from '../components/ui/SectionHeader';
 
 type Cat = 'length' | 'weight' | 'temp' | 'speed' | 'area';
 
@@ -81,89 +80,91 @@ const Converter: React.FC = () => {
     ];
 
     return (
-        <div className="max-w-xl mx-auto">
-            <Link to="/" className="inline-flex items-center text-[var(--text-secondary)] hover:text-[var(--accent-primary)] mb-6 transition-colors">
-                <ArrowLeft size={16} className="mr-2" /> Back to Dashboard
-            </Link>
+        <div className="min-h-screen bg-background pb-20 animate-fade-in">
+            <SectionHeader
+                title="Universal Unit Converter"
+                subtitle="Fast, offline conversions for every standard unit."
+            />
 
-            <div className="mb-8 text-center">
-                <h1 className="text-3xl font-bold text-[var(--text-primary)] tracking-tight">Advanced Converter</h1>
-                <p className="text-[var(--text-secondary)]">Fast, offline conversions for standard units.</p>
+            <div className="max-w-2xl mx-auto px-4">
+                <div className="bg-surface border border-border rounded-3xl shadow-xl overflow-hidden animate-slide-up">
+
+                    {/* Category Tabs */}
+                    <div className="flex overflow-x-auto border-b border-border bg-inset no-scrollbar">
+                        {categories.map((tab) => (
+                            <button
+                                key={tab.id}
+                                onClick={() => { setCategory(tab.id); setFromUnit(getUnits(tab.id)[0]); setToUnit(getUnits(tab.id)[1]); }}
+                                className={`min-w-[80px] flex-1 py-4 flex flex-col items-center gap-1 text-xs font-bold uppercase tracking-wider transition-all duration-300 ${category === tab.id ? 'bg-surface text-brand-yellow shadow-inner-lg border-b-2 border-brand-yellow' : 'text-secondary hover:text-primary hover:bg-surface/50'}`}
+                            >
+                                <tab.icon size={20} className="mb-1" /> {tab.label}
+                            </button>
+                        ))}
+                    </div>
+
+                    <div className="p-8 space-y-8 bg-surface">
+                        {/* Value Input */}
+                        <div className="space-y-2">
+                            <label className="text-xs font-bold text-secondary uppercase tracking-wide">Enter Value</label>
+                            <input
+                                type="number"
+                                value={val}
+                                onChange={(e) => setVal(parseFloat(e.target.value))}
+                                onFocus={(e) => e.target.select()}
+                                className="w-full text-5xl font-light text-primary outline-none bg-transparent border-b border-border focus:border-brand-yellow py-2 transition-colors placeholder:text-secondary/30"
+                                placeholder="0"
+                            />
+                        </div>
+
+                        {/* Dropdowns */}
+                        <div className="grid grid-cols-[1fr,auto,1fr] gap-4 items-center">
+                            <div className="space-y-2">
+                                <label className="text-xs font-bold text-secondary uppercase">From</label>
+                                <div className="relative">
+                                    <select
+                                        value={fromUnit}
+                                        onChange={(e) => setFromUnit(e.target.value)}
+                                        className="w-full appearance-none bg-inset border border-border rounded-xl p-3 pr-8 outline-none focus:ring-2 focus:ring-brand-yellow/50 font-medium text-primary cursor-pointer text-sm"
+                                    >
+                                        {getUnits(category).map(u => <option key={u} value={u}>{getLabel(u)}</option>)}
+                                    </select>
+                                    <div className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-secondary">
+                                        <svg width="10" height="6" viewBox="0 0 10 6" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M1 1L5 5L9 1" /></svg>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div className="text-secondary pt-6">
+                                <ArrowRightLeft size={20} />
+                            </div>
+
+                            <div className="space-y-2">
+                                <label className="text-xs font-bold text-secondary uppercase">To</label>
+                                <div className="relative">
+                                    <select
+                                        value={toUnit}
+                                        onChange={(e) => setToUnit(e.target.value)}
+                                        className="w-full appearance-none bg-inset border border-border rounded-xl p-3 pr-8 outline-none focus:ring-2 focus:ring-brand-yellow/50 font-medium text-primary cursor-pointer text-sm"
+                                    >
+                                        {getUnits(category).map(u => <option key={u} value={u}>{getLabel(u)}</option>)}
+                                    </select>
+                                    <div className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-secondary">
+                                        <svg width="10" height="6" viewBox="0 0 10 6" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M1 1L5 5L9 1" /></svg>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* Result Box */}
+                        <div className="bg-brand-yellow/10 border border-brand-yellow/20 rounded-2xl p-8 text-center relative overflow-hidden">
+                            <div className="text-sm font-bold text-brand-yellow mb-2 uppercase tracking-wide opacity-80">Converted Result</div>
+                            <div className="text-4xl sm:text-5xl font-bold text-primary tracking-tight break-all">
+                                {result} <span className="text-xl sm:text-2xl font-normal text-secondary ml-1">{getLabel(toUnit)}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-
-            <Card className="p-0 overflow-hidden border border-[var(--border-color)] shadow-xl shadow-indigo-100 dark:shadow-indigo-900/10">
-                <div className="flex overflow-x-auto border-b border-[var(--border-color)] bg-inset no-scrollbar">
-                    {categories.map((tab) => (
-                        <button
-                            key={tab.id}
-                            onClick={() => { setCategory(tab.id); setFromUnit(getUnits(tab.id)[0]); setToUnit(getUnits(tab.id)[1]); }}
-                            className={`min-w-[80px] flex-1 py-4 flex flex-col items-center gap-1 text-xs font-bold uppercase tracking-wider transition-all duration-300 ${category === tab.id ? 'bg-[var(--bg-secondary)] text-indigo-600 dark:text-indigo-400 shadow-sm transform scale-105 rounded-t-lg border-t-2 border-indigo-500' : 'text-slate-400 hover:text-slate-200 hover:bg-white/5'}`}
-                        >
-                            <tab.icon size={20} className="mb-1" /> {tab.label}
-                        </button>
-                    ))}
-                </div>
-
-                <div className="p-8 space-y-8 bg-[var(--bg-secondary)]/80 backdrop-blur-md">
-                    <div className="space-y-2">
-                        <label className="text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wide">Enter Value</label>
-                        <input
-                            type="number"
-                            value={val}
-                            onChange={(e) => setVal(parseFloat(e.target.value))}
-                            onFocus={(e) => e.target.select()}
-                            className="w-full text-3xl sm:text-5xl font-light text-[var(--text-primary)] outline-none bg-transparent border-b border-[var(--border-color)] focus:border-indigo-500 py-2 transition-colors placeholder:text-slate-300 dark:placeholder:text-slate-700"
-                            placeholder="0"
-                        />
-                    </div>
-
-                    <div className="flex flex-col sm:grid sm:grid-cols-[1fr,auto,1fr] gap-6 items-center">
-                        <div className="flex flex-col gap-2">
-                            <label className="text-xs font-bold text-slate-400 uppercase">From</label>
-                            <div className="relative">
-                                <select
-                                    value={fromUnit}
-                                    onChange={(e) => setFromUnit(e.target.value)}
-                                    className="w-full appearance-none bg-inset border border-[var(--border-color)] rounded-xl p-4 pr-8 outline-none focus:ring-2 focus:ring-indigo-100 dark:focus:ring-indigo-900/20 font-medium text-[var(--text-primary)] transition-all cursor-pointer text-sm"
-                                >
-                                    {getUnits(category).map(u => <option key={u} value={u} className="bg-[var(--bg-secondary)]">{getLabel(u)}</option>)}
-                                </select>
-                                <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-slate-400">
-                                    <svg width="10" height="6" viewBox="0 0 10 6" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M1 1L5 5L9 1" /></svg>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div className="text-slate-300 dark:text-slate-600 sm:pt-6 flex justify-center">
-                            <div className="p-2 rounded-full bg-inset border border-[var(--border-color)] rotate-90 sm:rotate-0">
-                                <ArrowRightLeft size={18} />
-                            </div>
-                        </div>
-
-                        <div className="flex flex-col gap-2">
-                            <label className="text-xs font-bold text-slate-400 uppercase">To</label>
-                            <div className="relative">
-                                <select
-                                    value={toUnit}
-                                    onChange={(e) => setToUnit(e.target.value)}
-                                    className="w-full appearance-none bg-inset border border-[var(--border-color)] rounded-xl p-4 pr-8 outline-none focus:ring-2 focus:ring-indigo-100 dark:focus:ring-indigo-900/20 font-medium text-[var(--text-primary)] transition-all cursor-pointer text-sm"
-                                >
-                                    {getUnits(category).map(u => <option key={u} value={u} className="bg-[var(--bg-secondary)]">{getLabel(u)}</option>)}
-                                </select>
-                                <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-slate-400">
-                                    <svg width="10" height="6" viewBox="0 0 10 6" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M1 1L5 5L9 1" /></svg>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div className="bg-gradient-to-br from-indigo-600 to-violet-700 rounded-2xl p-8 text-white text-center shadow-lg shadow-indigo-200 dark:shadow-indigo-900/20 mt-6 relative overflow-hidden group">
-                        <div className="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity"></div>
-                        <div className="text-sm font-medium text-indigo-100 mb-2 uppercase tracking-wide">Converted Result</div>
-                        <div className="text-3xl sm:text-5xl font-bold tracking-tight break-all">{result} <span className="text-lg sm:text-2xl font-light text-indigo-200 ml-1 sm:ml-2">{getLabel(toUnit)}</span></div>
-                    </div>
-                </div>
-            </Card>
         </div>
     );
 };

@@ -3,7 +3,7 @@ import { Link, useLocation } from 'react-router-dom';
 import {
   Layers, FileImage, ImageMinus, PenTool, Home, Combine, Settings,
   QrCode, ShieldCheck, Lock, FileKey, RefreshCcw, Keyboard, FileText,
-  Menu, X, Sun, Moon, ChevronRight, Scan, Box
+  Menu, X, Sun, Moon, ChevronRight, Scan, Wrench, Zap, Presentation
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
@@ -35,6 +35,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
     {
       title: "PDF Suite",
       items: [
+        { name: 'PPTX to PDF', path: '/pptx-to-pdf', icon: Presentation },
         { name: 'Doc Scanner', path: '/document-scanner', icon: PenTool },
         { name: 'Merge PDF', path: '/merge-pdf', icon: Combine },
         { name: 'Note Gen', path: '/note-generator', icon: FileText },
@@ -45,7 +46,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
     {
       title: "Image Studio",
       items: [
-        { name: 'Img Toolkit', path: '/image-toolkit', icon: Settings },
+        { name: 'Img Sharpener', path: '/image-sharpener', icon: Zap },
       ]
     },
     {
@@ -60,7 +61,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
     {
       title: "Productivity",
       items: [
-        { name: 'Typing Training', path: '/typing-test', icon: Keyboard },
+
         { name: 'Unit Convert', path: '/converter', icon: RefreshCcw },
         { name: 'Text Format', path: '/text-formatter', icon: FileText },
         { name: 'QR Batch', path: '/qr-batch', icon: QrCode },
@@ -93,12 +94,12 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
         className={`
           flex items-center gap-3 px-4 py-3 rounded-xl text-[14px] font-medium transition-all duration-200 border-2
           ${isActive
-            ? 'bg-[var(--accent-primary)] border-black text-white shadow-[4px_4px_0px_#000] translate-x-1 translate-y-[-2px] dark:border-white dark:shadow-[4px_4px_0px_#ffffff]'
+            ? 'bg-transparent border-black text-[var(--text-primary)] shadow-[4px_4px_0px_#000] translate-x-1 translate-y-[-2px] dark:border-white dark:shadow-[4px_4px_0px_#ffffff] dark:text-white'
             : `border-transparent text-[var(--text-secondary)] hover:text-black hover:border-black hover:shadow-[4px_4px_0px_#000] hover:translate-y-[-2px] ${colorClass} dark:hover:text-white dark:hover:border-white dark:hover:bg-zinc-900 dark:hover:shadow-[4px_4px_0px_#ffffff]`
           }
         `}
       >
-        <item.icon size={18} strokeWidth={2.5} className={isActive ? 'text-white' : 'currentColor'} />
+        <item.icon size={18} strokeWidth={2.5} className={isActive ? 'text-[var(--text-primary)] dark:text-white' : 'currentColor'} />
         <span className="font-display tracking-wide">{item.name}</span>
         {isActive && <ChevronRight size={14} className="ml-auto" />}
       </Link>
@@ -113,9 +114,9 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
         <div className="p-8 pb-6 border-b-2 border-dashed border-black/10">
           <Link to="/" className="flex items-center gap-3 group">
             <div className="w-10 h-10 rounded-lg bg-[var(--accent-primary)] text-white flex items-center justify-center shadow-[4px_4px_0px_var(--brand-yellow)] group-hover:shadow-[2px_2px_0px_var(--brand-yellow)] group-hover:translate-x-[2px] group-hover:translate-y-[2px] transition-all border-2 border-transparent">
-              <Box size={24} strokeWidth={2.5} />
+              <Wrench size={24} strokeWidth={2.5} />
             </div>
-            <h1 className="font-display font-black text-2xl tracking-tighter uppercase">OMNI<span className="text-[var(--accent-primary)]">TOOLS</span></h1>
+            <h1 className="font-display font-black text-2xl tracking-tighter uppercase">my<span className="text-[var(--accent-primary)]">Tools</span></h1>
           </Link>
         </div>
 
@@ -158,9 +159,9 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
       <div className="md:hidden fixed top-0 w-full z-50 bg-[var(--bg-secondary)] border-b-2 border-black h-18 flex items-center justify-between px-4 shadow-sm">
         <Link to="/" className="flex items-center gap-2">
           <div className="w-9 h-9 rounded-lg bg-[var(--accent-primary)] text-white flex items-center justify-center border-2 border-transparent">
-            <Box size={20} strokeWidth={2.5} />
+            <Wrench size={20} strokeWidth={2.5} />
           </div>
-          <span className="font-display font-black text-xl tracking-tighter uppercase">OMNI<span className="text-[var(--accent-primary)]">TOOLS</span></span>
+          <span className="font-display font-black text-xl tracking-tighter uppercase">my<span className="text-[var(--accent-primary)]">Tools</span></span>
         </Link>
         <div className="flex items-center gap-3">
           <button onClick={toggleTheme} className="w-10 h-10 rounded-lg border-2 border-black flex items-center justify-center text-[var(--text-primary)] hover:bg-black hover:text-white transition-all active:translate-y-1 shadow-[2px_2px_0px_#000]">

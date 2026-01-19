@@ -1,19 +1,17 @@
 import React, { useState } from 'react';
-import FileUploader from '../components/FileUploader';
-import { X, ArrowUp, ArrowDown, Combine, Loader2, FileText } from 'lucide-react';
-import Button from '../components/ui/Button';
+import { X, ArrowUp, ArrowDown, Combine, Loader2, FileText, Upload, Plus } from 'lucide-react';
+import SectionHeader from '../components/ui/SectionHeader';
 
 interface PdfFile {
   file: File;
   id: string;
-  pageCount?: number;
 }
 
 const MergePdf: React.FC = () => {
   const [pdfs, setPdfs] = useState<PdfFile[]>([]);
   const [isProcessing, setIsProcessing] = useState(false);
 
-  const handleFiles = async (files: File[]) => {
+  const handleFiles = (files: File[]) => {
     // Basic validation
     const validFiles = files.filter(f => f.type === 'application/pdf');
     if (validFiles.length !== files.length) {
@@ -81,105 +79,121 @@ const MergePdf: React.FC = () => {
   };
 
   return (
-    <div className="max-w-4xl mx-auto">
-      <div className="mb-8">
-        <h1 className="text-3xl font-bold text-[var(--text-primary)]">Merge PDF</h1>
-        <p className="text-[var(--text-secondary)] mt-2">Combine multiple PDF files into one. Drag and drop to reorder.</p>
-      </div>
+    <div className="min-h-screen bg-background pb-20 animate-fade-in">
+      <SectionHeader
+        title="PDF Merger"
+        subtitle="Combine multiple PDF documents into a single file."
+      />
 
-      {pdfs.length === 0 ? (
-        <FileUploader
-          onFilesSelected={handleFiles}
-          accept="application/pdf"
-          multiple
-          title="Drop PDFs here to merge"
-        />
-      ) : (
-        <div className="space-y-6">
-          <div className="flex flex-col gap-3">
-            {pdfs.map((item, idx) => (
-              <div key={item.id} className="flex items-center justify-between bg-[var(--bg-secondary)] p-4 rounded-xl shadow-sm border border-[var(--border-color)]">
-                <div className="flex items-center gap-4 overflow-hidden">
-                  <div className="w-10 h-10 bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-400 rounded-lg flex items-center justify-center flex-shrink-0">
-                    <FileText size={20} />
-                  </div>
-                  <div className="min-w-0">
-                    <p className="font-medium text-[var(--text-primary)] truncate">{item.file.name}</p>
-                    <p className="text-xs text-[var(--text-secondary)]">{(item.file.size / 1024).toFixed(1)} KB</p>
-                  </div>
-                </div>
-
-                <div className="flex items-center gap-2 flex-shrink-0">
-                  <div className="flex bg-inset rounded-lg p-1 mr-2 border border-[var(--border-color)]">
-                    <button
-                      onClick={() => movePdf(idx, -1)}
-                      disabled={idx === 0}
-                      className="p-1.5 hover:bg-[var(--bg-primary)] hover:shadow-sm rounded-md disabled:opacity-30 transition-all text-slate-600 dark:text-slate-400"
-                      title="Move Up"
-                    >
-                      <ArrowUp size={16} />
-                    </button>
-                    <button
-                      onClick={() => movePdf(idx, 1)}
-                      disabled={idx === pdfs.length - 1}
-                      className="p-1.5 hover:bg-[var(--bg-primary)] hover:shadow-sm rounded-md disabled:opacity-30 transition-all text-slate-600 dark:text-slate-400"
-                      title="Move Down"
-                    >
-                      <ArrowDown size={16} />
-                    </button>
-                  </div>
-                  <button
-                    onClick={() => removePdf(idx)}
-                    className="p-2 text-slate-400 hover:text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-lg transition-colors"
-                  >
-                    <X size={20} />
-                  </button>
-                </div>
+      <div className={`max-w-4xl mx-auto px-4 ${pdfs.length === 0 ? 'max-w-3xl' : ''}`}>
+        {pdfs.length === 0 ? (
+          /* Initial State */
+          <div className="bg-surface border border-border rounded-3xl p-8 shadow-xl text-center space-y-8 animate-slide-up">
+            <div className="space-y-6">
+              <div className="w-24 h-24 bg-brand-purple/10 text-brand-purple rounded-full flex items-center justify-center mx-auto mb-6">
+                <Combine size={48} />
               </div>
-            ))}
 
-            <Button
-              variant="secondary"
-              className="mt-4 border-2 border-dashed border-[var(--border-color)] rounded-xl p-4 text-slate-500 dark:text-slate-400 hover:border-indigo-500 hover:text-indigo-600 hover:bg-inset transition-all flex items-center justify-center gap-2 font-medium bg-inset"
-              onClick={() => document.getElementById('add-more-input')?.click()}
-            >
-              <input
-                id="add-more-input"
-                type="file"
-                className="hidden"
-                multiple
-                accept="application/pdf"
-                onChange={(e) => e.target.files && handleFiles(Array.from(e.target.files))}
-              />
-              <Combine size={18} /> Add more PDFs
-            </Button>
-          </div>
+              <div className="space-y-2">
+                <h3 className="text-2xl font-bold">Merge PDF Files</h3>
+                <p className="text-secondary">Combine multiple documents into one organized PDF.</p>
+              </div>
 
-          <div className="flex justify-end gap-4 border-t border-[var(--border-color)] pt-6">
-            <button
-              onClick={() => setPdfs([])}
-              className="px-4 py-2 text-slate-500 dark:text-slate-400 hover:text-red-500 transition-colors"
-            >
-              Clear All
-            </button>
-            <Button
-              onClick={mergeFiles}
-              disabled={isProcessing}
-              className="px-8 py-3"
-            >
-              {isProcessing ? (
-                <>
-                  <Loader2 className="animate-spin" size={20} /> Merging...
-                </>
-              ) : (
-                <>
-                  <Combine size={20} /> Merge PDFs
-                </>
-              )}
-            </Button>
+              <label className="inline-flex items-center gap-3 px-8 py-4 bg-brand-purple text-white rounded-xl font-bold text-lg cursor-pointer hover:bg-purple-600 transition-all hover:scale-105 active:scale-95 shadow-lg shadow-purple-500/20">
+                <Upload size={24} />
+                Select PDFs
+                <input
+                  type="file"
+                  className="hidden"
+                  accept="application/pdf"
+                  multiple
+                  onChange={(e) => e.target.files && handleFiles(Array.from(e.target.files))}
+                />
+              </label>
+            </div>
           </div>
-        </div>
-      )}
+        ) : (
+          /* Workspace State */
+          <div className="space-y-8 animate-fade-in">
+            <div className="flex justify-between items-center px-2">
+              <h3 className="text-xl font-bold text-primary">Files to Merge ({pdfs.length})</h3>
+              <div className="flex gap-4">
+                <button
+                  onClick={() => setPdfs([])}
+                  className="text-secondary hover:text-red-500 font-bold text-sm transition-colors"
+                >
+                  Clear All
+                </button>
+                <button
+                  onClick={mergeFiles}
+                  disabled={isProcessing}
+                  className="flex items-center gap-2 px-6 py-2.5 bg-brand-purple text-white rounded-xl font-bold hover:bg-purple-600 transition-all shadow-lg shadow-purple-500/20 disabled:opacity-50 disabled:cursor-wait"
+                >
+                  {isProcessing ? <Loader2 className="animate-spin" size={18} /> : <Combine size={18} />}
+                  Merge PDFs
+                </button>
+              </div>
+            </div>
+
+            <div className="space-y-3">
+              {pdfs.map((item, idx) => (
+                <div key={item.id} className="flex items-center justify-between bg-surface p-4 rounded-xl shadow-sm border border-border hover:border-brand-purple/50 transition-colors">
+                  <div className="flex items-center gap-4 overflow-hidden">
+                    <span className="w-6 text-center font-mono text-sm text-secondary text-opacity-50">{idx + 1}</span>
+                    <div className="w-10 h-10 bg-red-500/10 text-red-500 rounded-lg flex items-center justify-center flex-shrink-0">
+                      <FileText size={20} />
+                    </div>
+                    <div className="min-w-0">
+                      <p className="font-medium text-primary truncate">{item.file.name}</p>
+                      <p className="text-xs text-secondary">{(item.file.size / 1024).toFixed(1)} KB</p>
+                    </div>
+                  </div>
+
+                  <div className="flex items-center gap-2 flex-shrink-0">
+                    <div className="flex bg-zinc-100 dark:bg-zinc-800 rounded-lg p-1 mr-2 border border-border">
+                      <button
+                        onClick={() => movePdf(idx, -1)}
+                        disabled={idx === 0}
+                        className="p-1.5 hover:bg-white dark:hover:bg-zinc-700 hover:shadow-sm rounded-md disabled:opacity-30 transition-all text-secondary"
+                        title="Move Up"
+                      >
+                        <ArrowUp size={16} />
+                      </button>
+                      <button
+                        onClick={() => movePdf(idx, 1)}
+                        disabled={idx === pdfs.length - 1}
+                        className="p-1.5 hover:bg-white dark:hover:bg-zinc-700 hover:shadow-sm rounded-md disabled:opacity-30 transition-all text-secondary"
+                        title="Move Down"
+                      >
+                        <ArrowDown size={16} />
+                      </button>
+                    </div>
+                    <button
+                      onClick={() => removePdf(idx)}
+                      className="p-2 text-secondary hover:text-red-500 hover:bg-red-500/10 rounded-lg transition-colors"
+                    >
+                      <X size={20} />
+                    </button>
+                  </div>
+                </div>
+              ))}
+
+              {/* Add More Button */}
+              <label className="flex items-center justify-center w-full p-4 border-2 border-dashed border-border rounded-xl cursor-pointer hover:border-brand-purple hover:bg-brand-purple/5 transition-all group text-secondary hover:text-brand-purple gap-2 font-bold">
+                <Plus size={20} />
+                Add more PDFs
+                <input
+                  type="file"
+                  className="hidden"
+                  accept="application/pdf"
+                  multiple
+                  onChange={(e) => e.target.files && handleFiles(Array.from(e.target.files))}
+                />
+              </label>
+            </div>
+          </div>
+        )}
+      </div>
     </div>
   );
 };

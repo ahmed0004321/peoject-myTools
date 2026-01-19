@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import FileUploader from '../components/FileUploader';
-import { X, ArrowUp, ArrowDown, FileDown, Loader2 } from 'lucide-react';
+import { X, ArrowUp, ArrowDown, FileDown, Loader2, ImageMinus, Upload, Plus } from 'lucide-react';
 import { FileWithPreview } from '../types';
+import SectionHeader from '../components/ui/SectionHeader';
 
 const ImageToPdf: React.FC = () => {
   const [images, setImages] = useState<FileWithPreview[]>([]);
@@ -78,100 +78,122 @@ const ImageToPdf: React.FC = () => {
   };
 
   return (
-    <div className="max-w-4xl mx-auto space-y-8">
-      <div className="space-y-2">
-        <h1 className="text-3xl font-display font-bold text-primary">Image to PDF</h1>
-        <p className="text-secondary text-lg">Convert JPG and PNG images to PDF instantly.</p>
-      </div>
+    <div className="min-h-screen bg-background pb-20 animate-fade-in">
+      <SectionHeader
+        title="Image to PDF"
+        subtitle="Combine multiple images into a single PDF document."
+      />
 
-      {images.length === 0 ? (
-        <FileUploader
-          onFilesSelected={handleFiles}
-          accept="image/png, image/jpeg, image/jpg"
-          multiple
-          title="Drop your images here"
-        />
-      ) : (
-        <div className="space-y-8">
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-            {images.map((img, idx) => (
-              <div key={img.id} className="relative group bg-surface p-2 rounded-xl border border-border transition-all hover:border-[var(--accent-primary)] hover:shadow-lg">
-                <div className="aspect-square w-full rounded-lg overflow-hidden bg-background">
-                  <img
-                    src={img.preview}
-                    alt="preview"
-                    className="w-full h-full object-cover"
-                  />
-                </div>
+      <div className={`max-w-6xl mx-auto px-4 ${images.length === 0 ? 'max-w-3xl' : ''}`}>
 
-                <div className="absolute top-2 right-2 flex gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
-                  <button
-                    onClick={() => removeImage(idx)}
-                    className="p-1.5 bg-background/90 backdrop-blur rounded-full shadow-sm text-secondary hover:text-red-500 hover:bg-background border border-border"
-                  >
-                    <X size={14} />
-                  </button>
-                </div>
-                <div className="flex justify-center mt-3 gap-2">
-                  <button
-                    onClick={() => moveImage(idx, -1)}
-                    disabled={idx === 0}
-                    className="p-1.5 rounded-md hover:bg-background disabled:opacity-30 text-secondary transition-colors"
-                  >
-                    <ArrowUp size={16} className="rotate-[-90deg]" />
-                  </button>
-                  <span className="text-xs font-mono py-1.5 text-secondary">{idx + 1}</span>
-                  <button
-                    onClick={() => moveImage(idx, 1)}
-                    disabled={idx === images.length - 1}
-                    className="p-1.5 rounded-md hover:bg-background disabled:opacity-30 text-secondary transition-colors"
-                  >
-                    <ArrowDown size={16} className="rotate-[-90deg]" />
-                  </button>
-                </div>
+        {images.length === 0 ? (
+          /* Initial State: Standard Centered Card */
+          <div className="bg-surface border border-border rounded-3xl p-8 shadow-xl text-center space-y-8 animate-slide-up">
+            <div className="space-y-6">
+              <div className="w-24 h-24 bg-brand-green/10 text-brand-green rounded-full flex items-center justify-center mx-auto mb-6">
+                <ImageMinus size={48} />
               </div>
-            ))}
 
-            <div className="flex items-center justify-center border-2 border-dashed border-border rounded-xl aspect-square hover:border-[var(--accent-primary)] hover:bg-surface/50 transition-all">
-              <label className="cursor-pointer flex flex-col items-center p-4 text-secondary hover:text-[var(--accent-primary)] transition-colors">
-                <span className="text-3xl font-light mb-2">+</span>
-                <span className="text-sm font-medium">Add more</span>
+              <div className="space-y-2">
+                <h3 className="text-2xl font-bold">Upload Images</h3>
+                <p className="text-secondary">Convert JPGs and PNGs into a PDF document.</p>
+              </div>
+
+              <label className="inline-flex items-center gap-3 px-8 py-4 bg-brand-green text-white rounded-xl font-bold text-lg cursor-pointer hover:bg-emerald-600 transition-all hover:scale-105 active:scale-95 shadow-lg shadow-emerald-500/20">
+                <Upload size={24} />
+                Select Images
                 <input
                   type="file"
                   className="hidden"
+                  accept="image/png, image/jpeg, image/jpg"
                   multiple
-                  accept="image/png, image/jpeg"
                   onChange={(e) => e.target.files && handleFiles(Array.from(e.target.files))}
                 />
               </label>
             </div>
           </div>
+        ) : (
+          /* Workspace State */
+          <div className="space-y-8 animate-fade-in">
+            {/* Toolbar setup */}
+            <div className="flex justify-between items-center px-2">
+              <h3 className="text-xl font-bold text-primary">Selected Images ({images.length})</h3>
+              <div className="flex gap-4">
+                <button
+                  onClick={() => setImages([])}
+                  className="text-secondary hover:text-red-500 font-bold text-sm transition-colors"
+                >
+                  Clear All
+                </button>
+                <button
+                  onClick={convertToPdf}
+                  disabled={isProcessing}
+                  className="flex items-center gap-2 px-6 py-2.5 bg-brand-green text-white rounded-xl font-bold hover:bg-emerald-600 transition-all shadow-lg shadow-emerald-500/20 disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                  {isProcessing ? <Loader2 className="animate-spin" size={18} /> : <FileDown size={18} />}
+                  Convert to PDF
+                </button>
+              </div>
+            </div>
 
-          <div className="flex justify-end gap-4 border-t border-border pt-8">
-            <button
-              onClick={() => setImages([])}
-              className="px-6 py-3 text-secondary hover:text-red-500 transition-colors font-medium text-sm"
-            >
-              Clear All
-            </button>
-            <button
-              onClick={convertToPdf}
-              disabled={isProcessing}
-              className="flex items-center gap-2 px-8 py-3 bg-[var(--accent-primary)] text-white rounded-xl font-bold shadow-lg shadow-indigo-500/20 hover:scale-[1.02] active:scale-[0.98] transition-all disabled:opacity-70 disabled:scale-100"
-            >
-              {isProcessing ? (
-                <>
-                  <Loader2 className="animate-spin" size={20} /> Processing...
-                </>
-              ) : (
-                <>
-                  <FileDown size={20} /> Download PDF
-                </>
-              )}
-            </button>
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+              {images.map((img, idx) => (
+                <div key={img.id || idx} className="relative group bg-surface p-2 rounded-2xl border border-border transition-all hover:border-brand-green hover:shadow-lg">
+                  <div className="aspect-[3/4] w-full rounded-xl overflow-hidden bg-zinc-100 dark:bg-zinc-900">
+                    <img
+                      src={img.preview}
+                      alt="preview"
+                      className="w-full h-full object-contain"
+                    />
+                  </div>
+
+                  <div className="absolute top-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity">
+                    <button
+                      onClick={() => removeImage(idx)}
+                      className="p-1.5 bg-black/50 backdrop-blur rounded-full text-white hover:bg-red-500 transition-colors"
+                    >
+                      <X size={14} />
+                    </button>
+                  </div>
+
+                  <div className="flex justify-center mt-3 gap-2">
+                    <button
+                      onClick={() => moveImage(idx, -1)}
+                      disabled={idx === 0}
+                      className="p-1.5 rounded-lg hover:bg-zinc-100 dark:hover:bg-zinc-800 disabled:opacity-30 text-secondary transition-colors"
+                    >
+                      <ArrowUp size={16} className="rotate-[-90deg]" />
+                    </button>
+                    <span className="text-xs font-mono py-1.5 text-secondary">{idx + 1}</span>
+                    <button
+                      onClick={() => moveImage(idx, 1)}
+                      disabled={idx === images.length - 1}
+                      className="p-1.5 rounded-lg hover:bg-zinc-100 dark:hover:bg-zinc-800 disabled:opacity-30 text-secondary transition-colors"
+                    >
+                      <ArrowDown size={16} className="rotate-[-90deg]" />
+                    </button>
+                  </div>
+                </div>
+              ))}
+
+              {/* Add More Card */}
+              <label className="flex flex-col items-center justify-center aspect-[3/4] border-2 border-dashed border-border rounded-2xl hover:border-brand-green hover:bg-brand-green/5 cursor-pointer transition-all group">
+                <div className="w-12 h-12 bg-zinc-100 dark:bg-zinc-800 group-hover:bg-brand-green/20 rounded-full flex items-center justify-center mb-3 text-secondary group-hover:text-brand-green transition-colors">
+                  <Plus size={24} />
+                </div>
+                <span className="text-sm font-bold text-secondary group-hover:text-brand-green">Add Images</span>
+                <input
+                  type="file"
+                  className="hidden"
+                  multiple
+                  accept="image/png, image/jpeg, image/jpg"
+                  onChange={(e) => e.target.files && handleFiles(Array.from(e.target.files))}
+                />
+              </label>
+            </div>
           </div>
-        </div>
-      )}
+        )}
+      </div>
     </div>
   );
 };

@@ -1,8 +1,8 @@
 import React, { useState, useRef, useEffect } from 'react';
 import ReactCrop, { Crop, PixelCrop, centerCrop, makeAspectCrop } from 'react-image-crop';
 import 'react-image-crop/dist/ReactCrop.css';
-import FileUploader from '../components/FileUploader';
-import { Crop as CropIcon, Download, Sliders } from 'lucide-react';
+import { Crop as CropIcon, Download, Sliders, Upload } from 'lucide-react';
+import SectionHeader from '../components/ui/SectionHeader';
 
 // Helper to center crop initially
 function centerAspectCrop(mediaWidth: number, mediaHeight: number, aspect: number) {
@@ -84,75 +84,96 @@ const ImageEditor: React.FC = () => {
     };
 
     return (
-        <div className="max-w-5xl mx-auto">
-            <div className="mb-8">
-                <h1 className="text-3xl font-bold text-[var(--text-primary)]">Crop & Resize Station</h1>
-                <p className="text-[var(--text-secondary)] mt-2">Adjust your images to perfect dimensions.</p>
-            </div>
+        <div className="min-h-screen bg-background pb-20 animate-fade-in">
+            <SectionHeader
+                title="Crop & Resize Station"
+                subtitle="Adjust your images to perfect dimensions."
+            />
 
-            {!imgSrc ? (
-                <FileUploader
-                    onFilesSelected={onSelectFile}
-                    accept="image/*"
-                    title="Upload image to edit"
-                />
-            ) : (
-                <div className="grid lg:grid-cols-[300px,1fr] gap-8 items-start">
-                    <div className="bg-[var(--bg-secondary)] p-6 rounded-2xl shadow-sm border border-[var(--border-color)]">
-                        <h3 className="font-bold text-[var(--text-primary)] mb-4 flex items-center gap-2">
-                            <Sliders size={18} /> Controls
-                        </h3>
-
-                        <div className="space-y-4">
-                            <div className="flex flex-col gap-2">
-                                <label className="text-xs font-semibold uppercase text-slate-400 dark:text-slate-500">Aspect Ratio</label>
-                                <div className="grid grid-cols-3 gap-2">
-                                    <button onClick={() => setAspect(undefined)} className={`py-2 text-sm border rounded hover:bg-inset ${!aspect ? 'border-indigo-500 text-indigo-600 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-900/20' : 'border-[var(--border-color)] text-[var(--text-secondary)]'}`}>Free</button>
-                                    <button onClick={() => setAspect(1)} className={`py-2 text-sm border rounded hover:bg-inset ${aspect === 1 ? 'border-indigo-500 text-indigo-600 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-900/20' : 'border-[var(--border-color)] text-[var(--text-secondary)]'}`}>Square</button>
-                                    <button onClick={() => setAspect(16 / 9)} className={`py-2 text-sm border rounded hover:bg-inset ${aspect === 16 / 9 ? 'border-indigo-500 text-indigo-600 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-900/20' : 'border-[var(--border-color)] text-[var(--text-secondary)]'}`}>16:9</button>
-                                </div>
+            <div className={`max-w-6xl mx-auto px-4 ${!imgSrc ? 'max-w-3xl' : ''}`}>
+                {!imgSrc ? (
+                    /* Initial State: Standard Centered Card */
+                    <div className="bg-surface border border-border rounded-3xl p-8 shadow-xl text-center space-y-8 animate-slide-up">
+                        <div className="space-y-6">
+                            <div className="w-24 h-24 bg-brand-pink/10 text-brand-pink rounded-full flex items-center justify-center mx-auto mb-6">
+                                <CropIcon size={48} />
                             </div>
 
-                            <button
-                                onClick={onDownloadCropClick}
-                                className="w-full py-3 bg-indigo-600 text-white font-bold rounded-xl mt-4 hover:bg-indigo-700 shadow-lg shadow-indigo-200 dark:shadow-indigo-900/20 transition-all flex items-center justify-center gap-2"
-                            >
-                                <Download size={18} /> Download Crop
-                            </button>
+                            <div className="space-y-2">
+                                <h3 className="text-2xl font-bold">Upload Image to Edit</h3>
+                                <p className="text-secondary">Crop, resize, and prepare your images for any platform.</p>
+                            </div>
 
-                            <button
-                                onClick={() => setImgSrc('')}
-                                className="w-full py-2 text-[var(--text-secondary)] text-sm hover:text-[var(--text-primary)]"
-                            >
-                                Choose Different Image
-                            </button>
+                            <label className="inline-flex items-center gap-3 px-8 py-4 bg-brand-pink text-white rounded-xl font-bold text-lg cursor-pointer hover:bg-pink-600 transition-all hover:scale-105 active:scale-95 shadow-lg shadow-pink-500/20">
+                                <Upload size={24} />
+                                Select Image
+                                <input type="file" className="hidden" accept="image/*" onChange={(e) => onSelectFile(Array.from(e.target.files || []))} />
+                            </label>
+
+                            <p className="text-xs text-secondary/60 pt-4">
+                                *All edits happen locally on your device.
+                            </p>
                         </div>
                     </div>
+                ) : (
+                    /* Editor View */
+                    <div className="grid lg:grid-cols-[300px,1fr] gap-8 items-start animate-fade-in">
+                        <div className="bg-surface p-6 rounded-2xl shadow-xl border border-border">
+                            <h3 className="font-bold text-primary mb-4 flex items-center gap-2">
+                                <Sliders size={18} /> Controls
+                            </h3>
 
-                    <div className="bg-slate-900 rounded-2xl overflow-hidden p-8 flex items-center justify-center min-h-[500px]">
-                        <ReactCrop
-                            crop={crop}
-                            onChange={(_, percentCrop) => setCrop(percentCrop)}
-                            onComplete={(c) => setCompletedCrop(c)}
-                            aspect={aspect}
-                            className="max-h-[70vh]"
-                        >
-                            <img
-                                ref={imgRef}
-                                alt="Crop me"
-                                src={imgSrc}
-                                onLoad={onImageLoad}
-                                style={{ transform: `scale(1)` }} // Add simple zoom later if needed
-                            />
-                        </ReactCrop>
+                            <div className="space-y-4">
+                                <div className="flex flex-col gap-2">
+                                    <label className="text-xs font-semibold uppercase text-secondary">Aspect Ratio</label>
+                                    <div className="grid grid-cols-3 gap-2">
+                                        <button onClick={() => setAspect(undefined)} className={`py-2 text-sm border rounded-lg transition-colors ${!aspect ? 'border-brand-pink text-brand-pink bg-pink-50 dark:bg-pink-900/20' : 'border-border text-secondary hover:bg-zinc-100 dark:hover:bg-zinc-800'}`}>Free</button>
+                                        <button onClick={() => setAspect(1)} className={`py-2 text-sm border rounded-lg transition-colors ${aspect === 1 ? 'border-brand-pink text-brand-pink bg-pink-50 dark:bg-pink-900/20' : 'border-border text-secondary hover:bg-zinc-100 dark:hover:bg-zinc-800'}`}>Square</button>
+                                        <button onClick={() => setAspect(16 / 9)} className={`py-2 text-sm border rounded-lg transition-colors ${aspect === 16 / 9 ? 'border-brand-pink text-brand-pink bg-pink-50 dark:bg-pink-900/20' : 'border-border text-secondary hover:bg-zinc-100 dark:hover:bg-zinc-800'}`}>16:9</button>
+                                    </div>
+                                </div>
+
+                                <button
+                                    onClick={onDownloadCropClick}
+                                    className="w-full py-3 bg-brand-pink text-white font-bold rounded-xl mt-4 hover:bg-pink-600 shadow-lg shadow-pink-500/20 transition-all flex items-center justify-center gap-2"
+                                >
+                                    <Download size={18} /> Download Crop
+                                </button>
+
+                                <button
+                                    onClick={() => setImgSrc('')}
+                                    className="w-full py-2 text-secondary text-sm hover:text-primary transition-colors"
+                                >
+                                    Choose Different Image
+                                </button>
+                            </div>
+                        </div>
+
+                        <div className="bg-zinc-900 rounded-2xl overflow-hidden p-8 flex items-center justify-center min-h-[500px] shadow-2xl border border-zinc-800">
+                            <ReactCrop
+                                crop={crop}
+                                onChange={(_, percentCrop) => setCrop(percentCrop)}
+                                onComplete={(c) => setCompletedCrop(c)}
+                                aspect={aspect}
+                                className="max-h-[70vh]"
+                            >
+                                <img
+                                    ref={imgRef}
+                                    alt="Crop me"
+                                    src={imgSrc}
+                                    onLoad={onImageLoad}
+                                    style={{ transform: `scale(1)` }}
+                                />
+                            </ReactCrop>
+                        </div>
                     </div>
-                </div>
-            )}
-            <a
-                ref={hiddenAnchorRef}
-                download="cropped-image.png"
-                style={{ position: 'absolute', top: -2000, left: -2000 }}
-            >Hidden Download Anchor</a>
+                )}
+                <a
+                    ref={hiddenAnchorRef}
+                    download="cropped-image.png"
+                    style={{ position: 'absolute', top: -2000, left: -2000 }}
+                >Hidden Download Anchor</a>
+            </div>
         </div>
     );
 };

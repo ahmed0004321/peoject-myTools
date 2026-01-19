@@ -1,8 +1,8 @@
-# 🛠️ omniTools: The Ultimate PDF & Image Suite
+# 🛠️ myTools: The Ultimate PDF & Image Suite
 
 ![omniTools Banner](https://omnitoolpdfimagesuitev10.vercel.app/og-image.png)
 
-omniTools is a powerful, privacy-focused, and all-in-one web utility suite designed to handle your PDF, Image, Security, and Productivity needs entirely in the browser. No file uploads to servers, no privacy concerns.
+myTools is a powerful, privacy-focused, and all-in-one web utility suite designed to handle your PDF, Image, Security, and Productivity needs entirely in the browser. No file uploads to servers, no privacy concerns.
 
 **Live Demo:** [https://omnitoolpdfimagesuitev10.vercel.app/](https://omnitoolpdfimagesuitev10.vercel.app/)
 
@@ -31,7 +31,7 @@ omniTools is a powerful, privacy-focused, and all-in-one web utility suite desig
 - **QR Code Suite:** Generate individual or batch QR codes for URLs, text, and more.
 - **Text Formatter:** Clean, transform, and format text instantly.
 - **Markdown Preview:** Real-time markdown editor and renderer.
-- **Typing Test:** Boost your productivity with a built-in typing speed trainer.
+
 
 ---
 

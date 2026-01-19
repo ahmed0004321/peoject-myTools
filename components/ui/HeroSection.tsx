@@ -47,7 +47,7 @@ const HeroSection: React.FC = () => {
                         className="space-y-4"
                     >
                         <h1 className="font-display font-black text-4xl md:text-5xl lg:text-7xl uppercase leading-[0.9] tracking-tight">
-                            <TypewriterText text="Professional Toolkit" colorful /> <br />
+                            <TypewriterText text="Professional Toolkit" /> <br />
                             <TypewriterText text="Simplified." className="text-brand-yellow" delay={1.0} />
                         </h1>
                         <p className="text-xl md:text-2xl font-medium text-primary">
@@ -75,48 +75,53 @@ const HeroSection: React.FC = () => {
                     </motion.div>
                 </div >
 
-                {/* Right Content - Visual Stack */}
-                < div className="relative h-[500px] w-full flex items-center justify-center lg:justify-end pr-0 lg:pr-10 perspective-[1000px]" >
-                    {/* Back Card - Blue */}
-                    < motion.div
-                        initial={{ rotate: 15, x: 40 }}
-                        animate={{ rotate: 12, x: 60 }}
-                        className="absolute w-[280px] h-[400px] bg-brand-cyan rounded-2xl border-2 border-black -z-20"
-                    />
-                    {/* Back Card - Purple */}
-                    < motion.div
-                        initial={{ rotate: -5, x: 20 }}
-                        animate={{ rotate: -8, x: 30 }}
-                        className="absolute w-[280px] h-[400px] bg-brand-purple rounded-2xl border-2 border-black -z-10"
-                    />
+                {/* Right Content - Professional Glass Card */}
+                <div className="relative h-[500px] w-full flex items-center justify-center lg:justify-end pr-0 lg:pr-10 perspective-[1000px]">
+                    {/* Abstract Gradient Background */}
+                    <div className="absolute inset-0 bg-gradient-to-tr from-indigo-500/30 to-purple-500/30 blur-[80px] rounded-full transform scale-75 animate-pulse" />
 
-                    {/* Main Card - Green */}
-                    < motion.div
-                        initial={{ rotate: 0, scale: 0.9 }}
-                        animate={{ rotate: 2, scale: 1 }}
-                        transition={{ type: "spring", stiffness: 100 }}
-                        className="relative w-[300px] h-[440px] bg-brand-green rounded-2xl border-3 border-black p-6 flex flex-col shadow-2xl skew-x-1"
+                    <motion.div
+                        initial={{ opacity: 0, scale: 0.95, y: 20 }}
+                        animate={{ opacity: 1, scale: 1, y: 0 }}
+                        transition={{ duration: 0.8, ease: "easeOut" }}
+                        className="relative w-[340px] md:w-[380px] bg-white/10 dark:bg-black/40 backdrop-blur-xl border border-white/20 dark:border-white/10 rounded-3xl p-8 shadow-2xl shadow-indigo-500/10 flex flex-col gap-6"
                     >
-                        {/* Profile Image Blob Mask */}
-                        < div className="relative w-full flex justify-center mt-4" >
-                            <div className="w-48 h-48 rounded-full overflow-hidden border-4 border-black bg-brand-pink relative z-0">
-                                <img src="/assets/testimonial_profile_real.png" alt="Developer" className="w-full h-full object-cover" />
-                            </div>
-                            {/* Badge */}
-                            <div className="absolute -bottom-6 right-2 bg-brand-cream dark:bg-zinc-800 border-2 border-black rounded-lg p-3 shadow-[4px_4px_0px_#000] z-10 transform rotate-[-2deg] max-w-[180px]">
-                                <p className="font-bold text-black dark:text-white">Sarah Jenkins</p>
-                                <p className="text-xs text-black dark:text-gray-300">Product Manager</p>
-                                <div className="flex gap-0.5 mt-1 text-brand-yellow">
-                                    {[1, 2, 3, 4, 5].map(i => <Star key={i} size={12} fill="currentColor" />)}
+                        {/* Profile Header */}
+                        <div className="flex items-center gap-4">
+                            <div className="relative">
+                                <div className="w-16 h-16 rounded-full overflow-hidden border-2 border-white/50 shadow-lg">
+                                    <img src="/assets/testimonial_profile_real.png" alt="Developer" className="w-full h-full object-cover" />
+                                </div>
+                                <div className="absolute -bottom-1 -right-1 bg-green-500 p-1 rounded-full border-2 border-white dark:border-zinc-900">
+                                    <div className="w-2 h-2 bg-white rounded-full" />
                                 </div>
                             </div>
-                        </div >
-
-                        <div className="mt-auto mb-4 font-medium text-black text-sm text-center leading-relaxed">
-                            "Finally, a PDF merger that doesn't upload my confidential contracts to a cloud server. OmniTools is my daily driver for secure document handling."
+                            <div>
+                                <h3 className="font-bold text-lg text-primary">Sarah Jenkins</h3>
+                                <p className="text-sm text-secondary">Product Manager @ TechCorp</p>
+                                <div className="flex gap-0.5 mt-1 text-yellow-400">
+                                    {[1, 2, 3, 4, 5].map(i => <Star key={i} size={14} fill="currentColor" />)}
+                                </div>
+                            </div>
                         </div>
-                    </motion.div >
-                </div >
+
+                        {/* Testimonial Content */}
+                        <div className="space-y-4">
+                            <p className="text-primary/90 text-[15px] leading-relaxed font-medium">
+                                "The privacy-first approach is exactly what our team needed. We can finally process sensitive documents without worrying about data leaving our devices. It's a game changer."
+                            </p>
+
+                            {/* Trust Badge */}
+                            <div className="pt-4 border-t border-white/10 flex items-center justify-between text-xs text-secondary/70 uppercase tracking-widest font-semibold">
+                                <span>Verified User</span>
+                                <span className="flex items-center gap-1.5">
+                                    <span className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse" />
+                                    Active Now
+                                </span>
+                            </div>
+                        </div>
+                    </motion.div>
+                </div>
             </div >
 
             {/* Logo Strip */}

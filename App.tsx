@@ -6,7 +6,8 @@ import ImageToPdf from './pages/ImageToPdf';
 import PdfToImage from './pages/PdfToImage';
 import NoteGenerator from './pages/NoteGenerator';
 import MergePdf from './pages/MergePdf';
-import ImageToolkit from './pages/ImageToolkit';
+import ImageSharpener from './pages/ImageSharpener';
+import PptxToPdf from './pages/PptxToPdf';
 import CompressTool from './pages/CompressTool';
 import Converter from './pages/Converter';
 import QrTool from './pages/QrTool';
@@ -17,7 +18,7 @@ import TextFormatter from './pages/TextFormatter';
 import MarkdownPreview from './pages/MarkdownPreview';
 import QrBatch from './pages/QrBatch';
 import PasswordTool from './pages/PasswordTool';
-import TypingTest from './pages/TypingTest';
+
 import SecureVault from './pages/SecureVault';
 import DocumentScanner from './pages/DocumentScanner';
 import ContentDetector from './pages/ContentDetector';
@@ -34,12 +35,13 @@ const App: React.FC = () => {
           {/* PDF Tools */}
           <Route path="/image-to-pdf" element={<ImageToPdf />} />
           <Route path="/pdf-to-image" element={<PdfToImage />} />
+          <Route path="/pptx-to-pdf" element={<PptxToPdf />} />
           <Route path="/note-generator" element={<NoteGenerator />} />
           <Route path="/merge-pdf" element={<MergePdf />} />
           <Route path="/document-scanner" element={<DocumentScanner />} />
 
           {/* Image Tools */}
-          <Route path="/image-toolkit" element={<ImageToolkit />} />
+          <Route path="/image-sharpener" element={<ImageSharpener />} />
           <Route path="/image-editor" element={<ImageEditor />} />
 
           {/* Security Tools */}
@@ -54,7 +56,7 @@ const App: React.FC = () => {
           {/* Text & Productivity */}
           <Route path="/text-formatter" element={<TextFormatter />} />
           <Route path="/markdown-preview" element={<MarkdownPreview />} />
-          <Route path="/typing-test" element={<TypingTest />} />
+
 
           {/* Web Tools (Refining) */}
           <Route path="/qr-tool" element={<QrTool />} />

@@ -171,7 +171,7 @@ const ImageSharpener: React.FC = () => {
                                 <p className="text-secondary">Enhance details using advanced local unsharp masking.</p>
                             </div>
 
-                            <label className="inline-flex items-center gap-3 px-8 py-4 bg-brand-pink text-white rounded-xl font-bold text-lg cursor-pointer hover:bg-pink-600 transition-all hover:scale-105 active:scale-95 shadow-lg shadow-pink-500/20">
+                            <label className="inline-flex items-center gap-3 px-8 py-4 bg-pink-500 text-white rounded-xl font-bold text-lg cursor-pointer hover:bg-pink-600 transition-all hover:scale-105 active:scale-95 shadow-lg shadow-pink-500/20">
                                 <Upload size={24} />
                                 Select Image
                                 <input type="file" className="hidden" accept="image/*" onChange={handleFileChange} />

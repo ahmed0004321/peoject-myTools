@@ -122,7 +122,6 @@ const ContentDetector: React.FC = () => {
             <SectionHeader
                 title="Content Integrity Check"
                 subtitle="Analyze text for AI generation and check for plagiarism."
-                badge="AI Powered"
             />
 
             <div className={`max-w-5xl mx-auto px-4 ${!result && !textInput && !file ? 'max-w-3xl' : ''}`}>
@@ -143,7 +142,7 @@ const ContentDetector: React.FC = () => {
                             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
                                 <button
                                     onClick={() => setTextInput(' ')} // Trick to switch to workspace
-                                    className="px-8 py-4 bg-brand-purple text-white rounded-xl font-bold text-lg hover:bg-purple-600 transition-all hover:scale-105 shadow-lg shadow-purple-500/20 flex items-center gap-2"
+                                    className="px-8 py-4 bg-purple-600 text-white rounded-xl font-bold text-lg hover:bg-purple-600 transition-all hover:scale-105 shadow-lg shadow-purple-500/20 flex items-center gap-2"
                                 >
                                     <Type size={20} /> Paste Text
                                 </button>
@@ -210,7 +209,7 @@ const ContentDetector: React.FC = () => {
                                 <button
                                     onClick={handleAnalyze}
                                     disabled={isAnalyzing || (mode === 'text' && textInput.length < 50) || (mode === 'file' && !file)}
-                                    className="px-12 py-4 bg-brand-purple text-white rounded-xl font-bold text-lg hover:bg-purple-600 transition-all hover:scale-105 shadow-lg shadow-purple-500/20 disabled:opacity-50 disabled:scale-100 flex items-center gap-3"
+                                    className="px-12 py-4 bg-purple-600 text-white rounded-xl font-bold text-lg hover:bg-purple-600 transition-all hover:scale-105 shadow-lg shadow-purple-500/20 disabled:opacity-50 disabled:scale-100 flex items-center gap-3"
                                 >
                                     {isAnalyzing ? <Loader2 className="animate-spin" /> : <Scan />}
                                     {isAnalyzing ? 'Analyzing...' : 'Run Analysis'}

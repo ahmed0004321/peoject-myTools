@@ -99,7 +99,7 @@ const ImageToPdf: React.FC = () => {
                 <p className="text-secondary">Convert JPGs and PNGs into a PDF document.</p>
               </div>
 
-              <label className="inline-flex items-center gap-3 px-8 py-4 bg-brand-green text-white rounded-xl font-bold text-lg cursor-pointer hover:bg-emerald-600 transition-all hover:scale-105 active:scale-95 shadow-lg shadow-emerald-500/20">
+              <label className="inline-flex items-center gap-3 px-8 py-4 bg-emerald-500 text-white rounded-xl font-bold text-lg cursor-pointer hover:bg-emerald-600 transition-all hover:scale-105 active:scale-95 shadow-lg shadow-emerald-500/20">
                 <Upload size={24} />
                 Select Images
                 <input
@@ -128,7 +128,7 @@ const ImageToPdf: React.FC = () => {
                 <button
                   onClick={convertToPdf}
                   disabled={isProcessing}
-                  className="flex items-center gap-2 px-6 py-2.5 bg-brand-green text-white rounded-xl font-bold hover:bg-emerald-600 transition-all shadow-lg shadow-emerald-500/20 disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="flex items-center gap-2 px-6 py-2.5 bg-emerald-500 text-white rounded-xl font-bold hover:bg-emerald-600 transition-all shadow-lg shadow-emerald-500/20 disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   {isProcessing ? <Loader2 className="animate-spin" size={18} /> : <FileDown size={18} />}
                   Convert to PDF

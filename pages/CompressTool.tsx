@@ -113,7 +113,7 @@ const CompressTool: React.FC = () => {
                                 </div>
 
                                 {filesToZip.length === 0 ? (
-                                    <label className="inline-flex items-center gap-3 px-8 py-4 bg-brand-orange text-white rounded-xl font-bold text-lg cursor-pointer hover:bg-orange-600 transition-all hover:scale-105 active:scale-95 shadow-lg shadow-orange-500/20">
+                                    <label className="inline-flex items-center gap-3 px-8 py-4 bg-orange-500 text-white rounded-xl font-bold text-lg cursor-pointer hover:bg-orange-600 transition-all hover:scale-105 active:scale-95 shadow-lg shadow-orange-500/20">
                                         <FolderInput size={24} />
                                         Select Files
                                         <input type="file" multiple className="hidden" onChange={(e) => setFilesToZip(Array.from(e.target.files || []))} />
@@ -142,7 +142,7 @@ const CompressTool: React.FC = () => {
                                             <button
                                                 onClick={handleCompress}
                                                 disabled={isProcessing}
-                                                className="flex items-center justify-center gap-2 px-8 py-3 bg-brand-orange text-white rounded-xl font-bold hover:bg-orange-600 transition-colors shadow-lg shadow-orange-500/20 disabled:opacity-50 disabled:cursor-wait"
+                                                className="flex items-center justify-center gap-2 px-8 py-3 bg-orange-500 text-white rounded-xl font-bold hover:bg-orange-600 transition-colors shadow-lg shadow-orange-500/20 disabled:opacity-50 disabled:cursor-wait"
                                             >
                                                 {isProcessing ? <Loader2 className="animate-spin" size={20} /> : <Archive size={20} />}
                                                 Download ZIP
@@ -159,7 +159,7 @@ const CompressTool: React.FC = () => {
                                 </div>
 
                                 {!zipFile ? (
-                                    <label className="inline-flex items-center gap-3 px-8 py-4 bg-brand-orange text-white rounded-xl font-bold text-lg cursor-pointer hover:bg-orange-600 transition-all hover:scale-105 active:scale-95 shadow-lg shadow-orange-500/20">
+                                    <label className="inline-flex items-center gap-3 px-8 py-4 bg-orange-500 text-white rounded-xl font-bold text-lg cursor-pointer hover:bg-orange-600 transition-all hover:scale-105 active:scale-95 shadow-lg shadow-orange-500/20">
                                         <FileArchive size={24} />
                                         Select ZIP
                                         <input type="file" accept=".zip,.rar" className="hidden" onChange={(e) => {

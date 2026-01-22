@@ -20,7 +20,7 @@ declare global {
   }
 }
 
-export type ToolType = 'img-to-pdf' | 'pdf-to-img' | 'pdf-editor' | 'merge-pdf' | 'img-toolkit' | 'image-gen';
+export type ToolType = 'img-to-pdf' | 'pdf-to-img' | 'merge-pdf' | 'img-toolkit' | 'image-gen';
 
 export interface FileWithPreview extends File {
   preview?: string;

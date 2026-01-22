@@ -151,7 +151,7 @@ const PptxToPdf: React.FC = () => {
                                 <p className="text-secondary">Converts .pptx to .pdf instantly. content-focused.</p>
                             </div>
 
-                            <label className="inline-flex items-center gap-3 px-8 py-4 bg-brand-orange text-white rounded-xl font-bold text-lg cursor-pointer hover:bg-orange-600 transition-all hover:scale-105 active:scale-95 shadow-lg shadow-orange-500/20">
+                            <label className="inline-flex items-center gap-3 px-8 py-4 bg-orange-500 text-white rounded-xl font-bold text-lg cursor-pointer hover:bg-orange-600 transition-all hover:scale-105 active:scale-95 shadow-lg shadow-orange-500/20">
                                 <Upload size={24} />
                                 Select Presentation
                                 <input type="file" accept=".pptx" className="hidden" onChange={handleFileChange} />
@@ -199,7 +199,7 @@ const PptxToPdf: React.FC = () => {
                                 <a
                                     href={resultPdfUrl}
                                     download={fileName.replace('.pptx', '.pdf')}
-                                    className="flex items-center justify-center gap-2 px-8 py-3 bg-brand-orange text-white rounded-xl font-bold hover:bg-orange-600 transition-colors shadow-lg shadow-orange-500/20"
+                                    className="flex items-center justify-center gap-2 px-8 py-3 bg-orange-500 text-white rounded-xl font-bold hover:bg-orange-600 transition-colors shadow-lg shadow-orange-500/20"
                                 >
                                     <Download size={20} /> Download PDF
                                 </a>

@@ -83,7 +83,6 @@ const QrBatch: React.FC = () => {
             <SectionHeader
                 title="Bulk QR Generator"
                 subtitle="Generate multiple QR codes at once for inventory or events."
-                badge="Batch Mode"
             />
 
             <div className="max-w-5xl mx-auto px-4">

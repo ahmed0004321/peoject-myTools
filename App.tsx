@@ -4,7 +4,6 @@ import Layout from './components/Layout';
 import Home from './pages/Home';
 import ImageToPdf from './pages/ImageToPdf';
 import PdfToImage from './pages/PdfToImage';
-import NoteGenerator from './pages/NoteGenerator';
 import MergePdf from './pages/MergePdf';
 import ImageSharpener from './pages/ImageSharpener';
 import PptxToPdf from './pages/PptxToPdf';
@@ -15,12 +14,10 @@ import ImageEditor from './pages/ImageEditor';
 import PasswordManager from './pages/PasswordManager';
 import HashGenerator from './pages/HashGenerator';
 import TextFormatter from './pages/TextFormatter';
-import MarkdownPreview from './pages/MarkdownPreview';
 import QrBatch from './pages/QrBatch';
 import PasswordTool from './pages/PasswordTool';
 
 import SecureVault from './pages/SecureVault';
-import DocumentScanner from './pages/DocumentScanner';
 import ContentDetector from './pages/ContentDetector';
 import OfflineIndicator from './components/OfflineIndicator';
 
@@ -36,9 +33,7 @@ const App: React.FC = () => {
           <Route path="/image-to-pdf" element={<ImageToPdf />} />
           <Route path="/pdf-to-image" element={<PdfToImage />} />
           <Route path="/pptx-to-pdf" element={<PptxToPdf />} />
-          <Route path="/note-generator" element={<NoteGenerator />} />
           <Route path="/merge-pdf" element={<MergePdf />} />
-          <Route path="/document-scanner" element={<DocumentScanner />} />
 
           {/* Image Tools */}
           <Route path="/image-sharpener" element={<ImageSharpener />} />
@@ -55,7 +50,6 @@ const App: React.FC = () => {
 
           {/* Text & Productivity */}
           <Route path="/text-formatter" element={<TextFormatter />} />
-          <Route path="/markdown-preview" element={<MarkdownPreview />} />
 
 
           {/* Web Tools (Refining) */}

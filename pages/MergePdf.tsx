@@ -99,7 +99,7 @@ const MergePdf: React.FC = () => {
                 <p className="text-secondary">Combine multiple documents into one organized PDF.</p>
               </div>
 
-              <label className="inline-flex items-center gap-3 px-8 py-4 bg-brand-purple text-white rounded-xl font-bold text-lg cursor-pointer hover:bg-purple-600 transition-all hover:scale-105 active:scale-95 shadow-lg shadow-purple-500/20">
+              <label className="inline-flex items-center gap-3 px-8 py-4 bg-purple-600 text-white rounded-xl font-bold text-lg cursor-pointer hover:bg-purple-600 transition-all hover:scale-105 active:scale-95 shadow-lg shadow-purple-500/20">
                 <Upload size={24} />
                 Select PDFs
                 <input
@@ -127,7 +127,7 @@ const MergePdf: React.FC = () => {
                 <button
                   onClick={mergeFiles}
                   disabled={isProcessing}
-                  className="flex items-center gap-2 px-6 py-2.5 bg-brand-purple text-white rounded-xl font-bold hover:bg-purple-600 transition-all shadow-lg shadow-purple-500/20 disabled:opacity-50 disabled:cursor-wait"
+                  className="flex items-center gap-2 px-6 py-2.5 bg-purple-600 text-white rounded-xl font-bold hover:bg-purple-600 transition-all shadow-lg shadow-purple-500/20 disabled:opacity-50 disabled:cursor-wait"
                 >
                   {isProcessing ? <Loader2 className="animate-spin" size={18} /> : <Combine size={18} />}
                   Merge PDFs

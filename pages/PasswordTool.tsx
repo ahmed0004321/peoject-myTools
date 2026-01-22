@@ -63,7 +63,6 @@ const PasswordTool: React.FC = () => {
             <SectionHeader
                 title="Secure PassGen"
                 subtitle="Generate encryption-grade passwords instantly."
-                badge="Generator"
             />
 
             <div className="max-w-2xl mx-auto px-4 mt-8">

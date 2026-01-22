@@ -78,7 +78,6 @@ const PasswordManager: React.FC = () => {
             <SectionHeader
                 title="Password Vault"
                 subtitle="Securely store your credentials locally in your browser."
-                badge="Local Only"
             />
 
             <div className="max-w-4xl mx-auto px-4 mt-8">

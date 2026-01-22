@@ -90,7 +90,7 @@ const PdfToImage: React.FC = () => {
                 <p className="text-secondary">Convert entire PDF documents into separate image files.</p>
               </div>
 
-              <label className="inline-flex items-center gap-3 px-8 py-4 bg-brand-purple text-white rounded-xl font-bold text-lg cursor-pointer hover:bg-purple-600 transition-all hover:scale-105 active:scale-95 shadow-lg shadow-purple-500/20">
+              <label className="inline-flex items-center gap-3 px-8 py-4 bg-purple-600 text-white rounded-xl font-bold text-lg cursor-pointer hover:bg-purple-600 transition-all hover:scale-105 active:scale-95 shadow-lg shadow-purple-500/20">
                 <Upload size={24} />
                 Select PDF
                 <input type="file" className="hidden" accept="application/pdf" onChange={handleFileChange} />
@@ -126,7 +126,7 @@ const PdfToImage: React.FC = () => {
                 {pages.length > 0 && (
                   <button
                     onClick={downloadAll}
-                    className="flex items-center gap-2 px-6 py-2 bg-brand-purple text-white rounded-xl font-bold hover:bg-purple-600 transition-all shadow-lg shadow-purple-500/20"
+                    className="flex items-center gap-2 px-6 py-2 bg-purple-600 text-white rounded-xl font-bold hover:bg-purple-600 transition-all shadow-lg shadow-purple-500/20"
                   >
                     <Archive size={18} /> Download ZIP
                   </button>

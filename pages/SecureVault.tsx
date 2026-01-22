@@ -145,7 +145,6 @@ const SecureVault: React.FC = () => {
             <SectionHeader
                 title="Secure File Vault"
                 subtitle="AES-256 Client-Side Encryption. Your data never leaves your device."
-                badge="Military Grade"
             />
 
             <div className="max-w-xl mx-auto px-4 mt-8">
@@ -224,8 +223,8 @@ const SecureVault: React.FC = () => {
                             onClick={processFile}
                             disabled={!file || !password || isProcessing}
                             className={`w-full py-4 text-white rounded-xl font-bold transition-all hover:scale-105 shadow-xl flex items-center justify-center gap-3 disabled:opacity-50 disabled:scale-100 ${mode === 'encrypt'
-                                    ? 'bg-brand-purple hover:bg-purple-600 shadow-purple-500/20'
-                                    : 'bg-emerald-500 hover:bg-emerald-600 shadow-emerald-500/20'
+                                ? 'bg-brand-purple hover:bg-purple-600 shadow-purple-500/20'
+                                : 'bg-emerald-500 hover:bg-emerald-600 shadow-emerald-500/20'
                                 }`}
                         >
                             {isProcessing ? (

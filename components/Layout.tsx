@@ -36,9 +36,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
       title: "PDF Suite",
       items: [
         { name: 'PPTX to PDF', path: '/pptx-to-pdf', icon: Presentation },
-        { name: 'Doc Scanner', path: '/document-scanner', icon: PenTool },
         { name: 'Merge PDF', path: '/merge-pdf', icon: Combine },
-        { name: 'Note Gen', path: '/note-generator', icon: FileText },
         { name: 'Image to PDF', path: '/image-to-pdf', icon: FileImage },
         { name: 'PDF to Image', path: '/pdf-to-image', icon: ImageMinus },
       ]
@@ -196,7 +194,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
 
       {/* --- Main Content --- */}
       <main className="flex-1 md:pl-72 pt-20 md:pt-0 min-h-screen relative overflow-x-hidden bg-[var(--bg-primary)]">
-        <div className="max-w-7xl mx-auto px-6 lg:px-12 py-10 md:py-16">
+        <div className={location.pathname === '/' ? 'w-full' : 'max-w-7xl mx-auto px-6 lg:px-12 py-10 md:py-16'}>
           {children}
         </div>
       </main>

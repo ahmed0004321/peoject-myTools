@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Archive, FileArchive, FolderInput, Loader2 } from 'lucide-react';
 import JSZip from 'jszip';
 import SectionHeader from '../components/ui/SectionHeader';
+import { toast } from 'react-hot-toast';
 
 const CompressTool: React.FC = () => {
     const [zipFile, setZipFile] = useState<File | null>(null);
@@ -59,7 +60,7 @@ const CompressTool: React.FC = () => {
                     link.download = f.name;
                     link.click();
                 });
-                alert(`Extracted ${extractedFiles.length} files.`);
+                toast.success(`Extracted ${extractedFiles.length} files successfully!`);
                 setZipFile(null);
                 setIsProcessing(false);
             }, 1000);

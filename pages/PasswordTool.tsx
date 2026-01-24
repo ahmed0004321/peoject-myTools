@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { Copy, RefreshCw, ShieldCheck, Check, ArrowLeft, Settings2 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import SectionHeader from '../components/ui/SectionHeader';
+import { toast } from 'react-hot-toast';
 
 const PasswordTool: React.FC = () => {
     const [password, setPassword] = useState("");
@@ -82,7 +83,7 @@ const PasswordTool: React.FC = () => {
                                 <RefreshCw size={20} /> Regenerate
                             </button>
                             <button
-                                onClick={() => { navigator.clipboard.writeText(password); setCopied(true); setTimeout(() => setCopied(false), 2000); }}
+                                onClick={() => { navigator.clipboard.writeText(password); setCopied(true); toast.success('Password copied to clipboard!'); setTimeout(() => setCopied(false), 2000); }}
                                 className={`px-6 py-3 rounded-xl font-bold transition-all flex items-center gap-2 shadow-lg ${copied ? 'bg-emerald-500 text-white shadow-emerald-500/20' : 'bg-white text-black hover:bg-indigo-50'}`}
                                 title="Copy"
                             >

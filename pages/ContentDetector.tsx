@@ -8,6 +8,7 @@ import { textAnalysisEngine } from '../services/textAnalysis';
 import { extractTextFromFile } from '../utils/textProcessor';
 import { Scan, ShieldCheck, ShieldAlert, FileText, Type, Search, ExternalLink, Loader2, Info, Activity, Fingerprint, Settings, Sparkles, Upload } from 'lucide-react';
 import SectionHeader from '../components/ui/SectionHeader';
+import { toast } from 'react-hot-toast';
 
 type AnalysisResult = {
     aiScore: number;
@@ -92,6 +93,7 @@ const ContentDetector: React.FC = () => {
                 hybridScore,
                 geminiResult: geminiResult || undefined
             });
+            toast.success('Content analysis complete!');
 
         } catch (err: any) {
             console.error("AI Analysis Error:", err);

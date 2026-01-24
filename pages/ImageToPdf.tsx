@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { X, ArrowUp, ArrowDown, FileDown, Loader2, ImageMinus, Upload, Plus } from 'lucide-react';
 import { FileWithPreview } from '../types';
 import SectionHeader from '../components/ui/SectionHeader';
+import { toast } from 'react-hot-toast';
 
 const ImageToPdf: React.FC = () => {
   const [images, setImages] = useState<FileWithPreview[]>([]);
@@ -69,6 +70,7 @@ const ImageToPdf: React.FC = () => {
       link.href = URL.createObjectURL(blob);
       link.download = 'converted-images.pdf';
       link.click();
+      toast.success('PDF created successfully!');
     } catch (error) {
       console.error('Error creating PDF:', error);
       alert('Failed to create PDF. Please ensure files are valid JPG/PNG.');

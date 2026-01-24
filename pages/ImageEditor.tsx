@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { toast } from 'react-hot-toast';
 import { Upload, Download, FileText, Settings, RefreshCw, AlertCircle, Trash2, ArrowRight, Grid, Type, Lock, Unlock, Image as ImageIcon } from 'lucide-react';
 import SectionHeader from '../components/ui/SectionHeader';
 import FileUploader from '../components/FileUploader';
@@ -186,6 +187,7 @@ const MediaOptimizer: React.FC = () => {
             await processSingleFile(f);
         }
         setIsGlobalProcessing(false);
+        toast.success('All files processed successfully!');
     };
 
     // ... Download helpers similar to previous ...

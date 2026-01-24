@@ -3,6 +3,7 @@ import { QrCode, Download, Printer, Layers } from 'lucide-react';
 import QRCode from 'qrcode';
 import JSZip from 'jszip';
 import SectionHeader from '../components/ui/SectionHeader';
+import { toast } from 'react-hot-toast';
 
 const QrBatch: React.FC = () => {
     const [input, setInput] = useState('');
@@ -29,6 +30,7 @@ const QrBatch: React.FC = () => {
         }
         setQrs(newQrs);
         setGenerating(false);
+        toast.success(`Generated ${newQrs.length} QR codes!`);
     };
 
     const downloadZip = () => {
@@ -43,6 +45,7 @@ const QrBatch: React.FC = () => {
             link.href = URL.createObjectURL(content);
             link.download = 'qrcodes.zip';
             link.click();
+            toast.success('ZIP file downloaded successfully!');
         });
     };
 

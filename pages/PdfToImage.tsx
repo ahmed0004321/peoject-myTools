@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Loader2, Download, Archive, FileText, Upload } from 'lucide-react';
 import SectionHeader from '../components/ui/SectionHeader';
+import { toast } from 'react-hot-toast';
 
 const PdfToImage: React.FC = () => {
   const [file, setFile] = useState<File | null>(null);
@@ -67,6 +68,7 @@ const PdfToImage: React.FC = () => {
     link.href = URL.createObjectURL(content);
     link.download = "converted-pages.zip";
     link.click();
+    toast.success('PDF converted to images successfully!');
   };
 
   return (

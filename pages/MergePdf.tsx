@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { X, ArrowUp, ArrowDown, Combine, Loader2, FileText, Upload, Plus } from 'lucide-react';
 import SectionHeader from '../components/ui/SectionHeader';
+import { toast } from 'react-hot-toast';
 
 interface PdfFile {
   file: File;
@@ -70,6 +71,7 @@ const MergePdf: React.FC = () => {
       link.href = URL.createObjectURL(blob);
       link.download = `merged-document-${Date.now()}.pdf`;
       link.click();
+      toast.success('PDFs merged successfully!');
     } catch (error) {
       console.error('Error merging PDF:', error);
       alert('Failed to merge PDFs. One of the files might be encrypted or corrupted.');

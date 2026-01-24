@@ -19,11 +19,13 @@ import PasswordTool from './pages/PasswordTool';
 import SecureVault from './pages/SecureVault';
 import ContentDetector from './pages/ContentDetector';
 import OfflineIndicator from './components/OfflineIndicator';
+import { Toaster } from 'react-hot-toast';
 
 const App: React.FC = () => {
   return (
     <HashRouter>
       <Layout>
+        <Toaster position="top-center" reverseOrder={false} />
         <OfflineIndicator />
         <Routes>
           <Route path="/" element={<Home />} />

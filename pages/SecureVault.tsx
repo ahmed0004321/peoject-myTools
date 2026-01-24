@@ -1,6 +1,7 @@
 import React, { useState, useRef } from 'react';
 import { ShieldCheck, Lock, Unlock, Upload, FileKey, X, Eye, EyeOff, AlertCircle, Download, CheckCircle2 } from 'lucide-react';
 import SectionHeader from '../components/ui/SectionHeader';
+import { toast } from 'react-hot-toast';
 
 const MAGIC_BYTES = new Uint8Array([0x4F, 0x54, 0x56, 0x31]); // "OTV1" (omniTools Vault v1)
 
@@ -78,6 +79,7 @@ const SecureVault: React.FC = () => {
                 link.download = `${file.name}.otv`; // omniTools Vault Extension
                 link.click();
                 setStatus('File Encrypted Successfully. (.otv)');
+                toast.success('File encrypted and downloaded!');
             } else {
                 // Decrypt
                 const fileData = await file.arrayBuffer();
@@ -126,6 +128,7 @@ const SecureVault: React.FC = () => {
                 link.download = outName;
                 link.click();
                 setStatus('Decryption Successful.');
+                toast.success('File decrypted successfully!');
             }
         } catch (e: any) {
             console.error(e);

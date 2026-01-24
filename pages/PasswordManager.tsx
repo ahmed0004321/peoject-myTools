@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Plus, Trash, Copy, Eye, EyeOff, Lock, Search, Save, X, Key, Shield, User } from 'lucide-react';
 import SectionHeader from '../components/ui/SectionHeader';
+import { toast } from 'react-hot-toast';
 
 interface PasswordEntry {
     id: string;
@@ -51,6 +52,7 @@ const PasswordManager: React.FC = () => {
         setUsername('');
         setPass('');
         setIsAdding(false);
+        toast.success('Password saved successfully!');
     };
 
     const handleDelete = (id: string) => {
@@ -61,7 +63,7 @@ const PasswordManager: React.FC = () => {
 
     const copyToClipboard = (text: string) => {
         navigator.clipboard.writeText(text);
-        // Could show toast
+        toast.success('Password copied!');
     };
 
     const toggleShow = (id: string) => {

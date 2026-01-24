@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import Card from '../components/ui/Card';
 import Button from '../components/ui/Button';
 import { Type, AlignLeft, Bot, Trash2, Copy, Check } from 'lucide-react';
+import { toast } from 'react-hot-toast';
 
 const TextFormatter: React.FC = () => {
     const [text, setText] = useState('');
@@ -34,6 +35,7 @@ const TextFormatter: React.FC = () => {
     const handleCopy = () => {
         navigator.clipboard.writeText(text);
         setCopied(true);
+        toast.success('Text copied to clipboard!');
         setTimeout(() => setCopied(false), 2000);
     };
 

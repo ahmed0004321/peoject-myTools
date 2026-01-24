@@ -4,6 +4,7 @@ import { Html5QrcodeScanner } from 'html5-qrcode';
 import { QrCode, Scan, Download, Copy, Type, ArrowLeft, ArrowRightLeft } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import SectionHeader from '../components/ui/SectionHeader';
+import { toast } from 'react-hot-toast';
 
 const QrTool: React.FC = () => {
     const [activeTab, setActiveTab] = useState<'gen' | 'scan'>('gen');
@@ -40,6 +41,7 @@ const QrTool: React.FC = () => {
                     scanner = new Html5QrcodeScanner("reader", { fps: 10, qrbox: { width: 250, height: 250 }, rememberLastUsedCamera: true }, false);
                     scanner.render((decodedText: string) => {
                         setScannedResult(decodedText);
+                        toast.success('QR Code scanned successfully!');
                         scanner.clear();
                     }, (err: any) => {
                         // ignore errors during scan search
@@ -110,6 +112,7 @@ const QrTool: React.FC = () => {
                                                 link.href = generatedDataUrl;
                                                 link.download = 'qrcode.png';
                                                 link.click();
+                                                toast.success('QR Code downloaded!');
                                             }}
                                             className="px-8 py-3 bg-primary text-background rounded-xl font-bold hover:opacity-90 transition-opacity flex items-center gap-2"
                                         >
@@ -141,7 +144,7 @@ const QrTool: React.FC = () => {
                                         <p className="text-secondary">We found the following data:</p>
                                     </div>
 
-                                    <div className="p-6 bg-inset rounded-xl border border-border break-all text-primary font-mono text-sm relative group cursor-pointer hover:bg-background transition-colors shadow-inner" onClick={() => navigator.clipboard.writeText(scannedResult)}>
+                                    <div className="p-6 bg-inset rounded-xl border border-border break-all text-primary font-mono text-sm relative group cursor-pointer hover:bg-background transition-colors shadow-inner" onClick={() => { navigator.clipboard.writeText(scannedResult); toast.success('Scanned content copied!'); }}>
                                         {scannedResult}
                                         <div className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity p-1 bg-background rounded-md shadow-sm">
                                             <Copy size={14} className="text-secondary" />

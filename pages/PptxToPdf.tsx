@@ -4,6 +4,7 @@ import JSZip from 'jszip';
 import { jsPDF } from 'jspdf';
 import SectionHeader from '../components/ui/SectionHeader';
 import { motion } from 'framer-motion';
+import { toast } from 'react-hot-toast';
 
 const PptxToPdf: React.FC = () => {
     const [isProcessing, setIsProcessing] = useState(false);
@@ -120,6 +121,7 @@ const PptxToPdf: React.FC = () => {
             setStatus("Ready!");
             setProgress(100);
             setIsProcessing(false);
+            toast.success('PowerPoint converted to PDF successfully!');
 
         } catch (error: any) {
             console.error(error);

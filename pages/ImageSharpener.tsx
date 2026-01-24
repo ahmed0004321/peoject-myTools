@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect, useCallback } from 'react';
 import { motion } from 'framer-motion';
 import { Upload, Download, Sliders, Image as ImageIcon, Zap, AlertCircle } from 'lucide-react';
 import SectionHeader from '../components/ui/SectionHeader';
+import { toast } from 'react-hot-toast';
 
 const ImageSharpener: React.FC = () => {
     const [image, setImage] = useState<HTMLImageElement | null>(null);
@@ -127,6 +128,7 @@ const ImageSharpener: React.FC = () => {
             link.download = 'sharpened-image.jpg';
             link.href = previewUrl;
             link.click();
+            toast.success('Image sharpened and downloaded!');
         }
     };
 

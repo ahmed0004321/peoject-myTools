@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Ruler, Scale, Thermometer, Zap, BoxSelect, ArrowRightLeft } from 'lucide-react';
 import SectionHeader from '../components/ui/SectionHeader';
+import { toast } from 'react-hot-toast';
 
 type Cat = 'length' | 'weight' | 'temp' | 'speed' | 'area';
 
@@ -158,7 +159,13 @@ const Converter: React.FC = () => {
                         {/* Result Box */}
                         <div className="bg-brand-yellow/10 border border-brand-yellow/20 rounded-2xl p-8 text-center relative overflow-hidden">
                             <div className="text-sm font-bold text-brand-yellow mb-2 uppercase tracking-wide opacity-80">Converted Result</div>
-                            <div className="text-4xl sm:text-5xl font-bold text-primary tracking-tight break-all">
+                            <div className="text-4xl sm:text-5xl font-bold text-primary tracking-tight break-all cursor-pointer hover:text-brand-yellow transition-colors"
+                                onClick={() => {
+                                    navigator.clipboard.writeText(result.toString());
+                                    toast.success('Result copied to clipboard!');
+                                }}
+                                title="Click to copy"
+                            >
                                 {result} <span className="text-xl sm:text-2xl font-normal text-secondary ml-1">{getLabel(toUnit)}</span>
                             </div>
                         </div>

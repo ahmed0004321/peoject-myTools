@@ -3,6 +3,7 @@ import Card from '../components/ui/Card';
 import Button from '../components/ui/Button';
 import { Copy, FileText, Upload, RefreshCw, Check } from 'lucide-react';
 import CryptoJS from 'crypto-js';
+import { toast } from 'react-hot-toast';
 
 const HashGenerator: React.FC = () => {
     const [mode, setMode] = useState<'text' | 'file'>('text');
@@ -44,6 +45,7 @@ const HashGenerator: React.FC = () => {
                     sha256: CryptoJS.SHA256(wordArray).toString()
                 });
                 setLoading(false);
+                toast.success('Hashes generated successfully!');
             }
         };
         reader.onerror = () => {
@@ -56,6 +58,7 @@ const HashGenerator: React.FC = () => {
     const handleCopy = (val: string, type: string) => {
         navigator.clipboard.writeText(val);
         setCopied(type);
+        toast.success(`Copied ${type.toUpperCase()}!`);
         setTimeout(() => setCopied(null), 2000);
     };
 

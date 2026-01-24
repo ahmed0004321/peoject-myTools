@@ -16,9 +16,10 @@ const ToolCard: React.FC<ToolCardProps> = ({ name, description, icon: Icon, path
     return (
         <Link to={path} className="block group">
             <motion.article
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
+                variants={{
+                    hidden: { opacity: 0, y: 20 },
+                    show: { opacity: 1, y: 0 }
+                }}
                 whileHover={{ y: -5, boxShadow: '5px 5px 0px rgba(0,0,0,1)' }}
                 style={{ backgroundColor: color }}
                 className={`relative h-full p-8 rounded-xl border-3 border-black flex flex-col justify-between min-h-[320px] transition-all duration-200`}

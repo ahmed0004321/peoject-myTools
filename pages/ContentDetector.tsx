@@ -118,7 +118,7 @@ const ContentDetector: React.FC = () => {
     };
 
     return (
-        <div className="min-h-screen bg-background pb-20 animate-fade-in">
+        <div className="min-h-screen bg-background pb-20 ">
             <SectionHeader
                 title="Content Integrity Check"
                 subtitle="Analyze text for AI generation and check for plagiarism."
@@ -128,7 +128,7 @@ const ContentDetector: React.FC = () => {
 
                 {/* Initial State: Standard Centered Card if no input */}
                 {!result && !textInput && !file ? (
-                    <div className="bg-surface border border-border rounded-3xl p-8 shadow-xl text-center space-y-8 animate-slide-up">
+                    <div className="bg-surface border border-border rounded-3xl p-8 shadow-xl text-center space-y-8 ">
                         <div className="space-y-6">
                             <div className="w-24 h-24 bg-brand-purple/10 text-brand-purple rounded-full flex items-center justify-center mx-auto mb-6">
                                 <ShieldCheck size={48} />
@@ -156,7 +156,7 @@ const ContentDetector: React.FC = () => {
                     </div>
                 ) : (
                     /* Workspace State */
-                    <div className="space-y-8 animate-fade-in">
+                    <div className="space-y-8 ">
 
                         {/* Input Area */}
                         <div className="bg-surface border border-border rounded-3xl p-6 shadow-xl space-y-6">
@@ -225,7 +225,7 @@ const ContentDetector: React.FC = () => {
 
                         {/* Results */}
                         {result && (
-                            <div className="space-y-8 animate-slide-up">
+                            <div className="space-y-8 ">
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                                     {/* Score Card */}
                                     <div className="bg-surface border border-border p-8 rounded-3xl overflow-hidden relative group shadow-lg">

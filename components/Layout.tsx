@@ -59,7 +59,6 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
     {
       title: "Productivity",
       items: [
-
         { name: 'Unit Convert', path: '/converter', icon: RefreshCcw },
         { name: 'Text Format', path: '/text-formatter', icon: FileText },
         { name: 'QR Batch', path: '/qr-batch', icon: QrCode },
@@ -194,9 +193,18 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
 
       {/* --- Main Content --- */}
       <main className="flex-1 md:pl-72 pt-20 md:pt-0 min-h-screen relative overflow-x-hidden bg-[var(--bg-primary)]">
-        <div className={location.pathname === '/' ? 'w-full' : 'max-w-7xl mx-auto px-6 lg:px-12 py-10 md:py-16'}>
-          {children}
-        </div>
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={location.pathname}
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10 }}
+            transition={{ duration: 0.3, ease: 'easeOut' }}
+            className={location.pathname === '/' ? 'w-full' : 'max-w-7xl mx-auto px-6 lg:px-12 py-10 md:py-16'}
+          >
+            {children}
+          </motion.div>
+        </AnimatePresence>
       </main>
 
       {/* --- Minimalist Mobile Menu --- */}

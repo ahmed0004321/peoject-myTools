@@ -150,7 +150,7 @@ const ImageSharpener: React.FC = () => {
     };
 
     return (
-        <div className="min-h-screen bg-background pb-20 animate-fade-in">
+        <div className="min-h-screen bg-background pb-20 ">
             <SectionHeader
                 title="AI-Grade Image Sharpener"
                 subtitle="Professional Unsharp Masking engine right in your browser."
@@ -160,7 +160,7 @@ const ImageSharpener: React.FC = () => {
 
                 {/* Initial State: Standard Centered Card */}
                 {!image ? (
-                    <div className="bg-surface border border-border rounded-3xl p-8 shadow-xl text-center space-y-8 animate-slide-up">
+                    <div className="bg-surface border border-border rounded-3xl p-8 shadow-xl text-center space-y-8 ">
                         <div className="space-y-6">
                             <div className="w-24 h-24 bg-brand-pink/10 text-brand-pink rounded-full flex items-center justify-center mx-auto mb-6">
                                 <Zap size={48} fill="currentColor" />
@@ -184,7 +184,7 @@ const ImageSharpener: React.FC = () => {
                     </div>
                 ) : (
                     /* Workspace State */
-                    <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 animate-fade-in">
+                    <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 ">
                         {/* Controls Sidebar */}
                         <div className="space-y-6">
                             <div className="bg-surface border border-border rounded-3xl p-6 shadow-xl">

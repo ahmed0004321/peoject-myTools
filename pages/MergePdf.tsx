@@ -79,7 +79,7 @@ const MergePdf: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-background pb-20 animate-fade-in">
+    <div className="min-h-screen bg-background pb-20 ">
       <SectionHeader
         title="PDF Merger"
         subtitle="Combine multiple PDF documents into a single file."
@@ -88,7 +88,7 @@ const MergePdf: React.FC = () => {
       <div className={`max-w-4xl mx-auto px-4 ${pdfs.length === 0 ? 'max-w-3xl' : ''}`}>
         {pdfs.length === 0 ? (
           /* Initial State */
-          <div className="bg-surface border border-border rounded-3xl p-8 shadow-xl text-center space-y-8 animate-slide-up">
+          <div className="bg-surface border border-border rounded-3xl p-8 shadow-xl text-center space-y-8 ">
             <div className="space-y-6">
               <div className="w-24 h-24 bg-brand-purple/10 text-brand-purple rounded-full flex items-center justify-center mx-auto mb-6">
                 <Combine size={48} />
@@ -114,7 +114,7 @@ const MergePdf: React.FC = () => {
           </div>
         ) : (
           /* Workspace State */
-          <div className="space-y-8 animate-fade-in">
+          <div className="space-y-8 ">
             <div className="flex justify-between items-center px-2">
               <h3 className="text-xl font-bold text-primary">Files to Merge ({pdfs.length})</h3>
               <div className="flex gap-4">

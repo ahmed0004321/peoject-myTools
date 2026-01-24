@@ -141,14 +141,14 @@ const SecureVault: React.FC = () => {
     };
 
     return (
-        <div className="min-h-screen bg-background pb-20 animate-fade-in">
+        <div className="min-h-screen bg-background pb-20 ">
             <SectionHeader
                 title="Secure File Vault"
                 subtitle="AES-256 Client-Side Encryption. Your data never leaves your device."
             />
 
             <div className="max-w-xl mx-auto px-4 mt-8">
-                <div className="bg-surface border border-border rounded-3xl shadow-xl p-8 animate-slide-up">
+                <div className="bg-surface border border-border rounded-3xl shadow-xl p-8 ">
                     <div className="flex rounded-xl bg-inset p-1.5 mb-8 border border-border">
                         <button
                             onClick={() => { setMode('encrypt'); setFile(null); setStatus(null); setError(null); }}
@@ -237,7 +237,7 @@ const SecureVault: React.FC = () => {
                         </button>
 
                         {status && (
-                            <div className="p-4 bg-emerald-500/10 border border-emerald-500/20 text-emerald-600 rounded-xl text-center text-sm font-bold flex items-center justify-center gap-2 animate-fade-in">
+                            <div className="p-4 bg-emerald-500/10 border border-emerald-500/20 text-emerald-600 rounded-xl text-center text-sm font-bold flex items-center justify-center gap-2 ">
                                 <CheckCircle2 size={18} /> {status}
                             </div>
                         )}

@@ -78,7 +78,7 @@ const ImageToPdf: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-background pb-20 animate-fade-in">
+    <div className="min-h-screen bg-background pb-20 ">
       <SectionHeader
         title="Image to PDF"
         subtitle="Combine multiple images into a single PDF document."
@@ -88,7 +88,7 @@ const ImageToPdf: React.FC = () => {
 
         {images.length === 0 ? (
           /* Initial State: Standard Centered Card */
-          <div className="bg-surface border border-border rounded-3xl p-8 shadow-xl text-center space-y-8 animate-slide-up">
+          <div className="bg-surface border border-border rounded-3xl p-8 shadow-xl text-center space-y-8 ">
             <div className="space-y-6">
               <div className="w-24 h-24 bg-brand-green/10 text-brand-green rounded-full flex items-center justify-center mx-auto mb-6">
                 <ImageMinus size={48} />
@@ -114,7 +114,7 @@ const ImageToPdf: React.FC = () => {
           </div>
         ) : (
           /* Workspace State */
-          <div className="space-y-8 animate-fade-in">
+          <div className="space-y-8 ">
             {/* Toolbar setup */}
             <div className="flex justify-between items-center px-2">
               <h3 className="text-xl font-bold text-primary">Selected Images ({images.length})</h3>

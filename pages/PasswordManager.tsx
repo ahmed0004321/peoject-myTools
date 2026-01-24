@@ -74,7 +74,7 @@ const PasswordManager: React.FC = () => {
     );
 
     return (
-        <div className="min-h-screen bg-background pb-20 animate-fade-in">
+        <div className="min-h-screen bg-background pb-20 ">
             <SectionHeader
                 title="Password Vault"
                 subtitle="Securely store your credentials locally in your browser."
@@ -92,7 +92,7 @@ const PasswordManager: React.FC = () => {
                 </div>
 
                 {isAdding && (
-                    <div className="bg-surface border border-border rounded-3xl shadow-xl p-6 mb-8 animate-slide-up">
+                    <div className="bg-surface border border-border rounded-3xl shadow-xl p-6 mb-8 ">
                         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-end">
                             <div className="space-y-2">
                                 <label className="text-xs font-bold text-secondary uppercase tracking-wider">Website / App</label>

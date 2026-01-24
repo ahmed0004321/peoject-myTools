@@ -59,14 +59,14 @@ const PasswordTool: React.FC = () => {
     };
 
     return (
-        <div className="min-h-screen bg-background pb-20 animate-fade-in text-primary">
+        <div className="min-h-screen bg-background pb-20  text-primary">
             <SectionHeader
                 title="Secure PassGen"
                 subtitle="Generate encryption-grade passwords instantly."
             />
 
             <div className="max-w-2xl mx-auto px-4 mt-8">
-                <div className="bg-surface border border-border rounded-3xl shadow-xl overflow-hidden animate-slide-up">
+                <div className="bg-surface border border-border rounded-3xl shadow-xl overflow-hidden ">
                     <div className="p-12 bg-black relative group overflow-hidden border-b border-border">
                         <div className="absolute inset-0 bg-gradient-to-br from-brand-purple/20 to-transparent opacity-50"></div>
                         <div className="text-4xl font-mono tracking-wider break-all mb-8 font-bold text-center text-transparent bg-clip-text bg-gradient-to-r from-purple-200 to-white selection:bg-brand-purple selection:text-white">

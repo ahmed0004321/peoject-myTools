@@ -55,7 +55,7 @@ const QrTool: React.FC = () => {
     }, [activeTab]);
 
     return (
-        <div className="min-h-screen bg-background pb-20 animate-fade-in">
+        <div className="min-h-screen bg-background pb-20 ">
             <SectionHeader
                 title="QR Code Master"
                 subtitle="Generate stylish QR codes or scan them instantly."
@@ -80,7 +80,7 @@ const QrTool: React.FC = () => {
                     </div>
                 </div>
 
-                <div className="bg-surface border border-border rounded-3xl shadow-xl overflow-hidden animate-slide-up min-h-[500px]">
+                <div className="bg-surface border border-border rounded-3xl shadow-xl overflow-hidden  min-h-[500px]">
                     {activeTab === 'gen' ? (
                         <div className="grid grid-cols-1 md:grid-cols-2 h-full min-h-[500px]">
                             {/* Input Side */}
@@ -100,7 +100,7 @@ const QrTool: React.FC = () => {
                             {/* Output Side */}
                             <div className="p-8 flex flex-col items-center justify-center bg-surface relative">
                                 {generatedDataUrl ? (
-                                    <div className="flex flex-col items-center gap-6 animate-fade-in">
+                                    <div className="flex flex-col items-center gap-6 ">
                                         <div className="p-4 bg-white rounded-2xl shadow-lg border border-zinc-200">
                                             <img src={generatedDataUrl} alt="QR" className="w-56 h-56 mix-blend-multiply" />
                                         </div>
@@ -132,7 +132,7 @@ const QrTool: React.FC = () => {
                                     <p className="text-sm font-bold text-secondary animate-pulse">Scanning for QR Codes...</p>
                                 </div>
                             ) : (
-                                <div className="w-full max-w-md text-center space-y-6 animate-slide-up">
+                                <div className="w-full max-w-md text-center space-y-6 ">
                                     <div className="w-20 h-20 bg-green-500/10 text-green-500 rounded-full flex items-center justify-center mx-auto shadow-lg shadow-green-500/5">
                                         <Scan size={36} strokeWidth={2.5} />
                                     </div>

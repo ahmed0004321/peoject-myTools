@@ -71,14 +71,14 @@ const CompressTool: React.FC = () => {
     };
 
     return (
-        <div className="min-h-screen bg-background pb-20 animate-fade-in">
+        <div className="min-h-screen bg-background pb-20 ">
             <SectionHeader
                 title="Archive Manager"
                 subtitle="Compress files to ZIP or extract existing archives."
             />
 
             <div className="max-w-4xl mx-auto px-6">
-                <div className="bg-surface border border-border rounded-3xl p-8 shadow-xl text-center space-y-8 animate-slide-up">
+                <div className="bg-surface border border-border rounded-3xl p-8 shadow-xl text-center space-y-8 ">
 
                     {/* Header Icon */}
                     <div className="w-24 h-24 bg-brand-orange/10 text-brand-orange rounded-full flex items-center justify-center mx-auto mb-6">
@@ -119,7 +119,7 @@ const CompressTool: React.FC = () => {
                                         <input type="file" multiple className="hidden" onChange={(e) => setFilesToZip(Array.from(e.target.files || []))} />
                                     </label>
                                 ) : (
-                                    <div className="space-y-6 animate-fade-in">
+                                    <div className="space-y-6 ">
                                         <div className="bg-zinc-50 dark:bg-zinc-900/50 p-6 rounded-2xl border border-border text-left shadow-inner">
                                             <h3 className="font-bold text-primary mb-3 border-b border-border pb-3 flex items-center gap-2">
                                                 <FolderInput size={20} className="text-brand-orange" /> Selected Files ({filesToZip.length})
@@ -168,7 +168,7 @@ const CompressTool: React.FC = () => {
                                         }} />
                                     </label>
                                 ) : (
-                                    <div className="flex flex-col items-center gap-6 animate-fade-in">
+                                    <div className="flex flex-col items-center gap-6 ">
                                         {isProcessing ? (
                                             <>
                                                 <Loader2 className="animate-spin text-brand-orange" size={48} />

@@ -80,14 +80,14 @@ const Converter: React.FC = () => {
     ];
 
     return (
-        <div className="min-h-screen bg-background pb-20 animate-fade-in">
+        <div className="min-h-screen bg-background pb-20 ">
             <SectionHeader
                 title="Universal Unit Converter"
                 subtitle="Fast, offline conversions for every standard unit."
             />
 
             <div className="max-w-2xl mx-auto px-4">
-                <div className="bg-surface border border-border rounded-3xl shadow-xl overflow-hidden animate-slide-up">
+                <div className="bg-surface border border-border rounded-3xl shadow-xl overflow-hidden ">
 
                     {/* Category Tabs */}
                     <div className="flex overflow-x-auto border-b border-border bg-inset no-scrollbar">

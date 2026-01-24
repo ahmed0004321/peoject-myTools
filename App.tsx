@@ -16,7 +16,6 @@ import HashGenerator from './pages/HashGenerator';
 import TextFormatter from './pages/TextFormatter';
 import QrBatch from './pages/QrBatch';
 import PasswordTool from './pages/PasswordTool';
-
 import SecureVault from './pages/SecureVault';
 import ContentDetector from './pages/ContentDetector';
 import OfflineIndicator from './components/OfflineIndicator';

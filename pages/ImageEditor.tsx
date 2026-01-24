@@ -266,7 +266,7 @@ const MediaOptimizer: React.FC = () => {
                             </div>
 
                             {activeTab === 'by_size' && (
-                                <div className="space-y-5 animate-fade-in">
+                                <div className="space-y-5 ">
                                     {/* Units */}
                                     <div className="grid grid-cols-3 gap-2">
                                         {(['px', 'cm', 'in'] as Unit[]).map(u => (
@@ -333,7 +333,7 @@ const MediaOptimizer: React.FC = () => {
                             )}
 
                             {activeTab === 'percentage' && (
-                                <div className="space-y-4 animate-fade-in">
+                                <div className="space-y-4 ">
                                     <div className="flex items-center justify-between">
                                         <span className="text-sm font-medium text-zinc-300">Scale</span>
                                         <span className="text-sm font-bold text-indigo-400">{percentage}%</span>

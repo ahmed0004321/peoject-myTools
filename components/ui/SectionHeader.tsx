@@ -9,7 +9,13 @@ interface SectionHeaderProps {
 
 const SectionHeader: React.FC<SectionHeaderProps> = ({ title, subtitle, badge }) => {
     return (
-        <div className="flex flex-col items-center justify-center text-center py-20 px-4 space-y-6">
+        <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, ease: "easeOut" }}
+            className="flex flex-col items-center justify-center text-center py-20 px-4 space-y-6"
+        >
             {/* Sticker Badge */}
             {badge && (
                 <motion.div
@@ -31,7 +37,7 @@ const SectionHeader: React.FC<SectionHeaderProps> = ({ title, subtitle, badge })
                     <span className="opacity-60 text-sm">(and that learning budget is not going to spend itself)</span>
                 </p>
             )}
-        </div>
+        </motion.div>
     );
 };
 

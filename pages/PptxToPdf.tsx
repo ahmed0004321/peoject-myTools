@@ -130,7 +130,7 @@ const PptxToPdf: React.FC = () => {
     };
 
     return (
-        <div className="min-h-screen bg-background pb-20 animate-fade-in">
+        <div className="min-h-screen bg-background pb-20 ">
             <SectionHeader
                 title="PPTX to PDF Converter"
                 subtitle="Securely convert presentations to PDF in your browser."
@@ -186,7 +186,7 @@ const PptxToPdf: React.FC = () => {
 
                     {/* Result */}
                     {resultPdfUrl && (
-                        <div className="space-y-6 py-6 animate-slide-up">
+                        <div className="space-y-6 py-6 ">
                             <div className="w-20 h-20 bg-green-100 dark:bg-green-900/20 text-green-600 rounded-full flex items-center justify-center mx-auto">
                                 <CheckCircle size={40} />
                             </div>

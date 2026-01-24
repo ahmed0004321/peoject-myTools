@@ -70,7 +70,7 @@ const PdfToImage: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-background pb-20 animate-fade-in">
+    <div className="min-h-screen bg-background pb-20 ">
       <SectionHeader
         title="PDF to Image Converter"
         subtitle="Extract every page as a high-quality image."
@@ -79,7 +79,7 @@ const PdfToImage: React.FC = () => {
       <div className={`max-w-6xl mx-auto px-4 ${!file ? 'max-w-3xl' : ''}`}>
         {!file ? (
           /* Initial State: Standard Centered Card */
-          <div className="bg-surface border border-border rounded-3xl p-8 shadow-xl text-center space-y-8 animate-slide-up">
+          <div className="bg-surface border border-border rounded-3xl p-8 shadow-xl text-center space-y-8 ">
             <div className="space-y-6">
               <div className="w-24 h-24 bg-brand-purple/10 text-brand-purple rounded-full flex items-center justify-center mx-auto mb-6">
                 <FileText size={48} />
@@ -103,7 +103,7 @@ const PdfToImage: React.FC = () => {
           </div>
         ) : (
           /* Workspace State */
-          <div className="space-y-8 animate-fade-in">
+          <div className="space-y-8 ">
             {/* Toolbar / Status */}
             <div className="bg-surface border border-border rounded-2xl p-6 shadow-lg flex flex-col md:flex-row items-center justify-between gap-4">
               <div className="flex items-center gap-4">

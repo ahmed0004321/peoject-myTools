@@ -3,7 +3,7 @@ import { Link, useLocation } from 'react-router-dom';
 import {
   Layers, FileImage, ImageMinus, PenTool, Home, Combine, Settings,
   QrCode, ShieldCheck, Lock, FileKey, RefreshCcw, Keyboard, FileText,
-  Menu, X, Sun, Moon, ChevronRight, Scan, Wrench, Zap, Presentation
+  Menu, X, Sun, Moon, ChevronRight, Scan, Wrench, Zap, Presentation, Table
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
@@ -39,6 +39,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
         { name: 'Merge PDF', path: '/merge-pdf', icon: Combine },
         { name: 'Image to PDF', path: '/image-to-pdf', icon: FileImage },
         { name: 'PDF to Image', path: '/pdf-to-image', icon: ImageMinus },
+        { name: 'PDF to CSV', path: '/pdf-to-csv', icon: Table },
       ]
     },
     {

@@ -18,6 +18,7 @@ import QrBatch from './pages/QrBatch';
 import PasswordTool from './pages/PasswordTool';
 import SecureVault from './pages/SecureVault';
 import ContentDetector from './pages/ContentDetector';
+import PdfToCsv from './pages/PdfToCsv';
 import OfflineIndicator from './components/OfflineIndicator';
 import { Toaster } from 'react-hot-toast';
 
@@ -35,6 +36,7 @@ const App: React.FC = () => {
           <Route path="/pdf-to-image" element={<PdfToImage />} />
           <Route path="/pptx-to-pdf" element={<PptxToPdf />} />
           <Route path="/merge-pdf" element={<MergePdf />} />
+          <Route path="/pdf-to-csv" element={<PdfToCsv />} />
 
           {/* Image Tools */}
           <Route path="/image-sharpener" element={<ImageSharpener />} />

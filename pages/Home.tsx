@@ -2,7 +2,7 @@ import React from 'react';
 import {
   FileImage, Layers, ImageMinus, PenTool, Combine,
   Settings, QrCode, RefreshCcw, ShieldCheck, Lock,
-  Keyboard, FileText, Sparkles, Palette, Zap, Presentation, Scan
+  Keyboard, FileText, Sparkles, Palette, Zap, Presentation, Scan, Table
 } from 'lucide-react';
 import HeroSection from '../components/ui/HeroSection';
 import SectionHeader from '../components/ui/SectionHeader';
@@ -17,6 +17,7 @@ const ALL_TOOLS = [
   { name: "PDF Merge", icon: Combine, path: "/merge-pdf", description: "Combine docs easily.", color: "#a855f7", textColor: "text-white" },
   { name: "Img to PDF", icon: FileImage, path: "/image-to-pdf", description: "Convert images to docs.", color: "#10b981", textColor: "text-black" },
   { name: "PDF to Image", icon: ImageMinus, path: "/pdf-to-image", description: "Extract pages as images.", color: "#8b5cf6", textColor: "text-white" },
+  { name: "PDF to CSV", icon: Table, path: "/pdf-to-csv", description: "Extract tables from PDF.", color: "#facc15", textColor: "text-black" },
 
   // --- Image & Media Tools ---
   { name: "Image Studio", icon: Palette, path: "/image-editor", description: "Crop, Resize & Edit.", color: "#ec4899", textColor: "text-white" },

@@ -35,7 +35,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
     {
       title: "PDF Suite",
       items: [
-        { name: 'PPTX to PDF', path: '/pptx-to-pdf', icon: Presentation },
+
         { name: 'Merge PDF', path: '/merge-pdf', icon: Combine },
         { name: 'Image to PDF', path: '/image-to-pdf', icon: FileImage },
         { name: 'PDF to Image', path: '/pdf-to-image', icon: ImageMinus },

@@ -6,7 +6,7 @@ import ImageToPdf from './pages/ImageToPdf';
 import PdfToImage from './pages/PdfToImage';
 import MergePdf from './pages/MergePdf';
 import ImageSharpener from './pages/ImageSharpener';
-import PptxToPdf from './pages/PptxToPdf';
+
 import CompressTool from './pages/CompressTool';
 import Converter from './pages/Converter';
 import QrTool from './pages/QrTool';
@@ -34,7 +34,7 @@ const App: React.FC = () => {
           {/* PDF Tools */}
           <Route path="/image-to-pdf" element={<ImageToPdf />} />
           <Route path="/pdf-to-image" element={<PdfToImage />} />
-          <Route path="/pptx-to-pdf" element={<PptxToPdf />} />
+
           <Route path="/merge-pdf" element={<MergePdf />} />
           <Route path="/pdf-to-csv" element={<PdfToCsv />} />
 

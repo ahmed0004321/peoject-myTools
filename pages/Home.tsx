@@ -13,7 +13,7 @@ import { motion } from 'framer-motion';
 // --- Data ---
 const ALL_TOOLS = [
   // --- PDF & Document Tools ---
-  { name: "PPTX to PDF", icon: Presentation, path: "/pptx-to-pdf", description: "Convert Slides to PDF.", color: "#f97316", textColor: "text-black" },
+
   { name: "PDF Merge", icon: Combine, path: "/merge-pdf", description: "Combine docs easily.", color: "#a855f7", textColor: "text-white" },
   { name: "Img to PDF", icon: FileImage, path: "/image-to-pdf", description: "Convert images to docs.", color: "#10b981", textColor: "text-black" },
   { name: "PDF to Image", icon: ImageMinus, path: "/pdf-to-image", description: "Extract pages as images.", color: "#8b5cf6", textColor: "text-white" },

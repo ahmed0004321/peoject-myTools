@@ -36,10 +36,11 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
       title: "PDF Suite",
       items: [
 
+        { name: 'Edit & Sign PDF', path: '/edit-sign-pdf', icon: FileText },
         { name: 'Merge PDF', path: '/merge-pdf', icon: Combine },
         { name: 'Image to PDF', path: '/image-to-pdf', icon: FileImage },
         { name: 'PDF to Image', path: '/pdf-to-image', icon: ImageMinus },
-        { name: 'PDF to CSV', path: '/pdf-to-csv', icon: Table },
+
       ]
     },
     {
@@ -51,9 +52,8 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
     {
       title: "Security",
       items: [
-        { name: 'File Vault', path: '/secure-vault', icon: ShieldCheck },
+        { name: 'Protect PDF', path: '/protect-pdf', icon: Lock },
         { name: 'Pass Generator', path: '/password-tool', icon: ShieldCheck },
-        { name: 'Pass Manager', path: '/password-manager', icon: Lock },
         { name: 'Hash Gen', path: '/hash-generator', icon: FileKey },
       ]
     },

@@ -14,10 +14,11 @@ import { motion } from 'framer-motion';
 const ALL_TOOLS = [
   // --- PDF & Document Tools ---
 
+  { name: "Edit & Sign PDF", icon: FileText, path: "/edit-sign-pdf", description: "Edit text & add signatures.", color: "#3b82f6", textColor: "text-white" },
   { name: "PDF Merge", icon: Combine, path: "/merge-pdf", description: "Combine docs easily.", color: "#a855f7", textColor: "text-white" },
   { name: "Img to PDF", icon: FileImage, path: "/image-to-pdf", description: "Convert images to docs.", color: "#10b981", textColor: "text-black" },
   { name: "PDF to Image", icon: ImageMinus, path: "/pdf-to-image", description: "Extract pages as images.", color: "#8b5cf6", textColor: "text-white" },
-  { name: "PDF to CSV", icon: Table, path: "/pdf-to-csv", description: "Extract tables from PDF.", color: "#facc15", textColor: "text-black" },
+
 
   // --- Image & Media Tools ---
   { name: "Image Studio", icon: Palette, path: "/image-editor", description: "Crop, Resize & Edit.", color: "#ec4899", textColor: "text-white" },
@@ -26,9 +27,8 @@ const ALL_TOOLS = [
   { name: "Converter", icon: RefreshCcw, path: "/converter", description: "Change file formats.", color: "#3b82f6", textColor: "text-white" },
 
   // --- Security Tools ---
-  { name: "Secure Vault", icon: ShieldCheck, path: "/secure-vault", description: "Secure your sensitive files.", color: "#10b981", textColor: "text-black" },
+  { name: "Protect PDF", icon: Lock, path: "/protect-pdf", description: "Password protect your docs.", color: "#ef4444", textColor: "text-white" },
   { name: "Pass Generator", icon: ShieldCheck, path: "/password-tool", description: "Generate strong passwords.", color: "#8b5cf6", textColor: "text-white" },
-  { name: "Pass Manager", icon: Lock, path: "/password-manager", description: "Secure your credentials.", color: "#ec4899", textColor: "text-white" },
   { name: "Hash Generator", icon: Lock, path: "/hash-generator", description: "MD5, SHA-256 Hashes.", color: "#6b7280", textColor: "text-white" },
 
   // --- Productivity & AI ---

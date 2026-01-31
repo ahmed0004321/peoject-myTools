@@ -11,14 +11,14 @@ import CompressTool from './pages/CompressTool';
 import Converter from './pages/Converter';
 import QrTool from './pages/QrTool';
 import ImageEditor from './pages/ImageEditor';
-import PasswordManager from './pages/PasswordManager';
+import ProtectPdf from './pages/ProtectPdf';
 import HashGenerator from './pages/HashGenerator';
 import TextFormatter from './pages/TextFormatter';
 import QrBatch from './pages/QrBatch';
 import PasswordTool from './pages/PasswordTool';
-import SecureVault from './pages/SecureVault';
 import ContentDetector from './pages/ContentDetector';
-import PdfToCsv from './pages/PdfToCsv';
+import EditSignPdf from './pages/EditSignPdf';
+
 import OfflineIndicator from './components/OfflineIndicator';
 import { Toaster } from 'react-hot-toast';
 
@@ -36,16 +36,15 @@ const App: React.FC = () => {
           <Route path="/pdf-to-image" element={<PdfToImage />} />
 
           <Route path="/merge-pdf" element={<MergePdf />} />
-          <Route path="/pdf-to-csv" element={<PdfToCsv />} />
+          <Route path="/edit-sign-pdf" element={<EditSignPdf />} />
+
 
           {/* Image Tools */}
           <Route path="/image-sharpener" element={<ImageSharpener />} />
           <Route path="/image-editor" element={<ImageEditor />} />
 
           {/* Security Tools */}
-          <Route path="/secure-vault" element={<SecureVault />} />
-          <Route path="/password-tool" element={<PasswordTool />} />
-          <Route path="/password-manager" element={<PasswordManager />} />
+          <Route path="/protect-pdf" element={<ProtectPdf />} />
           <Route path="/hash-generator" element={<HashGenerator />} />
 
           {/* Converters */}

@@ -24,7 +24,7 @@ const ALL_TOOLS = [
   { name: "Image Studio", icon: Palette, path: "/image-editor", description: "Crop, Resize & Edit.", color: "#ec4899", textColor: "text-white" },
   { name: "AI Upscaler", icon: Zap, path: "/image-sharpener", description: "Enhance image quality.", color: "#facc15", textColor: "text-black" },
   { name: "Compressor", icon: Layers, path: "/compress-tool", description: "Zip & Compress files.", color: "#f97316", textColor: "text-black" },
-  { name: "Converter", icon: RefreshCcw, path: "/converter", description: "Change file formats.", color: "#3b82f6", textColor: "text-white" },
+  { name: "OCR Tool", icon: Scan, path: "/ocr-tool", description: "Extract text from images & PDFs.", color: "#10b981", textColor: "text-black" },
 
   // --- Security Tools ---
   { name: "Protect PDF", icon: Lock, path: "/protect-pdf", description: "Password protect your docs.", color: "#ef4444", textColor: "text-white" },

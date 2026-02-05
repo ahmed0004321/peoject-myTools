@@ -57,6 +57,30 @@ class GeminiService {
             throw new Error("Failed to consult Gemini. Please check your API Key.");
         }
     }
+
+    public async translateText(text: string, targetLanguage: string, apiKey: string): Promise<string> {
+        if (!apiKey) throw new Error("API Key is missing");
+
+        const genAI = new GoogleGenerativeAI(apiKey);
+        const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+
+        const prompt = `
+        Translate the following text to ${targetLanguage}. 
+        Return ONLY the translated text without any explanations, headers, or markdown blocks.
+        
+        Text:
+        "${text}"
+        `;
+
+        try {
+            const result = await model.generateContent(prompt);
+            const response = await result.response;
+            return response.text().trim();
+        } catch (error) {
+            console.error("Gemini Translation Failed:", error);
+            throw new Error("Translation failed. Check API key or text length.");
+        }
+    }
 }
 
 export const geminiService = new GeminiService();

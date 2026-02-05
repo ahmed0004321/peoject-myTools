@@ -8,14 +8,14 @@ import MergePdf from './pages/MergePdf';
 import ImageSharpener from './pages/ImageSharpener';
 
 import CompressTool from './pages/CompressTool';
-import Converter from './pages/Converter';
+import PasswordTool from './pages/PasswordTool';
 import QrTool from './pages/QrTool';
 import ImageEditor from './pages/ImageEditor';
 import ProtectPdf from './pages/ProtectPdf';
 import HashGenerator from './pages/HashGenerator';
 import TextFormatter from './pages/TextFormatter';
 import QrBatch from './pages/QrBatch';
-import PasswordTool from './pages/PasswordTool';
+import OcrTool from './pages/OcrTool';
 import ContentDetector from './pages/ContentDetector';
 import EditSignPdf from './pages/EditSignPdf';
 
@@ -46,15 +46,9 @@ const App: React.FC = () => {
           {/* Security Tools */}
           <Route path="/protect-pdf" element={<ProtectPdf />} />
           <Route path="/hash-generator" element={<HashGenerator />} />
+          <Route path="/password-tool" element={<PasswordTool />} />
 
-          {/* Converters */}
-          <Route path="/converter" element={<Converter />} />
-
-          {/* Text & Productivity */}
-          <Route path="/text-formatter" element={<TextFormatter />} />
-
-
-          {/* Web Tools (Refining) */}
+          <Route path="/ocr-tool" element={<OcrTool />} />
           <Route path="/qr-tool" element={<QrTool />} />
           <Route path="/qr-batch" element={<QrBatch />} />
           <Route path="/content-detector" element={<ContentDetector />} />

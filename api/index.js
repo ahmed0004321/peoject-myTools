@@ -6,6 +6,9 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 import { GoogleGenerativeAI } from '@google/generative-ai';
 import dotenv from 'dotenv';
+import { exec } from 'child_process';
+import { promisify } from 'util';
+import crypto from 'crypto';
 dotenv.config();
 
 // Configure paths
@@ -49,7 +52,7 @@ app.post('/analyze', async (req, res) => {
         }
 
         const genAI = new GoogleGenerativeAI(apiKey);
-        const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
+        const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 
         const prompt = `
         You are a top-tier linguistic forensics expert. Analyze the following text for:
@@ -98,10 +101,6 @@ app.post('/analyze', async (req, res) => {
 // Keeping server for potential future backend needs or specific heavy lifting.
 
 // PDF Protection Endpoint
-import { exec } from 'child_process';
-import { promisify } from 'util';
-import crypto from 'crypto';
-
 const execAsync = promisify(exec);
 
 // Check if qpdf is available

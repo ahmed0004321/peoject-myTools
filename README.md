@@ -4,7 +4,7 @@
 
 myTools is a powerful, privacy-focused, and all-in-one web utility suite designed to handle your PDF, Image, Security, and Productivity needs entirely in the browser. No file uploads to servers, no privacy concerns.
 
-**Live Demo:** [https://omnitoolpdfimagesuitev10.vercel.app/](https://omnitoolpdfimagesuitev10.vercel.app/)
+**Live Demo:** [https://omnitoolpdfimagesuitev10.vercel.app/](https://peoject-my-tools.vercel.app/)
 
 ---
 

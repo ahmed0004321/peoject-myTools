@@ -11,11 +11,7 @@ import CompressTool from './pages/CompressTool';
 import PasswordTool from './pages/PasswordTool';
 import QrTool from './pages/QrTool';
 import ImageEditor from './pages/ImageEditor';
-import ProtectPdf from './pages/ProtectPdf';
-import HashGenerator from './pages/HashGenerator';
-import TextFormatter from './pages/TextFormatter';
-import QrBatch from './pages/QrBatch';
-import OcrTool from './pages/OcrTool';
+import PdfEditor from './pages/PdfEditor';
 import ContentDetector from './pages/ContentDetector';
 import EditSignPdf from './pages/EditSignPdf';
 
@@ -44,13 +40,10 @@ const App: React.FC = () => {
           <Route path="/image-editor" element={<ImageEditor />} />
 
           {/* Security Tools */}
-          <Route path="/protect-pdf" element={<ProtectPdf />} />
-          <Route path="/hash-generator" element={<HashGenerator />} />
           <Route path="/password-tool" element={<PasswordTool />} />
 
-          <Route path="/ocr-tool" element={<OcrTool />} />
+          <Route path="/pdf-editor" element={<PdfEditor />} />
           <Route path="/qr-tool" element={<QrTool />} />
-          <Route path="/qr-batch" element={<QrBatch />} />
           <Route path="/content-detector" element={<ContentDetector />} />
 
           {/* Archives */}

@@ -24,17 +24,10 @@ const ALL_TOOLS = [
   { name: "Image Studio", icon: Palette, path: "/image-editor", description: "Crop, Resize & Edit.", color: "#ec4899", textColor: "text-white" },
   { name: "AI Upscaler", icon: Zap, path: "/image-sharpener", description: "Enhance image quality.", color: "#facc15", textColor: "text-black" },
   { name: "Compressor", icon: Layers, path: "/compress-tool", description: "Zip & Compress files.", color: "#f97316", textColor: "text-black" },
-  { name: "OCR Tool", icon: Scan, path: "/ocr-tool", description: "Extract text from images & PDFs.", color: "#10b981", textColor: "text-black" },
+  { name: "PDF Editor", icon: Presentation, path: "/pdf-editor", description: "Edit text in PDF files directly.", color: "#4f46ae", textColor: "text-white" },
 
   // --- Security Tools ---
-  { name: "Protect PDF", icon: Lock, path: "/protect-pdf", description: "Password protect your docs.", color: "#ef4444", textColor: "text-white" },
   { name: "Pass Generator", icon: ShieldCheck, path: "/password-tool", description: "Generate strong passwords.", color: "#8b5cf6", textColor: "text-white" },
-  { name: "Hash Generator", icon: Lock, path: "/hash-generator", description: "MD5, SHA-256 Hashes.", color: "#6b7280", textColor: "text-white" },
-
-  // --- Productivity & AI ---
-  { name: "QR Master", icon: QrCode, path: "/qr-tool", description: "Generate & Scan QRs.", color: "#a855f7", textColor: "text-white" },
-  { name: "QR Batch", icon: QrCode, path: "/qr-batch", description: "Generate multiple QRs.", color: "#3b82f6", textColor: "text-white" },
-  { name: "Text Format", icon: FileText, path: "/text-formatter", description: "Beautify & Clean text.", color: "#f97316", textColor: "text-black" },
   { name: "Content Check", icon: Scan, path: "/content-detector", description: "AI & Plagiarism check.", color: "#10b981", textColor: "text-black" },
 ];
 

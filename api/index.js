@@ -6,9 +6,6 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 import { GoogleGenerativeAI } from '@google/generative-ai';
 import dotenv from 'dotenv';
-import { exec } from 'child_process';
-import { promisify } from 'util';
-import crypto from 'crypto';
 dotenv.config();
 
 // Configure paths
@@ -34,7 +31,7 @@ app.use(express.json({ limit: '50mb' }));
 
 // Health Check
 app.get('/', (req, res) => {
-    res.json({ status: 'online', service: 'myTools Utils Backend' });
+    res.json({ status: 'Utils Server is running' });
 });
 
 // Gemini Analysis Endpoint
@@ -100,90 +97,6 @@ app.post('/analyze', async (req, res) => {
 // but most new tools (Zip, QR, Converter, Password) will be client-side.
 // Keeping server for potential future backend needs or specific heavy lifting.
 
-// PDF Protection Endpoint
-const execAsync = promisify(exec);
-
-// Check if qpdf is available
-let qpdfAvailable = false;
-exec('which qpdf', (err) => {
-    qpdfAvailable = !err;
-    console.log(`QPDF ${qpdfAvailable ? 'is' : 'is NOT'} available on this system`);
-});
-
-// Envelope encryption as fallback (creates .locked.pdf format)
-const MAGIC = Buffer.from('OMNITOOLSPDF1');
-
-async function envelopeEncrypt(inputBuffer, password) {
-    const salt = crypto.randomBytes(16);
-    const iv = crypto.randomBytes(16);
-    const key = crypto.pbkdf2Sync(password, salt, 100000, 32, 'sha256');
-
-    const cipher = crypto.createCipheriv('aes-256-gcm', key, iv);
-    const encrypted = Buffer.concat([cipher.update(inputBuffer), cipher.final()]);
-    const authTag = cipher.getAuthTag();
-
-    // Format: MAGIC(13) + salt(16) + iv(16) + authTag(16) + encrypted
-    return Buffer.concat([MAGIC, salt, iv, authTag, encrypted]);
-}
-
-app.post('/protect-pdf', upload.single('pdf'), async (req, res) => {
-    try {
-        const { password } = req.body;
-        const file = req.file;
-
-        if (!file) {
-            return res.status(400).json({ error: 'No PDF file provided' });
-        }
-        if (!password || password.length < 4) {
-            fs.unlinkSync(file.path);
-            return res.status(400).json({ error: 'Password must be at least 4 characters' });
-        }
-
-        const inputPath = file.path;
-        const outputPath = path.join(UPLOAD_DIR, `protected_${Date.now()}.pdf`);
-
-        // Try native qpdf first (best - works with all PDF readers)
-        if (qpdfAvailable) {
-            try {
-                const cmd = `qpdf --encrypt "${password}" "${password}" 256 -- "${inputPath}" "${outputPath}"`;
-                await execAsync(cmd);
-
-                res.download(outputPath, `protected_${file.originalname}`, (err) => {
-                    try {
-                        fs.unlinkSync(inputPath);
-                        fs.unlinkSync(outputPath);
-                    } catch (e) { }
-                });
-                return;
-            } catch (qpdfError) {
-                console.error('QPDF failed:', qpdfError);
-            }
-        }
-
-        // Fallback: Envelope encryption (custom format, decryptable by OmniTools)
-        const inputBuffer = fs.readFileSync(inputPath);
-        const encryptedBuffer = await envelopeEncrypt(inputBuffer, password);
-
-        // Write encrypted file
-        fs.writeFileSync(outputPath, encryptedBuffer);
-
-        // Send with .locked.pdf extension to indicate it's our format
-        const outputName = file.originalname.replace('.pdf', '.locked.pdf');
-        res.download(outputPath, `protected_${outputName}`, (err) => {
-            try {
-                fs.unlinkSync(inputPath);
-                fs.unlinkSync(outputPath);
-            } catch (e) { }
-        });
-
-    } catch (error) {
-        console.error('PDF Protection Error:', error);
-        if (req.file && fs.existsSync(req.file.path)) {
-            fs.unlinkSync(req.file.path);
-        }
-        res.status(500).json({ error: 'Failed to protect PDF. Please try again.' });
-    }
-});
 
 if (process.env.NODE_ENV !== 'production') {
     const startServer = (port) => {

@@ -52,17 +52,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
     {
       title: "Security",
       items: [
-        { name: 'Protect PDF', path: '/protect-pdf', icon: Lock },
         { name: 'Pass Generator', path: '/password-tool', icon: ShieldCheck },
-        { name: 'Hash Gen', path: '/hash-generator', icon: FileKey },
-      ]
-    },
-    {
-      title: "Productivity",
-      items: [
-        { name: 'Unit Convert', path: '/converter', icon: RefreshCcw },
-        { name: 'Text Format', path: '/text-formatter', icon: FileText },
-        { name: 'QR Batch', path: '/qr-batch', icon: QrCode },
       ]
     },
     {

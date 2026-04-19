@@ -14,7 +14,6 @@ import ImageEditor from './pages/ImageEditor';
 import PdfEditor from './pages/PdfEditor';
 import ContentDetector from './pages/ContentDetector';
 import EditSignPdf from './pages/EditSignPdf';
-import WordToPdf from './pages/WordToPdf';
 
 import OfflineIndicator from './components/OfflineIndicator';
 import { Toaster } from 'react-hot-toast';
@@ -34,7 +33,6 @@ const App: React.FC = () => {
 
           <Route path="/merge-pdf" element={<MergePdf />} />
           <Route path="/edit-sign-pdf" element={<EditSignPdf />} />
-          <Route path="/word-to-pdf" element={<WordToPdf />} />
 
 
           {/* Image Tools */}

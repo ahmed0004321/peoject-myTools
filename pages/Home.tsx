@@ -18,7 +18,6 @@ const ALL_TOOLS = [
   { name: "PDF Merge", icon: Combine, path: "/merge-pdf", description: "Combine docs easily.", color: "#a855f7", textColor: "text-white" },
   { name: "Img to PDF", icon: FileImage, path: "/image-to-pdf", description: "Convert images to docs.", color: "#10b981", textColor: "text-black" },
   { name: "PDF to Image", icon: ImageMinus, path: "/pdf-to-image", description: "Extract pages as images.", color: "#8b5cf6", textColor: "text-white" },
-  { name: "Word to PDF", icon: FileText, path: "/word-to-pdf", description: "Convert .doc / .docx files to PDF.", color: "#2563eb", textColor: "text-white" },
 
 
   // --- Image & Media Tools ---

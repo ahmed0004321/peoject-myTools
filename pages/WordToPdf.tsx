@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { FileDown, Loader2, FileText, Upload, Trash2, ShieldCheck, AlertCircle, Eye, CheckCircle2 } from 'lucide-react';
+import { FileDown, Loader2, FileText, Upload, Trash2, ShieldCheck, AlertCircle, Eye, CheckCircle2, RefreshCcw } from 'lucide-react';
 import SectionHeader from '../components/ui/SectionHeader';
 import { toast } from 'react-hot-toast';
 import mammoth from 'mammoth';
